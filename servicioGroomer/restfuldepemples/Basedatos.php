@@ -1,6 +1,7 @@
 <?php
-
-abstract class Basedatos {
+//este es el bueno
+abstract class Basedatos
+{
 
     private $servername = "localhost";
     private $database = "empleados";
@@ -11,12 +12,16 @@ abstract class Basedatos {
 
     # Conectar a la base de datos
 
-    public function getConexion() {
+    public function getConexion()
+    {
 
         try {
             $this->conexion =
-                new PDO("mysql:host=$this->servername;dbname=$this->database;charset=utf8",
-                $this->username, $this->password);
+                new PDO(
+                    "mysql:host=$this->servername;dbname=$this->database;charset=utf8",
+                    $this->username,
+                    $this->password
+                );
             $this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $this->conexion;
         } catch (PDOException $e) {
@@ -24,17 +29,17 @@ abstract class Basedatos {
         }
     }
 
-# Desconectar la base de datos
+    # Desconectar la base de datos
 
-    public function closeConexion() {
+    public function closeConexion()
+    {
         $this->conexion = null;
     }
 
-# Devolver mensaje de error, por si hay error.
+    # Devolver mensaje de error, por si hay error.
 
-    public function getMensajeError() {
+    public function getMensajeError()
+    {
         return $this->mensajeerror;
     }
-
 }
-

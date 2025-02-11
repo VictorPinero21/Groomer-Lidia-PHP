@@ -1,4 +1,5 @@
 <?php
+//este es el bueno
 require_once ('Basedatos.php');
 require_once ('DepartamentoModel.php');
 $dep = new DepartamentoModel();

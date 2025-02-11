@@ -1,5 +1,5 @@
 <?php
-
+//este es el bueno
 class DepartamentoModel extends Basedatos
 {
 
@@ -23,9 +23,9 @@ class DepartamentoModel extends Basedatos
             $sentencia->bindParam(2, $post['dnombre']);
             $sentencia->bindParam(3, $post['loc']);
             $num = $sentencia->execute();
-            return "Registro insertado: " . $post['dept_no']; 
+            return "Registro insertado: " . $post['dept_no'];
         } catch (PDOException $e) {
-            return "Error al grabar.<br>". $e->getMessage();
+            return "Error al grabar.<br>" . $e->getMessage();
         }
     }
 
@@ -45,13 +45,13 @@ class DepartamentoModel extends Basedatos
             else
                 return "Registro actualizado: " . $post['dept_no'];
         } catch (PDOException $e) {
-            return "Error al actualizar.<br>". $e->getMessage();
+            return "Error al actualizar.<br>" . $e->getMessage();
         }
     }
 
     // Devuelve un array departamento
     public function getUnDepartamento($nudep)
-    {   
+    {
         try {
             $sql = "SELECT * FROM $this->table WHERE dept_no=?";
             $sentencia = $this->conexion->prepare($sql);
@@ -92,9 +92,8 @@ class DepartamentoModel extends Basedatos
                 return "Registro NO Borrado, no se localiza: " . $depno;
             else
                 return "Registro Borrado: " . $depno;
-           } catch (PDOException $e) {
+        } catch (PDOException $e) {
             return "ERROR AL BORRAR.<br>" . $e->getMessage();
         }
     }
 }
-
