@@ -1,0 +1,77 @@
+body {
+    background-image: url("../imagenes/fondo.jpg");
+    color: #192666;
+    font-family:Calibri;
+
+}
+
+/* *********************** contenedor *************************** */
+
+.contenedor {
+    width: 80%;
+    margin: 0 auto;
+    background: #F2F5FE;
+}
+
+.centro {
+    width: 70%;
+    margin: 0 auto;
+    background: #F2F5FE;
+}
+
+.right {
+    float: right;
+    margin-right: 15px;
+}
+
+/* *********************** cabecera *************************** */
+
+.cabecera {
+    background: url("../imagenes/cabecera.jpg") ;
+    color: white;
+    height: 120px;
+}
+
+.cabecera h1 {
+    font-family: arial;
+    padding-left: 20px;
+    padding-top: 24px;
+}
+
+.cabecera a {
+    float: right;
+    padding-top: 24px;
+    overflow: hidden;
+    height: 0px;
+}
+
+.cabecera .inicio {
+    background: url("../imagenes/home.png") no-repeat;
+}
+
+.cabecera .inicio:hover {
+    background: url("../imagenes/home2.png") no-repeat;
+}
+
+.menu {
+    text-align: center;
+    height: 50px;
+    background:#87CEFA;
+}
+
+table {
+    width: 90%;
+    margin: 0 auto;
+    padding: 5px;
+}
+/* *********************** pie *************************** */
+
+.pie {
+    clear: both;
+    background: url("../imagenes/cabecera.jpg");
+    height: 100px;
+    color: white;
+    padding-top: 5px;
+    text-align: center;
+    font-family: arial;
+}
