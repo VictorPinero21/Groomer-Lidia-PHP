@@ -1,7 +1,7 @@
 <?php
 
-require_once ('Basedatos.php');
-require_once ('Clientes.php');
+require_once('Basedatos.php');
+require_once('Clientes.php');
 $dep = new Clientes();
 // informacion = file_get_contents(php://input)
 // @header("HTTP/1.1 200 OK");
@@ -16,12 +16,12 @@ $dep = new Clientes();
 //http://localhost/_servweb/aserviciomenus/clientes/
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
-    if (isset($_GET['id'])) {
-        $res = $dep->getunCliente($_GET['id']);
+    if (isset($_GET['dni'])) {
+        $res = $dep->getUnCliente($_GET['dni']);
         echo json_encode($res);
         exit();
     } else {
-        $res = $dep->getAll();
+        $res = $dep->getAllClientes();
         echo json_encode($res);
         exit();
     }
