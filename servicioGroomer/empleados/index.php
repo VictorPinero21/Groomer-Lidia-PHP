@@ -2,7 +2,7 @@
 
 require_once('Basedatos.php');
 require_once('Empleados.php');
-$dep = new Empleados();
+$empleado = new Empleados();
 // informacion = file_get_contents(php://input)
 // @header("HTTP/1.1 200 OK");
 
@@ -17,11 +17,11 @@ $dep = new Empleados();
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
     if (isset($_GET['Dni'])) {
-        $res = $dep->getUnEmpleado($_GET['Dni']);
+        $res = $empleado->getUnEmpleado($_GET['Dni']);
         echo json_encode($res);
         exit();
     } else {
-        $res = $dep->getAllEmpleados();
+        $res = $empleado->getAllEmpleados();
         echo json_encode($res);
         exit();
     }

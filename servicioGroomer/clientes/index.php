@@ -2,7 +2,7 @@
 
 require_once('Basedatos.php');
 require_once('Clientes.php');
-$dep = new Clientes();
+$cliente = new Clientes();
 // informacion = file_get_contents(php://input)
 // @header("HTTP/1.1 200 OK");
 
@@ -17,11 +17,11 @@ $dep = new Clientes();
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
     if (isset($_GET['Dni'])) {
-        $res = $dep->getUnCliente($_GET['Dni']);
+        $res = $cliente->getUnCliente($_GET['Dni']);
         echo json_encode($res);
         exit();
     } else {
-        $res = $dep->getAllClientes();
+        $res = $cliente->getAllClientes();
         echo json_encode($res);
         exit();
     }
