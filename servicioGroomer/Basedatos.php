@@ -2,8 +2,8 @@
 
 abstract class Basedatos {
 
-    private $servername = "localhost:3307";
-    private $database = "clientespedidos";
+    private $servername = "localhost:3306";
+    private $database = "grommer";
     private $username = "root";
     private $password = "";
     private $conexion;
