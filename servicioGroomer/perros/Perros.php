@@ -9,7 +9,23 @@
             $this->conexion = $this->getConexion();
         }
 
-        public function getAll($Dni_duenio){
+
+        public function getAllPerros()
+    {
+        $objetocliente = array();
+        try {
+            $sql = "select * from $this->table";
+            $statement = $this->conexion->query($sql);
+            $registros = $statement->fetchAll(PDO::FETCH_ASSOC);
+            $statement = null;
+            // Retorna el array de registros
+            return $registros;
+        } catch (PDOException $e) {
+            return "Error al cargar todos los perros.<br>" . $e->getMessage();
+        }
+    }
+
+        public function getUnPerro($Dni_duenio){
             $objetosdep = array();
             try{
                 $sql = "select * from $this->table where Dni_duenio = $Dni_duenio";

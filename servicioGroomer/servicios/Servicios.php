@@ -10,10 +10,24 @@ class Servicios extends Basedatos {
         $this->conexion = $this->getConexion();
     }
 
-    public function getAll() {
+    public function getAllServicios() {
         $objetosdep = array();
         try {
             $sql = "select * from $this->table";
+            $statement = $this->conexion->query($sql);
+            $registros = $statement->fetchAll(PDO::FETCH_ASSOC);
+            $statement = null;
+
+            return $registros;
+        } catch (PDOException $e) {
+            return "ERROR AL CARGAR.<br>" . $e->getMessage();
+        }
+    }
+
+
+    public function getUnServicio($Codigo) {
+        try {
+            $sql = "select * from $this->table where Codigo = $Codigo";
             $statement = $this->conexion->query($sql);
             $registros = $statement->fetchAll(PDO::FETCH_ASSOC);
             $statement = null;
