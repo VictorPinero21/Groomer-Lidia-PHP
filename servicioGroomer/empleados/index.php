@@ -1,8 +1,8 @@
 <?php
 
 require_once('Basedatos.php');
-require_once('Clientes.php');
-$dep = new Clientes();
+require_once('Empleados.php');
+$dep = new Empleados();
 // informacion = file_get_contents(php://input)
 // @header("HTTP/1.1 200 OK");
 
@@ -17,11 +17,11 @@ $dep = new Clientes();
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
     if (isset($_GET['Dni'])) {
-        $res = $dep->getUnCliente($_GET['Dni']);
+        $res = $dep->getUnEmpleado($_GET['Dni']);
         echo json_encode($res);
         exit();
     } else {
-        $res = $dep->getAllClientes();
+        $res = $dep->getAllEmpleados();
         echo json_encode($res);
         exit();
     }

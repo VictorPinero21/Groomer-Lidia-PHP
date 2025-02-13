@@ -87,7 +87,7 @@ class Clientes extends Basedatos
             else
                 return "Cliente DNI: " . $dni . " borrado correctamente ";
         } catch (PDOException $e) {
-            return "ERROR AL BORRAR.<br>" . $e->getMessage();
+            return "Error al borrar el cliente.<br>" . $e->getMessage();
         }
     }
 
