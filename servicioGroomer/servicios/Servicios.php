@@ -24,55 +24,66 @@ class Servicios extends Basedatos {
         }
     }
 
-    public function borrarServicios($cod) {
+    public function borrarServicios($Codigo) {
         try {
-            $sql = "delete from $this->table where Codigo= ? ";
-            $sentencia = $this->conexion->prepare($sql);
-            $sentencia->bindParam(1, $cod);
-            $num = $sentencia->execute();
-            if ($sentencia->rowCount() == 0)
-                return "Registro no borrado o no localizado: " . $cod;
+            $sql = "delete from $this->table where Codigo= $Codigo";
+            $s = $this->conexion->prepare($sql);
+            $s->bindParam(1, $Codigo);
+            $num = $s->execute();
+            if ($s->rowCount() == 0)
+                return "Registro no borrado o no localizado: " . $Codigo;
             else
-                return "Registro Borrado: " . $cod;
+                return "Registro Borrado: " . $Codigo;
         } catch (PDOException $e) {
             return "Error al borrar.<br>" . $e->getMessage();
         }
     }
 
-    public function modificarPrecioServicios($cod, $precio) {
+    public function modificarPrecioServicios($Codigo, $Precio) {
         try {
-            $sql = "update $this->table set Precio=? where Codigo=?";
-            $sentencia = $this->conexion->prepare($sql);
-            $sentencia->bindParam(1, $Precio);
-            $sentencia->bindParam(2, $Codigo);
-            $num = $sentencia->execute();
-            if ($sentencia->rowCount() == 0)
-                return "Registro NO actualizado, o no existe o no hay cambios: " . $cod;
+            $sql = "update $this->table set Precio=$Precio where Codigo= $Codigo";
+            $s = $this->conexion->prepare($sql);
+            $s->bindParam(1, $Precio);
+            $s->bindParam(2, $Codigo);
+            $num = $s->execute();
+            if ($s->rowCount() == 0)
+                return "Registro NO actualizado, o no existe o no hay cambios: " . $Codigo;
             else
-                return "Registro actualizado: " . $cod;
+                return "Registro actualizado: " . $Codigo;
         } catch (PDOException $e) {
             return "Error al actualizar.<br>" . $e->getMessage();
         }
     }
 
 
-    //metodo para insrtar un nuevo servicio
+
  
-    public function insertarServicio($cod, $nom, $precio) {
+    public function insertarServicio($servicio) {
         try {
-            $sql = "insert into $this->table values(?,?,?)";
-            $sentencia = $this->conexion->prepare($sql);
-            $sentencia->bindParam(1, $Codigo);
-            $sentencia->bindParam(2, $Nombre);
-            $sentencia->bindParam(3, $Precio); 
-            $sentencia->bindParam(3, $Descripcion);
-            $num = $sentencia->execute();
-            if ($num == 0)
-                return "Servicio no insertado";
-            else
-                return "Servicio insertado";
+            $codigo = '';
+            if ($servicio['Tipo'] == 'BELLEZA') {
+                $sql = "SELECT MAX(CAST(SUBSTR(Codigo, 5) AS UNSIGNED)) + 1 AS SIGUIENTE FROM $this->table WHERE SUBSTR(Codigo, 1, 4) = 'SVBE'";
+                $statement = $this->conexion->query($sql);
+                $result = $statement->fetch(PDO::FETCH_ASSOC);
+                $Codigo = 'SVBE' . str_pad($result['SIGUIENTE'], 3, '0', STR_PAD_LEFT);
+            } elseif ($servicio['Tipo'] == 'NUTRICION') {
+                $sql = "SELECT MAX(CAST(SUBSTR(Codigo, 6) AS UNSIGNED)) + 1 AS SIGUIENTE FROM $this->table WHERE SUBSTR(Codigo, 1, 5) = 'SVNUT'";
+                $statement = $this->conexion->query($sql);
+                $result = $statement->fetch(PDO::FETCH_ASSOC);
+                $Codigo = 'SVNUT' . str_pad($result['SIGUIENTE'], 3, '0', STR_PAD_LEFT);
+            }
+
+            $sql = "INSERT INTO $this->table (Codigo, Nombre, Descripcion, Precio) VALUES (:Codigo, :Nombre, :Descripcion, :Precio)";
+            $s = $this->conexion->prepare($sql);
+            $s->bindParam(':Codigo', $Codigo);
+            $s->bindParam(':Nombre', $servicio['Nombre']);
+            $s->bindParam(':Precio', $servicio['Precio']);
+            $s->bindParam(':Descripcion', $servicio['Descripcion']);
+            $s->execute();
+
+            return "Servicio insertado con Código: " . $Codigo;
         } catch (PDOException $e) {
-            return "Error al insertar servicio.<br>" . $e->getMessage();
+            return "Error al insertar.<br>" . $e->getMessage();
         }
     }
 
