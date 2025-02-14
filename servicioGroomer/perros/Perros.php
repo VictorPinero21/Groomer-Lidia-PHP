@@ -73,6 +73,17 @@ class Perros extends Basedatos
                 return "Error en la inserción: el perro ya está dado de alta";
             }
 
+            // Verificación de que el Dni_duenio exista en la tabla clientes
+            $sqlVerificarDni = "SELECT COUNT(*) FROM Clientes WHERE Dni = ?";
+            $sentenciaVerificarDni = $this->conexion->prepare($sqlVerificarDni);
+            $sentenciaVerificarDni->bindParam(1, $post['Dni_duenio']);
+            $sentenciaVerificarDni->execute();
+            $existeDni = $sentenciaVerificarDni->fetchColumn();
+
+            if ($existeDni == 0) {
+                return "Error en la inserción: el dueño no está dado de alta en la tabla clientes";
+            }
+
 
             $sql = "insert into $this->table (Dni_duenio, Nombre, Fecha_Nto, Raza, Peso, Altura, Observaciones, Numero_Chip, Sexo) values (?,?,?,?,?,?,?,?,?)";
             $s = $this->conexion->prepare($sql);
