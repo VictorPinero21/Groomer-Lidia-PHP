@@ -1,16 +1,19 @@
 <?php
-
-class Servicios extends Basedatos {
+require_once './../Basedatos.php';
+class Servicios extends Basedatos
+{
 
     private $table;
     private $conexion;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->table = "servicios";
         $this->conexion = $this->getConexion();
     }
 
-    public function getAllServicios() {
+    public function getAllServicios()
+    {
         $objetosdep = array();
         try {
             $sql = "select * from $this->table";
@@ -25,7 +28,8 @@ class Servicios extends Basedatos {
     }
 
 
-    public function getUnServicio($Codigo) {
+    public function getUnServicio($Codigo)
+    {
         try {
             $sql = "select * from $this->table where Codigo = $Codigo";
             $statement = $this->conexion->query($sql);
@@ -38,7 +42,8 @@ class Servicios extends Basedatos {
         }
     }
 
-    public function borrarServicios($Codigo) {
+    public function borrarServicios($Codigo)
+    {
         try {
             $sql = "delete from $this->table where Codigo= $Codigo";
             $s = $this->conexion->prepare($sql);
@@ -53,7 +58,8 @@ class Servicios extends Basedatos {
         }
     }
 
-    public function modificarPrecioServicios($Codigo, $Precio) {
+    public function modificarPrecioServicios($Codigo, $Precio)
+    {
         try {
             $sql = "update $this->table set Precio=$Precio where Codigo= $Codigo";
             $s = $this->conexion->prepare($sql);
@@ -71,8 +77,9 @@ class Servicios extends Basedatos {
 
 
 
- 
-    public function insertarServicio($servicio) {
+
+    public function insertarServicio($servicio)
+    {
         try {
             $codigo = '';
             if ($servicio['Tipo'] == 'BELLEZA') {
@@ -100,6 +107,4 @@ class Servicios extends Basedatos {
             return "Error al insertar.<br>" . $e->getMessage();
         }
     }
-
 }
-?>

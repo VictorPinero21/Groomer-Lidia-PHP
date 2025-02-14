@@ -1,4 +1,5 @@
 <?php
+require_once './../Basedatos.php';
 class Empleados extends Basedatos
 {
 

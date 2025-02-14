@@ -1,6 +1,6 @@
 <?php
 
-require_once('Basedatos.php');
+require_once('./../Basedatos.php');
 require_once('Servicios.php');
 $servicio = new Servicios();
 // informacion = file_get_contents(php://input)
