@@ -1,8 +1,8 @@
 <?php
 
-require_once('./../Basedatos.php');
-require_once('Clientes.php');
-$cliente = new Clientes();
+require_once('Basedatos.php');
+require_once('Empleados.php');
+$empleado = new Empleados();
 // informacion = file_get_contents(php://input)
 // @header("HTTP/1.1 200 OK");
 
@@ -17,33 +17,15 @@ $cliente = new Clientes();
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
     if (isset($_GET['Dni'])) {
-        $res = $cliente->getUnCliente($_GET['Dni']);
+        $res = $empleado->getUnEmpleado($_GET['Dni']);
         echo json_encode($res);
         exit();
     } else {
-        $res = $cliente->getAllClientes();
+        $res = $empleado->getAllEmpleados();
         echo json_encode($res);
         exit();
     }
 }
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Obtener los datos JSON enviados por Postman
-    $postData = json_decode(file_get_contents("php://input"), true);
-
-    // Verificar si se recibieron los datos correctamente
-    if (isset($postData['post'])) {
-        $res = $cliente->insertarCliente($postData['post']);
-        echo json_encode(["message" => $res]);
-        exit();
-    } else {
-        echo json_encode(["error" => "Invalid request. No data received."]);
-        exit();
-    }
-}
-
-
-
 
 // En caso de que ninguna de las opciones anteriores se haya ejecutado
 header("HTTP/1.1 400 Bad Request");

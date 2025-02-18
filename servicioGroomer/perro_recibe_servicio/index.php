@@ -1,8 +1,8 @@
 <?php
 
 require_once('./../Basedatos.php');
-require_once('Clientes.php');
-$cliente = new Clientes();
+require_once('Perro_recibe_servicio.php');
+$Perro_recibe_Servicio = new Perro_recibe_servicio();
 // informacion = file_get_contents(php://input)
 // @header("HTTP/1.1 200 OK");
 
@@ -16,34 +16,16 @@ $cliente = new Clientes();
 //http://localhost/_servweb/aserviciomenus/clientes/
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
-    if (isset($_GET['Dni'])) {
-        $res = $cliente->getUnCliente($_GET['Dni']);
+    if (isset($_GET['Sr_Cod'])) {
+        $res = $Perro_recibe_Servicio->getUnPerroConServicio($_GET['Sr_Cod']);
         echo json_encode($res);
         exit();
     } else {
-        $res = $cliente->getAllClientes();
+        $res = $Perro_recibe_Servicio->getAllPerrosConServicios();
         echo json_encode($res);
         exit();
     }
 }
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Obtener los datos JSON enviados por Postman
-    $postData = json_decode(file_get_contents("php://input"), true);
-
-    // Verificar si se recibieron los datos correctamente
-    if (isset($postData['post'])) {
-        $res = $cliente->insertarCliente($postData['post']);
-        echo json_encode(["message" => $res]);
-        exit();
-    } else {
-        echo json_encode(["error" => "Invalid request. No data received."]);
-        exit();
-    }
-}
-
-
-
 
 // En caso de que ninguna de las opciones anteriores se haya ejecutado
 header("HTTP/1.1 400 Bad Request");

@@ -44,36 +44,41 @@ class Clientes extends Basedatos
     }
 
     //B1
-    public function insertarCliente($post)
-    {
-        try {
-            // Verificación de que el DNI ya exista en la base de datos
-            $sqlVerificar = "SELECT COUNT(*) FROM $this->table WHERE Dni = ?";
-            $sentenciaVerificar = $this->conexion->prepare($sqlVerificar);
-            $sentenciaVerificar->bindParam(1, $post['Dni']);
-            $sentenciaVerificar->execute();
-            $existe = $sentenciaVerificar->fetchColumn();
+   
+public function insertarCliente($post)
+{
+    try {
+        // Check if the DNI already exists
+        $sqlVerificar = "SELECT COUNT(*) FROM $this->table WHERE Dni = ?";
+        $sentenciaVerificar = $this->conexion->prepare($sqlVerificar);
+        $sentenciaVerificar->bindParam(1, $post['Dni']);
+        $sentenciaVerificar->execute();
+        $existe = $sentenciaVerificar->fetchColumn();
 
-            if ($existe > 0) {
-                return "Error en la inserción: el cliente ya está dado de alta";
-            }
-
-            // Insertar el cliente si el DNI no existe
-            $sql = "INSERT INTO $this->table VALUES (?,?,?,?,?,?)";
-            $sentencia = $this->conexion->prepare($sql);
-            $sentencia->bindParam(1, $post['Dni']);
-            $sentencia->bindParam(2, $post['Nombre']);
-            $sentencia->bindParam(3, $post['Apellido1']);
-            $sentencia->bindParam(4, $post['Apellido2']);
-            $sentencia->bindParam(5, $post['Direccion']);
-            $sentencia->bindParam(6, $post['Tlfno']);
-            $sentencia->execute();
-
-            return "Cliente DNI: " . $post['Dni'] . " insertado correctamente";
-        } catch (PDOException $e) {
-            return "Error al insertar el cliente. Faltan datos. <br>" . $e->getMessage();
+        if ($existe > 0) {
+            return "Error: Cliente con DNI " . $post['Dni'] . " ya existe.";
         }
+
+        // Insert the new client
+        $sql = "INSERT INTO $this->table (Dni, Nombre, Apellido1, Apellido2, Direccion, Tlfno) 
+                VALUES (:Dni, :Nombre, :Apellido1, :Apellido2, :Direccion, :Tlfno)";
+        $sentencia = $this->conexion->prepare($sql);
+
+        $sentencia->bindParam(':Dni', $post['Dni']);
+        $sentencia->bindParam(':Nombre', $post['Nombre']);
+        $sentencia->bindParam(':Apellido1', $post['Apellido1']);
+        $sentencia->bindParam(':Apellido2', $post['Apellido2']);
+        $sentencia->bindParam(':Direccion', $post['Direccion']);
+        $sentencia->bindParam(':Tlfno', $post['Tlfno']);
+
+        $sentencia->execute();
+
+        return "Cliente con DNI " . htmlspecialchars($post['Dni']) . " insertado correctamente.";
+    } catch (PDOException $e) {
+        error_log("Database error: " . $e->getMessage()); // Log error instead of exposing it
+        return "Error al insertar el cliente.";
     }
+}
     //B6
     public function borrarCliente($dni)
     {
@@ -87,7 +92,7 @@ class Clientes extends Basedatos
             else
                 return "Cliente DNI: " . $dni . " borrado correctamente ";
         } catch (PDOException $e) {
-            return "ERROR AL BORRAR.<br>" . $e->getMessage();
+            return "Error al borrar el cliente.<br>" . $e->getMessage();
         }
     }
 
