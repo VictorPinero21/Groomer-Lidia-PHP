@@ -1,5 +1,5 @@
 <?php
-require_once './../Basedatos.php';
+require_once './../config/Basedatos.php';
 class Perro_recibe_servicio extends Basedatos
 {
 

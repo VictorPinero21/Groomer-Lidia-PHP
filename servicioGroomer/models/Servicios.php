@@ -1,5 +1,5 @@
 <?php
-require_once './../Basedatos.php';
+require_once './../config/Basedatos.php';
 class Servicios extends Basedatos
 {
 
