@@ -1,16 +1,16 @@
 <?php
-require_once __DIR__ . '/../controllers/ClienteController.php';
-require_once __DIR__ . '/../controllers/PerroController.php';
-require_once __DIR__ . '/../controllers/EmpleadoController.php';
-require_once __DIR__ . '/../controllers/ServicioController.php';
-require_once __DIR__ . '/../controllers/PerroServicioController.php';
+require_once __DIR__ . './../controllers/ClienteController.php';
+// require_once __DIR__ . '/../controllers/PerroController.php';
+// require_once __DIR__ . '/../controllers/EmpleadoController.php';
+// require_once __DIR__ . '/../controllers/ServicioController.php';
+// require_once __DIR__ . '/../controllers/PerroServicioController.php';
 
 // Instancias de los controladores
-$clienteController = new ClienteController();
-$perroController = new PerroController();
-$empleadoController = new EmpleadoController();
-$servicioController = new ServicioController();
-$perroServicioController = new PerroServicioController();
+$clienteController = new ClienteService();
+// $perroController = new PerroController();
+// $empleadoController = new EmpleadoController();
+// $servicioController = new ServicioController();
+// $perroServicioController = new PerroServicioController();
 
 $requestMethod = $_SERVER['REQUEST_METHOD'];
 $path = explode('/', trim($_SERVER['REQUEST_URI'], '/'));
