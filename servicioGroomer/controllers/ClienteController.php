@@ -48,4 +48,15 @@ class ClienteController
     {
         echo json_encode($this->clienteModel->getAllClientes());
     }
+
+    // **Nuevo método agregado para corregir el error**
+    public function getUnCliente($dni)
+    {
+        $cliente = $this->clienteModel->getUnCliente($dni);
+        if ($cliente) {
+            echo json_encode($cliente);
+        } else {
+            echo json_encode(["error" => "Cliente no encontrado"]);
+        }
+    }
 }

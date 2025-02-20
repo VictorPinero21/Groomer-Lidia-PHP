@@ -1,41 +1,37 @@
 <?php
-require_once './../config/Basedatos.php';
-class Servicios extends Basedatos
-{
+require_once __DIR__ . '/../config/Basedatos.php';
 
-    private $table;
-    private $conexion;
+class Servicios
+{
+    private $conn;
+    private $table = "servicios";
 
     public function __construct()
     {
-        $this->table = "servicios";
-        $this->conexion = $this->getConexion();
+        $database = new Database();
+        $this->conn = $database->connect();
     }
 
     public function getAllServicios()
     {
-        $objetosdep = array();
         try {
-            $sql = "select * from $this->table";
-            $statement = $this->conexion->query($sql);
+            $sql = "SELECT * FROM $this->table";
+            $statement = $this->conn->query($sql);
             $registros = $statement->fetchAll(PDO::FETCH_ASSOC);
-            $statement = null;
-
             return $registros;
         } catch (PDOException $e) {
             return "ERROR AL CARGAR.<br>" . $e->getMessage();
         }
     }
 
-
     public function getUnServicio($Codigo)
     {
         try {
-            $sql = "select * from $this->table where Codigo = $Codigo";
-            $statement = $this->conexion->query($sql);
+            $sql = "SELECT * FROM $this->table WHERE Codigo = :Codigo";
+            $statement = $this->conn->prepare($sql);
+            $statement->bindParam(':Codigo', $Codigo);
+            $statement->execute();
             $registros = $statement->fetchAll(PDO::FETCH_ASSOC);
-            $statement = null;
-
             return $registros;
         } catch (PDOException $e) {
             return "ERROR AL CARGAR.<br>" . $e->getMessage();
@@ -45,14 +41,16 @@ class Servicios extends Basedatos
     public function borrarServicios($Codigo)
     {
         try {
-            $sql = "delete from $this->table where Codigo= $Codigo";
-            $s = $this->conexion->prepare($sql);
-            $s->bindParam(1, $Codigo);
-            $num = $s->execute();
-            if ($s->rowCount() == 0)
+            $sql = "DELETE FROM $this->table WHERE Codigo = :Codigo";
+            $s = $this->conn->prepare($sql);
+            $s->bindParam(':Codigo', $Codigo);
+            $s->execute();
+
+            if ($s->rowCount() == 0) {
                 return "Registro no borrado o no localizado: " . $Codigo;
-            else
+            } else {
                 return "Registro Borrado: " . $Codigo;
+            }
         } catch (PDOException $e) {
             return "Error al borrar.<br>" . $e->getMessage();
         }
@@ -61,22 +59,21 @@ class Servicios extends Basedatos
     public function modificarPrecioServicios($Codigo, $Precio)
     {
         try {
-            $sql = "update $this->table set Precio=$Precio where Codigo= $Codigo";
-            $s = $this->conexion->prepare($sql);
-            $s->bindParam(1, $Precio);
-            $s->bindParam(2, $Codigo);
-            $num = $s->execute();
-            if ($s->rowCount() == 0)
+            $sql = "UPDATE $this->table SET Precio = :Precio WHERE Codigo = :Codigo";
+            $s = $this->conn->prepare($sql);
+            $s->bindParam(':Precio', $Precio);
+            $s->bindParam(':Codigo', $Codigo);
+            $s->execute();
+
+            if ($s->rowCount() == 0) {
                 return "Registro NO actualizado, o no existe o no hay cambios: " . $Codigo;
-            else
+            } else {
                 return "Registro actualizado: " . $Codigo;
+            }
         } catch (PDOException $e) {
             return "Error al actualizar.<br>" . $e->getMessage();
         }
     }
-
-
-
 
     public function insertarServicio($servicio)
     {
@@ -84,18 +81,18 @@ class Servicios extends Basedatos
             $codigo = '';
             if ($servicio['Tipo'] == 'BELLEZA') {
                 $sql = "SELECT MAX(CAST(SUBSTR(Codigo, 5) AS UNSIGNED)) + 1 AS SIGUIENTE FROM $this->table WHERE SUBSTR(Codigo, 1, 4) = 'SVBE'";
-                $statement = $this->conexion->query($sql);
+                $statement = $this->conn->query($sql);
                 $result = $statement->fetch(PDO::FETCH_ASSOC);
                 $Codigo = 'SVBE' . str_pad($result['SIGUIENTE'], 3, '0', STR_PAD_LEFT);
             } elseif ($servicio['Tipo'] == 'NUTRICION') {
                 $sql = "SELECT MAX(CAST(SUBSTR(Codigo, 6) AS UNSIGNED)) + 1 AS SIGUIENTE FROM $this->table WHERE SUBSTR(Codigo, 1, 5) = 'SVNUT'";
-                $statement = $this->conexion->query($sql);
+                $statement = $this->conn->query($sql);
                 $result = $statement->fetch(PDO::FETCH_ASSOC);
                 $Codigo = 'SVNUT' . str_pad($result['SIGUIENTE'], 3, '0', STR_PAD_LEFT);
             }
 
             $sql = "INSERT INTO $this->table (Codigo, Nombre, Descripcion, Precio) VALUES (:Codigo, :Nombre, :Descripcion, :Precio)";
-            $s = $this->conexion->prepare($sql);
+            $s = $this->conn->prepare($sql);
             $s->bindParam(':Codigo', $Codigo);
             $s->bindParam(':Nombre', $servicio['Nombre']);
             $s->bindParam(':Precio', $servicio['Precio']);
@@ -108,3 +105,4 @@ class Servicios extends Basedatos
         }
     }
 }
+?>

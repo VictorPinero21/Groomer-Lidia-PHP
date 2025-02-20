@@ -21,22 +21,22 @@ $routes = [
         "/api/perros/{id}" => [$perroController, "actualizarPerro"],
         "/api/perroservicios/" => [$perroServicioController, "insertarPerroConServicio"],
         "/api/perroservicios/{id}" => [$perroServicioController, "actualizarPerroConServicio"],
-        "/api/servicios/" => [$perroServicioController, "insertarServicio"],
-        "/api/servicios/{id}" => [$perroServicioController, "modificarPrecioServicios"],
+        "/api/servicios/" => [$servicioController, "insertarServicio"],
+        "/api/servicios/{id}" => [$servicioController, "modificarPrecioServicios"],
     ],
     "PUT" => [
         "/api/clientes/{dni}" => [$clienteController, "modificarCliente"],
         "/api/empleados/{dni}" => [$empleadoController, "actualizarEmpleado"],
         "/api/perros/{id}" => [$perroController, "actualizarPerro"],
         "/api/perroservicios/{id}" => [$perroServicioController, "actualizarPerroConServicio"],
-        "/api/servicios/{id}" => [$perroServicioController, "modificarPrecioServicios"]
+        "/api/servicios/{id}" => [$servicioController, "modificarPrecioServicios"]
     ],
     "DELETE" => [
         "/api/clientes/{dni}" => [$clienteController, "borrarCliente"],
         "/api/empleados/{dni}" => [$empleadoController, "borrarEmpleado"],
         "/api/perros/{id}" => [$perroController, "borrarPerro"],
         "/api/perroservicios/{id}" => [$perroServicioController, "borrarPerroConServicio"],
-        "/api/servicios/{id}" => [$perroServicioController, "borrarServicios"]
+        "/api/servicios/{id}" => [$servicioController, "borrarServicios"]
     ],
     "GET" => [
         "/api/clientes" => [$clienteController, "getAllClientes"],
@@ -47,8 +47,8 @@ $routes = [
         "/api/perros/{id}" => [$perroController, "getUnPerro"],
         "/api/perroservicios/" => [$perroServicioController, "getAllPerrosConServicios"],
         "/api/perroservicios/{id}" => [$perroServicioController, "getUnPerroConServicio"],
-        "/api/servicios/" => [$perroServicioController, "getAllServicios"],
-        "/api/servicios/{id}" => [$perroServicioController, "getUnServicio"],
+        "/api/servicios/" => [$servicioController, "getAllServicios"],
+        "/api/servicios/{id}" => [$servicioController, "getUnServicio"],
     ],
 
 ];
