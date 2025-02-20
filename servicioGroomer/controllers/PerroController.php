@@ -1,7 +1,7 @@
 <?php
 
-require_once('./../config/Basedatos.php');
-require_once('./../models/Perro.php');
+require_once('./../Basedatos.php');
+require_once('Perros.php');
 $perro = new Perros();
 // informacion = file_get_contents(php://input)
 // @header("HTTP/1.1 200 OK");

@@ -1,44 +1,20 @@
 <?php
-
-abstract class Basedatos
-{
-
-    private $servername = "localhost:3306";
-    private $database = "groomer";
+class Database {
+    private $host = "localhost";
+    private $db_name = "groomer";
     private $username = "root";
     private $password = "";
-    private $conexion;
-    private $mensajeerror = "";
+    public $conn;
 
-    # Conectar a la base de datos
-
-    public function getConexion()
-    {
-
+    public function connect() {
+        $this->conn = null;
         try {
-            $this->conexion = new PDO(
-                "mysql:host=$this->servername;dbname=$this->database;charset=utf8",
-                $this->username,
-                $this->password
-            );
-            $this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            return $this->conexion;
+            $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->db_name, $this->username, $this->password);
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
-            $this->mensajeerror = $e->getMessage();
+            echo "Connection error: " . $e->getMessage();
         }
-    }
-
-    # Desconectar la base de datos
-
-    public function closeConexion()
-    {
-        $this->conexion = null;
-    }
-
-    # Devolver mensaje de error, por si hay error.
-
-    public function getMensajeError()
-    {
-        return $this->mensajeerror;
+        return $this->conn;
     }
 }
+?>

@@ -1,8 +1,8 @@
 <?php
 
-require_once('./../config/Basedatos.php');
-require_once('./../models/Servicios.php');
-$servicio = new Servicios();
+require_once('./../Basedatos.php');
+require_once('Empleados.php');
+$empleado = new Empleados();
 // informacion = file_get_contents(php://input)
 // @header("HTTP/1.1 200 OK");
 
@@ -16,12 +16,12 @@ $servicio = new Servicios();
 //http://localhost/_servweb/aserviciomenus/clientes/
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
-    if (isset($_GET['Codigo'])) {
-        $res = $servicio->getUnServicio($_GET['Codigo']);
+    if (isset($_GET['Dni'])) {
+        $res = $empleado->getUnEmpleado($_GET['Dni']);
         echo json_encode($res);
         exit();
     } else {
-        $res = $servicio->getAllServicios();
+        $res = $empleado->getAllEmpleados();
         echo json_encode($res);
         exit();
     }

@@ -1,8 +1,8 @@
 <?php
 
-require_once('./../config/Basedatos.php');
-require_once('./../models/Perro_recibe_servicio.php');
-$Perro_recibe_Servicio = new Perro_recibe_servicio();
+require_once('./../Basedatos.php');
+require_once('Servicios.php');
+$servicio = new Servicios();
 // informacion = file_get_contents(php://input)
 // @header("HTTP/1.1 200 OK");
 
@@ -16,12 +16,12 @@ $Perro_recibe_Servicio = new Perro_recibe_servicio();
 //http://localhost/_servweb/aserviciomenus/clientes/
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
-    if (isset($_GET['Sr_Cod'])) {
-        $res = $Perro_recibe_Servicio->getUnPerroConServicio($_GET['Sr_Cod']);
+    if (isset($_GET['Codigo'])) {
+        $res = $servicio->getUnServicio($_GET['Codigo']);
         echo json_encode($res);
         exit();
     } else {
-        $res = $Perro_recibe_Servicio->getAllPerrosConServicios();
+        $res = $servicio->getAllServicios();
         echo json_encode($res);
         exit();
     }

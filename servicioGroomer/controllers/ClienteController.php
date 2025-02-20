@@ -1,31 +1,47 @@
 <?php
 require_once __DIR__ . '/../models/Clientes.php';
 
-class ClienteService {
+class ClienteController {
     private $clienteModel;
 
     public function __construct() {
-        $this->clienteModel = new Clientes();
+        $this->clienteModel = new Cliente();
     }
 
-    public function obtenerTodosLosClientes() {
-        return $this->clienteModel->getAllClientes();
+    public function insertarCliente() {
+        $data = json_decode(file_get_contents("php://input"), true);
+        if (!isset($data["dni"]) || !isset($data["nombre"]) || !isset($data["apellido1"]) || !isset($data["apellido2"]) || !isset($data["direccion"]) || !isset($data["tlfno"])) {
+            echo json_encode(["error" => "Faltan datos"]);
+            return;
+        }
+
+        if ($this->clienteModel->getCliente($data["dni"])) {
+            echo json_encode(["error" => "El Cliente ya está dado de alta"]);
+            return;
+        }
+
+        if ($this->clienteModel->insertarCliente($data["dni"], $data["nombre"], $data["apellido1"], $data["apellido2"] ?? "", $data["direccion"], $data["tlfno"])) {
+            echo json_encode(["mensaje" => "Cliente DNI: {$data["dni"]} insertado correctamente"]);
+        } else {
+            echo json_encode(["error" => "Error al insertar"]);
+        }
     }
 
-    public function obtenerClientePorDni($dni) {
-        return $this->clienteModel->getUnCliente($dni);
+    public function borrarCliente($dni) {
+        if (!$this->clienteModel->getCliente($dni)) {
+            echo json_encode(["error" => "El cliente no existe"]);
+            return;
+        }
+
+        if ($this->clienteModel->borrarCliente($dni)) {
+            echo json_encode(["mensaje" => "Cliente DNI: $dni borrado correctamente"]);
+        } else {
+            echo json_encode(["error" => "Error al borrar cliente"]);
+        }
     }
 
-    public function crearCliente($data) {
-        return $this->clienteModel->insertarCliente($data);
-    }
-
-    public function actualizarCliente($dni, $data) {
-        $data['Dni'] = $dni; // Aseguramos que el DNI esté en los datos
-        return $this->clienteModel->actualizarCliente($data);
-    }
-
-    public function eliminarCliente($dni) {
-        return $this->clienteModel->borrarCliente($dni);
+    public function getAllClientes() {
+        echo json_encode($this->clienteModel->getAllClientes());
     }
 }
+?>

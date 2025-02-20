@@ -1,8 +1,8 @@
 <?php
 
-require_once('./../config/Basedatos.php');
-require_once('./../models/Empleados.php');
-$empleado = new Empleados();
+require_once('./../Basedatos.php');
+require_once('Perro_recibe_servicio.php');
+$Perro_recibe_Servicio = new Perro_recibe_servicio();
 // informacion = file_get_contents(php://input)
 // @header("HTTP/1.1 200 OK");
 
@@ -16,12 +16,12 @@ $empleado = new Empleados();
 //http://localhost/_servweb/aserviciomenus/clientes/
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
-    if (isset($_GET['Dni'])) {
-        $res = $empleado->getUnEmpleado($_GET['Dni']);
+    if (isset($_GET['Sr_Cod'])) {
+        $res = $Perro_recibe_Servicio->getUnPerroConServicio($_GET['Sr_Cod']);
         echo json_encode($res);
         exit();
     } else {
-        $res = $empleado->getAllEmpleados();
+        $res = $Perro_recibe_Servicio->getAllPerrosConServicios();
         echo json_encode($res);
         exit();
     }
