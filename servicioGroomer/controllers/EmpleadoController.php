@@ -1,31 +1,59 @@
 <?php
+require_once __DIR__ . '/../models/Empleados.php';
 
-require_once('./../Basedatos.php');
-require_once('Empleados.php');
-$empleado = new Empleados();
-// informacion = file_get_contents(php://input)
-// @header("HTTP/1.1 200 OK");
+class EmpleadosController {
+    private $empleadoModel;
 
-@header("Content-type: application/json");
-//$REQUEST_METHOD = $_SERVER['REQUEST_METHOD'];
-//$REQUEST_URI = $_SERVER['REQUEST_URI'];
-//echo "<br>Server. REQUEST_METHOD: ". $REQUEST_METHOD;
-//echo "<br>Server. REQUEST_URI: ". $REQUEST_URI;
-//echo "<br>";
-// Consultar GET
-//http://localhost/_servweb/aserviciomenus/clientes/
-if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+    public function __construct() {
+        $this->empleadoModel = new Empleados();
+    }
 
-    if (isset($_GET['Dni'])) {
-        $res = $empleado->getUnEmpleado($_GET['Dni']);
-        echo json_encode($res);
-        exit();
-    } else {
-        $res = $empleado->getAllEmpleados();
-        echo json_encode($res);
-        exit();
+    public function getAllEmpleados() {
+        echo json_encode($this->empleadoModel->getAllEmpleados());
+    }
+
+    public function getUnEmpleado($dni) {
+        $empleado = $this->empleadoModel->getUnEmpleado($dni);
+        if (!$empleado) {
+            echo json_encode(["error" => "Empleado no encontrado"]);
+        } else {
+            echo json_encode($empleado);
+        }
+    }
+
+    public function insertarEmpleado() {
+        $data = json_decode(file_get_contents("php://input"), true);
+
+        if (
+            !isset($data["Dni"]) || !isset($data["Email"]) || !isset($data["Password"]) || 
+            !isset($data["Rol"]) || !isset($data["Nombre"]) || !isset($data["Apellido1"]) ||
+            !isset($data["Calle"]) || !isset($data["Numero"]) || !isset($data["Cp"]) ||
+            !isset($data["Poblacion"]) || !isset($data["Provincia"]) || !isset($data["Tlfno"]) ||
+            !isset($data["Profesion"])
+        ) {
+            echo json_encode(["error" => "Faltan datos"]);
+            return;
+        }
+
+        $resultado = $this->empleadoModel->insertarEmpleado($data);
+        echo json_encode(["mensaje" => $resultado]);
+    }
+
+    public function actualizarEmpleado() {
+        $data = json_decode(file_get_contents("php://input"), true);
+
+        if (!isset($data["Dni"])) {
+            echo json_encode(["error" => "Falta el DNI del empleado"]);
+            return;
+        }
+
+        $resultado = $this->empleadoModel->actualizarEmpleado($data);
+        echo json_encode(["mensaje" => $resultado]);
+    }
+
+    public function borrarEmpleado($dni) {
+        $resultado = $this->empleadoModel->borrarEmpleado($dni);
+        echo json_encode(["mensaje" => $resultado]);
     }
 }
-
-// En caso de que ninguna de las opciones anteriores se haya ejecutado
-header("HTTP/1.1 400 Bad Request");
+?>

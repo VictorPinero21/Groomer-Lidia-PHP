@@ -1,31 +1,57 @@
 <?php
+require_once __DIR__ . '/../models/Perros.php';
 
-require_once('./../Basedatos.php');
-require_once('Perros.php');
-$perro = new Perros();
-// informacion = file_get_contents(php://input)
-// @header("HTTP/1.1 200 OK");
+class PerroController {
+    private $perroModel;
 
-@header("Content-type: application/json");
-//$REQUEST_METHOD = $_SERVER['REQUEST_METHOD'];
-//$REQUEST_URI = $_SERVER['REQUEST_URI'];
-//echo "<br>Server. REQUEST_METHOD: ". $REQUEST_METHOD;
-//echo "<br>Server. REQUEST_URI: ". $REQUEST_URI;
-//echo "<br>";
-// Consultar GET
-//http://localhost/_servweb/aserviciomenus/clientes/
-if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+    public function __construct() {
+        $this->perroModel = new Perros();
+    }
 
-    if (isset($_GET['Dni_duenio'])) {
-        $res = $perro->getUnPerro($_GET['Dni_duenio']);
-        echo json_encode($res);
-        exit();
-    } else {
-        $res = $perro->getAllPerros();
-        echo json_encode($res);
-        exit();
+    public function getAllPerros() {
+        echo json_encode($this->perroModel->getAllPerros());
+    }
+
+    public function getUnPerro($Dni_duenio) {
+        $perros = $this->perroModel->getUnPerro($Dni_duenio);
+        if (empty($perros)) {
+            echo json_encode(["error" => "No se encontraron perros para el dueño con DNI: $Dni_duenio"]);
+        } else {
+            echo json_encode($perros);
+        }
+    }
+
+    public function insertarPerro() {
+        $data = json_decode(file_get_contents("php://input"), true);
+
+        if (
+            !isset($data["Dni_duenio"]) || !isset($data["Nombre"]) || !isset($data["Fecha_Nto"]) ||
+            !isset($data["Raza"]) || !isset($data["Peso"]) || !isset($data["Altura"]) ||
+            !isset($data["Observaciones"]) || !isset($data["Numero_Chip"]) || !isset($data["Sexo"])
+        ) {
+            echo json_encode(["error" => "Faltan datos"]);
+            return;
+        }
+
+        $resultado = $this->perroModel->insertarPerro($data);
+        echo json_encode(["mensaje" => $resultado]);
+    }
+
+    public function actualizarPerro() {
+        $data = json_decode(file_get_contents("php://input"), true);
+
+        if (!isset($data["ID_Perro"])) {
+            echo json_encode(["error" => "Falta el ID del perro"]);
+            return;
+        }
+
+        $resultado = $this->perroModel->actualizarPerro($data);
+        echo json_encode(["mensaje" => $resultado]);
+    }
+
+    public function borrarPerro($Numero_Chip) {
+        $resultado = $this->perroModel->borrarPerro($Numero_Chip);
+        echo json_encode(["mensaje" => $resultado]);
     }
 }
-
-// En caso de que ninguna de las opciones anteriores se haya ejecutado
-header("HTTP/1.1 400 Bad Request");
+?>

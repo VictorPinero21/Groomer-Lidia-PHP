@@ -1,31 +1,53 @@
 <?php
+require_once __DIR__ . '/../models/Servicios.php';
 
-require_once('./../Basedatos.php');
-require_once('Servicios.php');
-$servicio = new Servicios();
-// informacion = file_get_contents(php://input)
-// @header("HTTP/1.1 200 OK");
+class ServicioController {
+    private $servicioModel;
 
-@header("Content-type: application/json");
-//$REQUEST_METHOD = $_SERVER['REQUEST_METHOD'];
-//$REQUEST_URI = $_SERVER['REQUEST_URI'];
-//echo "<br>Server. REQUEST_METHOD: ". $REQUEST_METHOD;
-//echo "<br>Server. REQUEST_URI: ". $REQUEST_URI;
-//echo "<br>";
-// Consultar GET
-//http://localhost/_servweb/aserviciomenus/clientes/
-if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+    public function __construct() {
+        $this->servicioModel = new Servicios();
+    }
 
-    if (isset($_GET['Codigo'])) {
-        $res = $servicio->getUnServicio($_GET['Codigo']);
-        echo json_encode($res);
-        exit();
-    } else {
-        $res = $servicio->getAllServicios();
-        echo json_encode($res);
-        exit();
+    public function getAllServicios() {
+        echo json_encode($this->servicioModel->getAllServicios());
+    }
+
+    public function getUnServicio($Codigo) {
+        $servicio = $this->servicioModel->getUnServicio($Codigo);
+        if (empty($servicio)) {
+            echo json_encode(["error" => "No se encontró el servicio con código: $Codigo"]);
+        } else {
+            echo json_encode($servicio);
+        }
+    }
+
+    public function insertarServicio() {
+        $data = json_decode(file_get_contents("php://input"), true);
+
+        if (!isset($data["Tipo"]) || !isset($data["Nombre"]) || !isset($data["Descripcion"]) || !isset($data["Precio"])) {
+            echo json_encode(["error" => "Faltan datos"]);
+            return;
+        }
+
+        $resultado = $this->servicioModel->insertarServicio($data);
+        echo json_encode(["mensaje" => $resultado]);
+    }
+
+    public function modificarPrecioServicios() {
+        $data = json_decode(file_get_contents("php://input"), true);
+
+        if (!isset($data["Codigo"]) || !isset($data["Precio"])) {
+            echo json_encode(["error" => "Faltan datos"]);
+            return;
+        }
+
+        $resultado = $this->servicioModel->modificarPrecioServicios($data["Codigo"], $data["Precio"]);
+        echo json_encode(["mensaje" => $resultado]);
+    }
+
+    public function borrarServicios($Codigo) {
+        $resultado = $this->servicioModel->borrarServicios($Codigo);
+        echo json_encode(["mensaje" => $resultado]);
     }
 }
-
-// En caso de que ninguna de las opciones anteriores se haya ejecutado
-header("HTTP/1.1 400 Bad Request");
+?>
