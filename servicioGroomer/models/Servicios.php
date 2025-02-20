@@ -78,19 +78,27 @@ class Servicios
     public function insertarServicio($servicio)
     {
         try {
-            $codigo = '';
+            $Codigo = '';
             if ($servicio['Tipo'] == 'BELLEZA') {
                 $sql = "SELECT MAX(CAST(SUBSTR(Codigo, 5) AS UNSIGNED)) + 1 AS SIGUIENTE FROM $this->table WHERE SUBSTR(Codigo, 1, 4) = 'SVBE'";
                 $statement = $this->conn->query($sql);
                 $result = $statement->fetch(PDO::FETCH_ASSOC);
-                $Codigo = 'SVBE' . str_pad($result['SIGUIENTE'], 3, '0', STR_PAD_LEFT);
+                if ($result['SIGUIENTE'] === null) {
+                    $Codigo = 'SVBE001';
+                } else {
+                    $Codigo = 'SVBE' . str_pad($result['SIGUIENTE'], 3, '0', STR_PAD_LEFT);
+                }
             } elseif ($servicio['Tipo'] == 'NUTRICION') {
                 $sql = "SELECT MAX(CAST(SUBSTR(Codigo, 6) AS UNSIGNED)) + 1 AS SIGUIENTE FROM $this->table WHERE SUBSTR(Codigo, 1, 5) = 'SVNUT'";
                 $statement = $this->conn->query($sql);
                 $result = $statement->fetch(PDO::FETCH_ASSOC);
-                $Codigo = 'SVNUT' . str_pad($result['SIGUIENTE'], 3, '0', STR_PAD_LEFT);
+                if ($result['SIGUIENTE'] === null) {
+                    $Codigo = 'SVNUT001';
+                } else {
+                    $Codigo = 'SVNUT' . str_pad($result['SIGUIENTE'], 3, '0', STR_PAD_LEFT);
+                }
             }
-
+    
             $sql = "INSERT INTO $this->table (Codigo, Nombre, Descripcion, Precio) VALUES (:Codigo, :Nombre, :Descripcion, :Precio)";
             $s = $this->conn->prepare($sql);
             $s->bindParam(':Codigo', $Codigo);
@@ -98,11 +106,18 @@ class Servicios
             $s->bindParam(':Precio', $servicio['Precio']);
             $s->bindParam(':Descripcion', $servicio['Descripcion']);
             $s->execute();
-
+    
             return "Servicio insertado con Código: " . $Codigo;
         } catch (PDOException $e) {
-            return "Error al insertar.<br>" . $e->getMessage();
-        }
-    }
+            if ($e->getCode() == '23000') {
+                return "Error al insertar. El código ya existe.";
+            } else {
+                return "Error al insertar.<br>" . $e->getMessage();
+            }
+        }}
+    
+    
+
+    
 }
 ?>

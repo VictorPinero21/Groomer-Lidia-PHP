@@ -32,6 +32,7 @@ class EmpleadoController
         if (
             !isset($data["Dni"]) || !isset($data["Email"]) || !isset($data["Password"]) ||
             !isset($data["Rol"]) || !isset($data["Nombre"]) || !isset($data["Apellido1"]) ||
+            !isset($data["Apellido2"]) ||
             !isset($data["Calle"]) || !isset($data["Numero"]) || !isset($data["Cp"]) ||
             !isset($data["Poblacion"]) || !isset($data["Provincia"]) || !isset($data["Tlfno"]) ||
             !isset($data["Profesion"])

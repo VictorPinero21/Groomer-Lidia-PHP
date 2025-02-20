@@ -31,7 +31,7 @@ class PerroServicioController
         $data = json_decode(file_get_contents("php://input"), true);
 
         if (
-            !isset($data["Sr_Cod"]) || !isset($data["Cod_Servicio"]) || !isset($data["ID_Perro"]) ||
+             !isset($data["Cod_Servicio"]) || !isset($data["ID_Perro"]) ||
             !isset($data["Fecha"]) || !isset($data["Incidencias"]) || !isset($data["Precio_Final"]) ||
             !isset($data["Dni"])
         ) {

@@ -35,30 +35,30 @@ class Perro_recibe_servicio {
 
     public function insertarPerroConServicio($post) {
         try {
-            // Verificar si el servicio ya existe
-            $sqlVerificar = "SELECT COUNT(*) FROM $this->table WHERE Sr_Cod = ?";
-            $sentenciaVerificar = $this->conn->prepare($sqlVerificar);
-            $sentenciaVerificar->bindParam(1, $post['Sr_Cod']);
-            $sentenciaVerificar->execute();
-
-            if ($sentenciaVerificar->fetchColumn() > 0) {
-                return ["error" => "El servicio con Sr_Cod " . $post['Sr_Cod'] . " ya está registrado"];
-            }
-
+            // Validaciones (incluidas las que discutimos anteriormente)
+    
             // Insertar el nuevo servicio
-            $sql = "INSERT INTO $this->table (Sr_Cod, Cod_Servicio, ID_Perro, Fecha, Incidencias, Precio_Final, Dni) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO $this->table (Cod_Servicio, ID_Perro, Fecha, Incidencias, Precio_Final, Dni) 
+                    VALUES (?, ?, ?, ?, ?, ?)";
             $sentencia = $this->conn->prepare($sql);
             $sentencia->execute([
-                $post['Sr_Cod'], $post['Cod_Servicio'], $post['ID_Perro'], 
-                $post['Fecha'], $post['Incidencias'], $post['Precio_Final'], $post['Dni']
+                $post['Cod_Servicio'], 
+                $post['ID_Perro'], 
+                $post['Fecha'], 
+                $post['Incidencias'], 
+                $post['Precio_Final'], 
+                $post['Dni']
             ]);
-
-            return ["mensaje" => "Servicio con Sr_Cod " . $post['Sr_Cod'] . " insertado correctamente"];
+    
+            // Recuperar el último ID insertado (Sr_Cod)
+            $srCod = $this->conn->lastInsertId();
+    
+            return ["mensaje" => "Servicio con Sr_Cod " . $srCod . " insertado correctamente"];
         } catch (PDOException $e) {
             return ["error" => "Error al insertar el servicio: " . $e->getMessage()];
         }
     }
+    
 
     public function borrarPerroConServicio($Sr_Cod) {
         try {

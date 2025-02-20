@@ -13,7 +13,7 @@ $servicioController = new ServicioController();
 
 $routes = [
     "POST" => [
-        "/api/clientes" => [$clienteController, "insertarCliente"],
+        "/api/clientes/" => [$clienteController, "insertarCliente"],
         "/api/clientes/{dni}" => [$clienteController, "modificarCliente"],
         "/api/empleados/" => [$empleadoController, "insertarEmpleado"],
         "/api/empleados/{dni}" => [$empleadoController, "actualizarEmpleado"],

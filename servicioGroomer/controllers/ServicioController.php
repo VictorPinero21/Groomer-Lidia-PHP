@@ -23,12 +23,14 @@ class ServicioController {
 
     public function insertarServicio() {
         $data = json_decode(file_get_contents("php://input"), true);
-
+    
+        // Validar que se reciban todos los datos necesarios
         if (!isset($data["Tipo"]) || !isset($data["Nombre"]) || !isset($data["Descripcion"]) || !isset($data["Precio"])) {
             echo json_encode(["error" => "Faltan datos"]);
             return;
         }
-
+    
+        // Llamar al modelo para insertar el servicio
         $resultado = $this->servicioModel->insertarServicio($data);
         echo json_encode(["mensaje" => $resultado]);
     }
