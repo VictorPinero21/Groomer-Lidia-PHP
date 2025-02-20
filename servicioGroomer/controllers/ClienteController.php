@@ -1,21 +1,24 @@
 <?php
 require_once __DIR__ . '/../models/Clientes.php';
 
-class ClienteController {
+class ClienteController
+{
     private $clienteModel;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->clienteModel = new Cliente();
     }
 
-    public function insertarCliente() {
+    public function insertarCliente()
+    {
         $data = json_decode(file_get_contents("php://input"), true);
         if (!isset($data["dni"]) || !isset($data["nombre"]) || !isset($data["apellido1"]) || !isset($data["apellido2"]) || !isset($data["direccion"]) || !isset($data["tlfno"])) {
             echo json_encode(["error" => "Faltan datos"]);
             return;
         }
 
-        if ($this->clienteModel->getCliente($data["dni"])) {
+        if ($this->clienteModel->getUnCliente($data["dni"])) {
             echo json_encode(["error" => "El Cliente ya está dado de alta"]);
             return;
         }
@@ -27,8 +30,9 @@ class ClienteController {
         }
     }
 
-    public function borrarCliente($dni) {
-        if (!$this->clienteModel->getCliente($dni)) {
+    public function borrarCliente($dni)
+    {
+        if (!$this->clienteModel->getUnCliente($dni)) {
             echo json_encode(["error" => "El cliente no existe"]);
             return;
         }
@@ -40,8 +44,8 @@ class ClienteController {
         }
     }
 
-    public function getAllClientes() {
+    public function getAllClientes()
+    {
         echo json_encode($this->clienteModel->getAllClientes());
     }
 }
-?>
