@@ -1,16 +1,28 @@
 <?php
 require_once __DIR__ . '/../config/Basedatos.php';
 
-class Perro_recibe_servicio {
+class Perro_recibe_servicio
+{
     private $conn;
     private $table = "perro_recibe_servicio";
 
-    public function __construct() {
+    public function __construct()
+    {
         $database = new Database();
         $this->conn = $database->connect();
     }
 
-    public function getAllPerrosConServicios() {
+    // Método para verificar si un valor existe en una columna de una tabla
+    public function checkIfExists($table, $column, $value)
+    {
+        $sql = "SELECT COUNT(*) FROM $table WHERE $column = ?";
+        $sentencia = $this->conn->prepare($sql);
+        $sentencia->execute([$value]);
+        return $sentencia->fetchColumn() > 0;
+    }
+
+    public function getAllPerrosConServicios()
+    {
         try {
             $sql = "SELECT * FROM $this->table";
             $statement = $this->conn->query($sql);
@@ -20,7 +32,8 @@ class Perro_recibe_servicio {
         }
     }
 
-    public function getUnPerroConServicio($Sr_Cod) {
+    public function getUnPerroConServicio($Sr_Cod)
+    {
         try {
             $sql = "SELECT * FROM $this->table WHERE Sr_Cod = ?";
             $sentencia = $this->conn->prepare($sql);
@@ -33,34 +46,33 @@ class Perro_recibe_servicio {
         }
     }
 
-    public function insertarPerroConServicio($post) {
+    public function insertarPerroConServicio($post)
+    {
         try {
-            // Validaciones (incluidas las que discutimos anteriormente)
-    
             // Insertar el nuevo servicio
             $sql = "INSERT INTO $this->table (Cod_Servicio, ID_Perro, Fecha, Incidencias, Precio_Final, Dni) 
                     VALUES (?, ?, ?, ?, ?, ?)";
             $sentencia = $this->conn->prepare($sql);
             $sentencia->execute([
-                $post['Cod_Servicio'], 
-                $post['ID_Perro'], 
-                $post['Fecha'], 
-                $post['Incidencias'], 
-                $post['Precio_Final'], 
+                $post['Cod_Servicio'],
+                $post['ID_Perro'],
+                $post['Fecha'],
+                $post['Incidencias'],
+                $post['Precio_Final'],
                 $post['Dni']
             ]);
-    
+
             // Recuperar el último ID insertado (Sr_Cod)
             $srCod = $this->conn->lastInsertId();
-    
             return ["mensaje" => "Servicio con Sr_Cod " . $srCod . " insertado correctamente"];
         } catch (PDOException $e) {
             return ["error" => "Error al insertar el servicio: " . $e->getMessage()];
         }
     }
-    
 
-    public function borrarPerroConServicio($Sr_Cod) {
+
+    public function borrarPerroConServicio($Sr_Cod)
+    {
         try {
             $sql = "DELETE FROM $this->table WHERE Sr_Cod = ?";
             $sentencia = $this->conn->prepare($sql);
@@ -76,15 +88,21 @@ class Perro_recibe_servicio {
         }
     }
 
-    public function actualizarPerroConServicio($post) {
+    public function actualizarPerroConServicio($post)
+    {
         try {
             $sql = "UPDATE $this->table 
                     SET Cod_Servicio=?, ID_Perro=?, Fecha=?, Incidencias=?, Precio_Final=?, Dni=?  
                     WHERE Sr_Cod = ?";
             $sentencia = $this->conn->prepare($sql);
             $sentencia->execute([
-                $post['Cod_Servicio'], $post['ID_Perro'], $post['Fecha'],
-                $post['Incidencias'], $post['Precio_Final'], $post['Dni'], $post['Sr_Cod']
+                $post['Cod_Servicio'],
+                $post['ID_Perro'],
+                $post['Fecha'],
+                $post['Incidencias'],
+                $post['Precio_Final'],
+                $post['Dni'],
+                $post['Sr_Cod']
             ]);
 
             if ($sentencia->rowCount() == 0) {
@@ -96,4 +114,3 @@ class Perro_recibe_servicio {
         }
     }
 }
-?>

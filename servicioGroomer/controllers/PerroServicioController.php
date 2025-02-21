@@ -30,8 +30,9 @@ class PerroServicioController
     {
         $data = json_decode(file_get_contents("php://input"), true);
 
+        // Comprobar que no faltan datos
         if (
-             !isset($data["Cod_Servicio"]) || !isset($data["ID_Perro"]) ||
+            !isset($data["Cod_Servicio"]) || !isset($data["ID_Perro"]) ||
             !isset($data["Fecha"]) || !isset($data["Incidencias"]) || !isset($data["Precio_Final"]) ||
             !isset($data["Dni"])
         ) {
@@ -39,9 +40,44 @@ class PerroServicioController
             return;
         }
 
+        // Comprobar que el Cod_Servicio existe en la tabla servicios
+        if (!$this->perroRecibeServicioModel->checkIfExists("servicios", "Codigo", $data['Cod_Servicio'])) {
+            echo json_encode(["error" => "El Código del Servicio no existe"]);
+            return;
+        }
+
+        // Comprobar que el ID_Perro existe en la tabla perros
+        if (!$this->perroRecibeServicioModel->checkIfExists("perros", "ID_Perro", $data['ID_Perro'])) {
+            echo json_encode(["error" => "El ID_Perro no existe"]);
+            return;
+        }
+
+        // Comprobar que el DNI del empleado existe en la tabla empleados
+        if (!$this->perroRecibeServicioModel->checkIfExists("empleados", "Dni", $data['Dni'])) {
+            echo json_encode(["error" => "El DNI del empleado no existe"]);
+            return;
+        }
+
+        // Comprobar que el precio sea numérico y mayor o igual a 0
+        if (!is_numeric($data['Precio_Final']) || $data['Precio_Final'] < 0) {
+            echo json_encode(["error" => "El precio debe ser un número mayor o igual a 0"]);
+            return;
+        }
+
+        // Comprobar que la fecha del servicio no sea futura (<= sysdate)
+        $fechaServicio = strtotime($data['Fecha']);
+        $fechaActual = strtotime(date('Y-m-d H:i:s'));
+        if ($fechaServicio > $fechaActual) {
+            echo json_encode(["error" => "La fecha del servicio no puede ser futura"]);
+            return;
+        }
+
+        // Si todas las validaciones pasan, insertar el servicio
         $resultado = $this->perroRecibeServicioModel->insertarPerroConServicio($data);
         echo json_encode(["mensaje" => $resultado]);
     }
+
+
 
     public function actualizarPerroConServicio()
     {
