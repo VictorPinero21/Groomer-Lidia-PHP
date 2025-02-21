@@ -78,46 +78,40 @@ class Servicios
     public function insertarServicio($servicio)
     {
         try {
+            if (empty($servicio['Nombre']) || empty($servicio['Precio']) || empty($servicio['Descripcion']) || empty($servicio['Tipo'])) {
+                return "Faltan datos";
+            }
+
             $Codigo = '';
             if ($servicio['Tipo'] == 'BELLEZA') {
-                $sql = "SELECT MAX(CAST(SUBSTR(Codigo, 5) AS UNSIGNED)) + 1 AS SIGUIENTE FROM $this->table WHERE SUBSTR(Codigo, 1, 4) = 'SVBE'";
+                $sql = "SELECT IFNULL(MAX(CAST(SUBSTR(Codigo, 5) AS UNSIGNED)), 0) + 1 AS SIGUIENTE FROM $this->table WHERE Codigo LIKE 'SVBE%'";
                 $statement = $this->conn->query($sql);
                 $result = $statement->fetch(PDO::FETCH_ASSOC);
-                if ($result['SIGUIENTE'] === null) {
-                    $Codigo = 'SVBE001';
-                } else {
-                    $Codigo = 'SVBE' . str_pad($result['SIGUIENTE'], 3, '0', STR_PAD_LEFT);
-                }
+                $Codigo = 'SVBE' . $result['SIGUIENTE'];
             } elseif ($servicio['Tipo'] == 'NUTRICION') {
-                $sql = "SELECT MAX(CAST(SUBSTR(Codigo, 6) AS UNSIGNED)) + 1 AS SIGUIENTE FROM $this->table WHERE SUBSTR(Codigo, 1, 5) = 'SVNUT'";
+                $sql = "SELECT IFNULL(MAX(CAST(SUBSTR(Codigo, 6) AS UNSIGNED)), 0) + 1 AS SIGUIENTE FROM $this->table WHERE Codigo LIKE 'SVNUT%'";
                 $statement = $this->conn->query($sql);
                 $result = $statement->fetch(PDO::FETCH_ASSOC);
-                if ($result['SIGUIENTE'] === null) {
-                    $Codigo = 'SVNUT001';
-                } else {
-                    $Codigo = 'SVNUT' . str_pad($result['SIGUIENTE'], 3, '0', STR_PAD_LEFT);
-                }
+                $Codigo = 'SVNUT' . $result['SIGUIENTE'];
+            } else {
+                return "Tipo de servicio inválido";
             }
-    
+
             $sql = "INSERT INTO $this->table (Codigo, Nombre, Descripcion, Precio) VALUES (:Codigo, :Nombre, :Descripcion, :Precio)";
             $s = $this->conn->prepare($sql);
             $s->bindParam(':Codigo', $Codigo);
             $s->bindParam(':Nombre', $servicio['Nombre']);
-            $s->bindParam(':Precio', $servicio['Precio']);
             $s->bindParam(':Descripcion', $servicio['Descripcion']);
+            $s->bindParam(':Precio', $servicio['Precio']);
             $s->execute();
-    
-            return "Servicio insertado con Código: " . $Codigo;
-        } catch (PDOException $e) {
-            if ($e->getCode() == '23000') {
-                return "Error al insertar. El código ya existe.";
-            } else {
-                return "Error al insertar.<br>" . $e->getMessage();
-            }
-        }}
-    
-    
 
-    
+            if ($s->rowCount() > 0) {
+                return "Servicio CODIGO: $Codigo insertado correctamente";
+            } else {
+                return "Error al insertar. La fila no se ha insertado.";
+            }
+        } catch (PDOException $e) {
+            return "Error al insertar.<br>" . $e->getMessage();
+        }
+    }
 }
-?>

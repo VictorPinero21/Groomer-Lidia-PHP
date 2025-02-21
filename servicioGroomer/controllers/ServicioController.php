@@ -1,18 +1,22 @@
 <?php
 require_once __DIR__ . '/../models/Servicios.php';
 
-class ServicioController {
+class ServicioController
+{
     private $servicioModel;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->servicioModel = new Servicios();
     }
 
-    public function getAllServicios() {
+    public function getAllServicios()
+    {
         echo json_encode($this->servicioModel->getAllServicios());
     }
 
-    public function getUnServicio($Codigo) {
+    public function getUnServicio($Codigo)
+    {
         $servicio = $this->servicioModel->getUnServicio($Codigo);
         if (empty($servicio)) {
             echo json_encode(["error" => "No se encontró el servicio con código: $Codigo"]);
@@ -21,21 +25,25 @@ class ServicioController {
         }
     }
 
-    public function insertarServicio() {
+    public function insertarServicio()
+    {
         $data = json_decode(file_get_contents("php://input"), true);
-    
+
         // Validar que se reciban todos los datos necesarios
-        if (!isset($data["Tipo"]) || !isset($data["Nombre"]) || !isset($data["Descripcion"]) || !isset($data["Precio"])) {
+        if (!isset($data["Tipo"], $data["Nombre"], $data["Descripcion"], $data["Precio"])) {
             echo json_encode(["error" => "Faltan datos"]);
-            return;
+            exit;
         }
-    
+
         // Llamar al modelo para insertar el servicio
         $resultado = $this->servicioModel->insertarServicio($data);
         echo json_encode(["mensaje" => $resultado]);
+        exit; // Evita ejecuciones duplicadas
     }
 
-    public function modificarPrecioServicios() {
+
+    public function modificarPrecioServicios()
+    {
         $data = json_decode(file_get_contents("php://input"), true);
 
         if (!isset($data["Codigo"]) || !isset($data["Precio"])) {
@@ -47,9 +55,9 @@ class ServicioController {
         echo json_encode(["mensaje" => $resultado]);
     }
 
-    public function borrarServicios($Codigo) {
+    public function borrarServicios($Codigo)
+    {
         $resultado = $this->servicioModel->borrarServicios($Codigo);
         echo json_encode(["mensaje" => $resultado]);
     }
 }
-?>
