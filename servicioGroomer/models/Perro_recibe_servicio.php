@@ -46,6 +46,31 @@ class Perro_recibe_servicio
         }
     }
 
+    public function getServiciosPorEmpleado($dniEmpleado)
+    {
+        try {
+            // Consultar todos los servicios realizados por el empleado, ordenados por fecha
+            $sql = "SELECT Sr_Cod, Fecha, Cod_Servicio, ID_Perro, Dni, Precio_Final, Incidencias 
+                FROM $this->table 
+                WHERE Dni = ? 
+                ORDER BY Fecha ASC";
+            $sentencia = $this->conn->prepare($sql);
+            $sentencia->execute([$dniEmpleado]);
+
+            // Obtener todos los resultados
+            $registros = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+
+            if (count($registros) > 0) {
+                return $registros;
+            } else {
+                return "El empleado no tiene servicios";
+            }
+        } catch (PDOException $e) {
+            return ["error" => "Error al obtener los servicios: " . $e->getMessage()];
+        }
+    }
+
+
     public function insertarPerroConServicio($post)
     {
         try {

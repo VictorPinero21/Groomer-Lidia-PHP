@@ -26,6 +26,20 @@ class PerroServicioController
         }
     }
 
+    public function getServiciosPorEmpleado($dniEmpleado)
+    {
+        $resultado = $this->perroRecibeServicioModel->getServiciosPorEmpleado($dniEmpleado);
+
+        if (is_array($resultado)) {
+            // Si se encuentran servicios, devolverlos en formato JSON
+            echo json_encode($resultado);
+        } else {
+            // Si no hay servicios, devolver el mensaje adecuado
+            echo json_encode(["mensaje" => $resultado]);
+        }
+    }
+
+
     public function insertarPerroConServicio()
     {
         $data = json_decode(file_get_contents("php://input"), true);
