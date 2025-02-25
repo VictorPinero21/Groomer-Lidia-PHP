@@ -24,7 +24,7 @@ class Perro_recibe_servicio
     public function getAllPerrosConServicios()
     {
         try {
-            $sql = "SELECT * FROM $this->table";
+            $sql = "SELECT * FROM $this->table ORDER BY Fecha DESC";
             $statement = $this->conn->query($sql);
             return $statement->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
@@ -53,7 +53,7 @@ class Perro_recibe_servicio
             $sql = "SELECT Sr_Cod, Fecha, Cod_Servicio, ID_Perro, Dni, Precio_Final, Incidencias 
                 FROM $this->table 
                 WHERE Dni = ? 
-                ORDER BY Fecha ASC";
+                ORDER BY Fecha DESC";
             $sentencia = $this->conn->prepare($sql);
             $sentencia->execute([$dniEmpleado]);
 
