@@ -49,70 +49,74 @@ class PerroRecibeServicioUso
 
     //Funcióon para crear un nuevo servicio realizado
     public function crearServicioRealizadoAPerro()
-{
-    // URL de la API
-    $base_url = 'http://localhost:8000/api/perroservicios/';
-
-    // Asegurar que se está recibiendo una petición POST
-    if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-        echo json_encode(["error" => "Método no permitido"]);
-        return;
-    }
-
-    // Capturar los datos del formulario con los nombres correctos según la base de datos
-    $data = [
-        'ID_Perro' => $_POST['perro_id'] ?? null,
-        'Cod_Servicio' => $_POST['servicio_id'] ?? null, 
-        'Fecha' => $_POST['fecha'] ?? null,
-        'Dni' => $_POST['empleado_id'] ?? null,  
-        'Precio_Final' => $_POST['precioFinal'] ?? null,
-        'Incidencias' => $_POST['incidencias'] ?? null
-    ];
-
-    // Verificar que no haya valores vacíos
-    foreach ($data as $key => $value) {
-        if (empty($value)) {
-            echo json_encode(["error" => "Falta el campo: $key"]);
+    {
+        // URL de la API
+        $base_url = 'http://localhost:8000/api/perroservicios/';
+    
+        // Asegurar que se está recibiendo una petición POST
+        if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+            echo "<script>alert('Método no permitido');</script>";
             return;
         }
+    
+        // Capturar los datos del formulario
+        $data = [
+            'ID_Perro' => $_POST['perro_id'] ?? null,
+            'Cod_Servicio' => $_POST['servicio_id'] ?? null, 
+            'Fecha' => $_POST['fecha'] ?? null,
+            'Dni' => $_POST['empleado_id'] ?? null,  
+            'Precio_Final' => $_POST['precioFinal'] ?? null,
+            'Incidencias' => $_POST['incidencias'] ?? null
+        ];
+    
+        // Validar que no haya valores vacíos antes de enviar a la API
+        foreach ($data as $key => $value) {
+            if (empty($value)) {
+                echo "<script>alert('Falta el campo: $key');</script>";
+                return;
+            }
+        }
+    
+        // Convertir los datos a JSON
+        $json_data = json_encode($data);
+    
+        // Inicializar cURL
+        $ch = curl_init($base_url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $json_data);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json'
+        ]);
+    
+        // Ejecutar la petición y obtener la respuesta
+        $post_response = curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $curl_error = curl_error($ch);
+        curl_close($ch);
+    
+        // Manejo de errores en la solicitud cURL
+        if ($post_response === false) {
+            echo "<script>alert('Error en la conexión con la API: $curl_error');</script>";
+            return;
+        }
+    
+        // Decodificar la respuesta de la API
+        $response_data = json_decode($post_response, true);
+    
+        // Comprobar el estado HTTP y la respuesta
+        if ($http_status == 200 && isset($response_data['mensaje'])) {
+            echo "<script>alert('Servicio registrado correctamente');</script>";
+            echo "<script>window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/index.php?controller=perroRecibeServicioUso&action=mostrarServiciosPorPerros';</script>";
+        } else {
+            // Mostrar error detallado si la API devuelve un error
+            $error_message = isset($response_data['error']) ? $response_data['error'] : "Error desconocido";
+            echo "<script>alert('Error: $error_message');</script>";
+            echo "<script>window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/index.php?controller=perroRecibeServicioUso&action=mostrarServiciosPorPerros';</script>";
+
+        }
     }
-
-    // Convertir los datos a JSON
-    $json_data = json_encode($data);
-
-    // Enviar la solicitud POST a la API
-    $ch = curl_init($base_url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $json_data);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        'Content-Type: application/json'
-    ]);
-
-    // Ejecutar la petición y obtener la respuesta
-    $post_response = curl_exec($ch);
-    $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    curl_close($ch);
-
-    // Verificar si hubo error en la solicitud
-    if ($post_response === false) {
-        echo json_encode(["error" => 'Error en la petición POST']);
-        return;
-    }
-
-    // Decodificar la respuesta
-    $response_data = json_decode($post_response, true);
-
-    if ($http_status == 200) {
-        echo "<script>alert('Servicio registrado correctamente');</script>";
-        echo "<script>window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/index.php?controller=perroRecibeServicioUso&action=mostrarServiciosPorPerros';</script>";
-    } else {
-        echo json_encode(["error" => "Error HTTP $http_status", "detalle" => $response_data]);
-    }
-}
-
-
-
+    
 
     // Función para realizar un servicio realizado
 
