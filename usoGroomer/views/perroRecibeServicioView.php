@@ -5,10 +5,10 @@ class PerroRecibeServicio
     public function showFormServ()
     {
 ?>
-        <div id="modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center ">
+        <div id="modal" class="bg-gray-600 bg-opacity-50 flex items-center justify-center ">
             <div class="bg-white p-4 rounded shadow-lg w-1/2">
                 <h2 class="text-xl font-bold mb-2">Crear un nuevo servicio realizado</h2>
-                <form id="crearNuevoServicio" class="space-y-4" method="POST" action="http://localhost/gromer/front/index.php?controller=perroRecibeServicioUso&action=crearServicioRealizadoAPerro">
+                <form id="crearNuevoServicio" class="space-y-4" method="POST" action="http://localhost/Groomer-Lidia-PHP/usoGroomer/index.php?controller=perroRecibeServicioUso&action=crearServicioRealizadoAPerro">
                     <div>
                         <label for="dni" class="block text-sm font-medium text-gray-700">ID del perro:</label>
                         <input required type="text" id="dni" name="perro_id" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">
@@ -34,7 +34,7 @@ class PerroRecibeServicio
                         <input required type="text" id="altura" name="incidencias" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">
                     </div>
                     <div class="flex justify-end">
-                        <a href="http://localhost/gromer/front/index.php?controller=perroRecibeServicioUso&action=mostrarServiciosPorPerros"><button type="button" class="bg-gray-500 text-white px-4 py-2 rounded mr-2">Cancelar</button></a>
+                        <a href="http://localhost/Groomer-Lidia-PHP/usoGroomer/index.php?controller=perroRecibeServicioUso&action=mostrarServiciosPorPerros"><button type="button" class="bg-gray-500 text-white px-4 py-2 rounded mr-2">Cancelar</button></a>
                         <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Registrar Nuevo Servicio Realizado</button>
                     </div>
                 </form>
@@ -50,7 +50,7 @@ class PerroRecibeServicio
         <!-- Lista de Servicios hechos a los perros -->
         <div class="bg-white p-4 rounded shadow mb-4 overflow-x-auto">
             <h2 class="text-xl font-bold mb-2">Lista de Servicios hechos a los perros</h2>
-            <a href="http://localhost/gromer/front/index.php?controller=perroRecibeServicioUso&action=showFormServ">
+            <a href="http://localhost/Groomer-Lidia-PHP/usoGroomer/index.php?controller=perroRecibeServicioUso&action=showFormServ">
                 <button class="bg-green-500 text-white px-4 py-2 rounded">Insertar un nuevo servicio realizado</button>
             </a>
             <table class="min-w-full divide-y divide-gray-200 text-sm">
@@ -79,14 +79,14 @@ class PerroRecibeServicio
                             echo "<td class='px-4 py-2 whitespace-nowrap'>{$serv['Precio_Final']}</td>";
                             echo "<td class='px-4 py-2 whitespace-nowrap'>{$serv['Dni']}</td>";
                             echo "<td class='px-4 py-2 whitespace-nowrap'>";
-                            echo "<form method='POST' action='http://localhost/gromer/front/index.php?controller=perroRecibeServicioUso&action=borrarServicioRealizadoAPerro&Sr_Cod={$serv['Sr_Cod']}' style='display:inline;'>";
+                            echo "<form method='POST' action='http://localhost/Groomer-Lidia-PHP/usoGroomer/index.php?controller=perroRecibeServicioUso&action=borrarServicioRealizadoAPerro&Sr_Cod={$serv['Sr_Cod']}' style='display:inline;'>";
                             echo "<input type='hidden' name='dni' value='{$serv['Sr_Cod']}'>";
                             echo "<button type='submit' class='bg-red-500 text-white px-4 py-2 rounded'>Borrar</button>";
                             echo "</form>";
                             echo "</td>";
                             echo "</tr>";
                         }
-                    }else{
+                    } else {
                         echo "<tr><td colspan='8' class='text-center font-bold text-xl text-red-500'>No hay servicios realizados disponibles.</td></tr>";
                     }
                     ?>
@@ -95,5 +95,5 @@ class PerroRecibeServicio
         </div>
         </div>
 <?php
-            }
+    }
 }

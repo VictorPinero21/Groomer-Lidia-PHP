@@ -64,7 +64,7 @@ class ServiciosUso
             } else {
             echo '<script>
             alert("Servicio creado exitosamente.");
-            window.location.href = "http://localhost/gromer/front/index.php?controller=serviciosUso&action=showServicios";
+            window.location.href = "http://localhost/grommer/Groomer-Lidia-PHP/usoGroomer/index.php?controller=serviciosUso&action=showServicios";
             </script>';
             }
         }
@@ -96,7 +96,7 @@ class ServiciosUso
                 echo '<script>alert("Error: ' . $response_data['error'] . '");</script>';
             } else {
                 echo '<script>alert("Servicio editado exitosamente."); 
-                window.location.href = "http://localhost/gromer/front/index.php?controller=serviciosUso&action=showServicios";
+                window.location.href = "http://localhost/grommer/Groomer-Lidia-PHP/usoGroomer/index.php?controller=serviciosUso&action=showServicios";
             </script>';
             }
         }

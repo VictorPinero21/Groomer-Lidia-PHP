@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../views/perroRecibeServicioView.php';
+require_once _DIR_ . './../views/perroRecibeServicioView.php';
 
 class PerroRecibeServicioUso
 {
@@ -17,7 +17,7 @@ class PerroRecibeServicioUso
     {
 
         // URL de la API
-        $base_url = 'http://localhost/gromer/api/controllers/perrorecibeservicioController.php?action=listarPerroRecibeServicio';
+        $base_url = 'http://localhost:8000/api/perroservicios/';
 
         // Construir la URL con los parámetros requeridos
         $get_url = $base_url;
@@ -31,22 +31,20 @@ class PerroRecibeServicioUso
 
         if ($get_response === false) {
             echo 'Error en la petición GET: ' . curl_error($ch);
-        } 
-            $data = json_decode($get_response, true);
+        }
+        $data = json_decode($get_response, true);
 
 
-            // Verificar si la respuesta es válida y contiene datos
-            // if ($data) {
-            // }
-            //  else {
-                //     echo "<script>alert('No se han encontrado servicios');</script>";
-                // }
-            
-            // Cerrar cURL
-            curl_close($ch);
-            $this->view->mostrarServiciosPorPerro($data);
+        // Verificar si la respuesta es válida y contiene datos
+        // if ($data) {
+        // }
+        //  else {
+        //     echo "<script>alert('No se han encontrado servicios');</script>";
+        // }
 
-
+        // Cerrar cURL
+        curl_close($ch);
+        $this->view->mostrarServiciosPorPerro($data);
     }
 
     //Funcióon para crear un nuevo servicio realizado
@@ -54,7 +52,7 @@ class PerroRecibeServicioUso
     {
 
         // URL de la API
-        $base_url = 'http://localhost/gromer/api/controllers/perrorecibeservicioController.php';
+        $base_url = 'http://localhost:8000/api/perroservicios/';
 
 
         // Datos del formulario

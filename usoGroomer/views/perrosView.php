@@ -9,49 +9,49 @@ class PerrosView
         <div id="modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center dark:bg-gray-900 dark:bg-opacity-80">
             <div class="bg-white dark:bg-black p-4 rounded shadow-lg w-1/2 dark:bg-gray-800">
                 <h2 class="text-xl font-bold mb-2 dark:text-white">Crear un nuevo perro</h2>
-                <form id="crearNuevoPerro" class="space-y-4" method="POST" action="http://localhost/gromer/front/index.php?controller=perrosUso&action=crearPerro">
+                <form id="crearNuevoPerro" class="space-y-4" method="POST" action="http://localhost/grommer/Groomer-Lidia-PHP/usoGroomer/index.php?controller=perrosUso&action=crearPerro">
                     <div>
                         <label for="dni" class="block text-sm font-medium text-gray-700 dark:text-gray-300">DNI del dueño:</label>
-                        <input type="text" required value="<?php if (isset($_GET['clienteDni'])) echo $_GET['clienteDni']; ?>" id="dni" name="dni_duenio" class="mt-1 block w-full border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white rounded-md shadow-sm p-2">
+                        <input type="text" required value="<?php if (isset($_GET['clienteDni'])) echo $_GET['clienteDni']; ?>" id="dni" name="Dni_duenio" class="mt-1 block w-full border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white rounded-md shadow-sm p-2">
                     </div>
                     <div>
-                        <label for="nombre" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nombre:</label>
-                        <input type="text" required id="nombre" name="nombre" class="mt-1 block w-full border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white rounded-md shadow-sm p-2">
+                        <label for="Nombre" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nombre:</label>
+                        <input type="text" required id="Nombre" name="Nombre" class="mt-1 block w-full border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white rounded-md shadow-sm p-2">
                     </div>
                     <div>
-                        <label for="fecha_nto" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Fecha de nacimiento:</label>
-                        <input type="date" required id="fecha_nto" name="fecha_nto" class="mt-1 block w-full border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white rounded-md shadow-sm p-2">
+                        <label for="Fecha_Nto" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Fecha de nacimiento:</label>
+                        <input type="date" required id="Fecha_Nto" name="Fecha_Nto" class="mt-1 block w-full border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white rounded-md shadow-sm p-2">
                     </div>
                     <div>
-                        <label for="raza" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Raza:</label>
-                        <input type="text" required id="raza" name="raza" class="mt-1 block w-full border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white rounded-md shadow-sm p-2">
+                        <label for="Raza" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Raza:</label>
+                        <input type="text" required id="Raza" name="Raza" class="mt-1 block w-full border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white rounded-md shadow-sm p-2">
                     </div>
                     <div>
-                        <label for="peso" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Peso:</label>
-                        <input type="text" required id="peso" name="peso" class="mt-1 block w-full border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white rounded-md shadow-sm p-2">
+                        <label for="Peso" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Peso:</label>
+                        <input type="text" required id="Peso" name="Peso" class="mt-1 block w-full border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white rounded-md shadow-sm p-2">
                     </div>
                     <div>
-                        <label for="altura" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Altura:</label>
-                        <input type="text" required id="altura" name="altura" class="mt-1 block w-full border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white rounded-md shadow-sm p-2">
+                        <label for="Altura" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Altura:</label>
+                        <input type="text" required id="Altura" name="Altura" class="mt-1 block w-full border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white rounded-md shadow-sm p-2">
                     </div>
                     <div>
-                        <label for="observaciones" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Observaciones:</label>
-                        <input type="text" required id="observaciones" name="observaciones" class="mt-1 block w-full border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white rounded-md shadow-sm p-2">
+                        <label for="Observaciones" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Observaciones:</label>
+                        <input type="text" required id="Observaciones" name="Observaciones" class="mt-1 block w-full border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white rounded-md shadow-sm p-2">
                     </div>
                     <div>
-                        <label for="numero_chip" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Numero de chip:</label>
-                        <input type="text" required id="numero_chip" name="numero_chip" class="mt-1 block w-full border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white rounded-md shadow-sm p-2">
+                        <label for="Numero_Chip" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Numero de chip:</label>
+                        <input type="text" required id="Numero_Chip" name="Numero_Chip" class="mt-1 block w-full border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white rounded-md shadow-sm p-2">
                     </div>
                     <div>
-                        <label for="sexo" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Sexo:</label>
-                        <select name="sexo" id="sexo" class="mt-1 block w-full border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white rounded-md shadow-sm p-2">
+                        <label for="Sexo" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Sexo:</label>
+                        <select name="Sexo" id="Sexo" class="mt-1 block w-full border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white rounded-md shadow-sm p-2">
                             <option value=""> --- </option>
                             <option value="Macho">Macho</option>
                             <option value="Hembra">Hembra</option>
                         </select>
                     </div>
                     <div class="flex justify-end">
-                        <a href="http://localhost/gromer/front/index.php?controller=perrosUso&action=mostrarPerrosPorCliente&clienteDni=<?php if (isset($_GET['clienteDni'])) echo $_GET['clienteDni']; ?>"><button type="button" class="bg-gray-500 text-white px-4 py-2 rounded mr-2 dark:bg-gray-700">Cancelar</button></a>
+                        <a href="http://localhost/grommer/Groomer-Lidia-PHP/usoGroomer/index.php?controller=perrosUso&action=mostrarPerrosPorCliente&clienteDni=<?php if (isset($_GET['clienteDni'])) echo $_GET['clienteDni']; ?>"><button type="button" class="bg-gray-500 text-white px-4 py-2 rounded mr-2 dark:bg-gray-700">Cancelar</button></a>
                         <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded dark:bg-blue-700">Registrar Nuevo Perro</button>
                     </div>
                 </form>
@@ -68,7 +68,7 @@ class PerrosView
         <!-- Lista de clientes -->
         <div class="bg-white p-4 rounded shadow mb-4 overflow-x-auto dark:bg-gray-800">
             <h2 class="text-xl font-bold mb-2 dark:text-purple-400">Lista de Perros</h2>
-            <a href="http://localhost/gromer/front/index.php?controller=perrosUso&action=showFormController&clienteDni=<?php if (isset($_GET['clienteDni'])) echo $_GET['clienteDni']; ?>"><button class="bg-green-500 text-white px-4 py-2 rounded m-4 dark:bg-green-700">Insertar nuevo perro</button></a>
+            <a href="http://localhost/grommer/Groomer-Lidia-PHP/usoGroomer/index.php?controller=perrosUso&action=showFormController&clienteDni=<?php if (isset($_GET['clienteDni'])) echo $_GET['clienteDni']; ?>"><button class="bg-green-500 text-white px-4 py-2 rounded m-4 dark:bg-green-700">Insertar nuevo perro</button></a>
             <table class="min-w-full divide-y divide-gray-200 text-sm dark:divide-gray-700">
                 <thead class="bg-gray-50 dark:bg-gray-700">
                     <tr>
@@ -99,9 +99,9 @@ class PerrosView
                             echo "<td class='px-4 py-2 whitespace-nowrap dark:text-gray-300'>{$perro['Numero_Chip']}</td>";
                             echo "<td class='px-4 py-2 whitespace-nowrap dark:text-gray-300'>{$perro['Sexo']}</td>";
                             echo "<td class='px-4 py-2 whitespace-nowrap'>";
-                            echo "<form method='POST' action='http://localhost/gromer/front/index.php?controller=perrosUso&action=deletePerro' style='display:inline;'>";
+                            echo "<form method='POST' action='http://localhost/grommer/Groomer-Lidia-PHP/usoGroomer/index.php?controller=perrosUso&action=deletePerro' style='display:inline;'>";
                             echo "<input type='hidden' name='chip' value='{$perro['Numero_Chip']}'>";
-                            echo "<input type='hidden' name='dni_duenio' value='{$perro['Dni_duenio']}'>";
+                            echo "<input type='hidden' name='Dni_duenio' value='{$perro['Dni_duenio']}'>";
                             echo "<button type='submit' class='bg-red-500 text-white px-4 py-2 rounded dark:bg-red-700'>Borrar</button>";
                             echo "</form>";
                             echo "</td>";

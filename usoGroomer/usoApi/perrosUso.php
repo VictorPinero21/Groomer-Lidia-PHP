@@ -22,7 +22,7 @@ class PerrosUso
         $dni = $_GET['clienteDni'];
 
         // URL de la API
-        $base_url = 'http://localhost/gromer/api/controllers/clientesController.php';
+        $base_url = 'http://localhost:8000/api/perros/';
 
         if (!$dni) {
             echo "<script>alert('DNI del cliente no proporcionado');</script>";
@@ -30,7 +30,7 @@ class PerrosUso
         }
 
         // Construir la URL con los parámetros requeridos
-        $get_url = $base_url . '?accion=perros&dni=' . $dni;
+        $get_url = $base_url  . $dni;
 
         // Iniciar cURL
         $ch = curl_init($get_url);
@@ -60,33 +60,73 @@ class PerrosUso
     public function crearPerro()
     {
         // URL de la API
-        $base_url = 'http://localhost/gromer/api/controllers/perrosController.php';
-
-        // Petición POST
-        $_SERVER["REQUEST_METHOD"] = "POST";
-
-        $post_url = $base_url;
-        $ch = curl_init($post_url);
+        $base_url = 'http://localhost:8000/api/perros/';
+    
+        // Verificar si hay datos en $_POST
+        if (empty($_POST)) {
+            echo "Error: No se recibieron datos para crear el perro.";
+            return;
+        }
+    
+        // Convertir $_POST a JSON
+        $post_data = json_encode($_POST);
+    
+        // Inicializar cURL
+        $ch = curl_init($base_url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $_POST);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json',
+            'Accept: application/json'
+        ]);
+    
+        // Ejecutar petición y obtener respuesta
         $post_response = curl_exec($ch);
-
+    
+        // Manejar errores de cURL
         if ($post_response === false) {
             echo 'Error en la petición POST: ' . curl_error($ch);
-        } else {
-            $data = json_decode($post_response, true);
-            $perroInsertado = $data;
+            curl_close($ch);
+            return;
         }
+    
+        // Obtener código de respuesta HTTP
+        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        if (isset($perroInsertado['status'])) {
-            if ($perroInsertado['status'] === "success") {
-                $_GET['clienteDni'] = $_POST['dni_duenio'];
-                $this->mostrarPerrosPorCliente();
-                return;
-            }
+    
+        // Decodificar respuesta JSON
+        $data = json_decode($post_response, true);
+    
+        // Verificar si la API respondió correctamente
+        if ($http_code !== 201 && $http_code !== 200) {
+            echo "Error en la API: " . ($data['message'] ?? 'Respuesta inesperada.');
+            return;
         }
+    
+        // Verificar si la API devolvió éxito
+        if (isset($data['mensaje'])) {
+            if (is_array($data['mensaje'])) {
+                // Si el mensaje es un array, significa que se insertó correctamente
+                echo $data['mensaje'][0]; // Muestra el mensaje de éxito
+                if (!empty($_POST['Dni'])) {
+                    $_GET['clienteDni'] = $_POST['Dni_duenio'];
+                    $this->mostrarPerrosPorCliente();
+                } else {
+                    echo "Perro creado, pero no se proporcionó DNI del dueño.";
+                }
+            } elseif (isset($data['mensaje']['error'])) {
+                // Si existe un mensaje de error
+                echo "Error: " . $data['mensaje']['error'];
+            } else {
+                echo "Respuesta inesperada de la API.";
+            }
+        } else {
+            echo "Error en la creación del perro.";
+        }
+        
     }
+    
 
     public function deletePerro()
     {

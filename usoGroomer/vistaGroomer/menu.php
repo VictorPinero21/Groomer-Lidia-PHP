@@ -41,7 +41,6 @@
 
     <main class="bg-gray-100 flex flex-col items-center justify-center min-h-screen p-4 w-2/4 h-3/4">
 
-
         <!-- Formulario clientes -->
         <div id="formClientes" class="form-container hidden bg-gray-100 p-12 rounded-lg shadow-md w-full">
             <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">Lista de Clientes</h1>

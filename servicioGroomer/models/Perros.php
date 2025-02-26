@@ -82,7 +82,7 @@ class Perros {
                 $post['Altura'], $post['Observaciones'], $post['Numero_Chip'], $post['Sexo']
             ]);
 
-            return ["mensaje" => "Perro con CHIP: " . $post['Numero_Chip'] . " insertado correctamente"];
+            return ["Perro con CHIP: " . $post['Numero_Chip'] . " insertado correctamente"];
         } catch (PDOException $e) {
             return ["error" => "Error al insertar el perro: " . $e->getMessage()];
         }

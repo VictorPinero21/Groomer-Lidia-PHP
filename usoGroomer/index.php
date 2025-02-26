@@ -6,16 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.10.2/dist/cdn.min.js" defer></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class', // Esto permite que 'dark:' responda a la clase 'dark' en <html>
-        };
-    </script>
+ 
     <title>RiberaPets</title>
 </head>
 
-<body class="bg-gray-100 flex flex-col items-center justify-center h-screen">
-<header class="fixed top-0 left-0 w-full bg-white shadow-md z-50">
+<body class="">
+<header class="sticky top-0 left-0 w-full bg-white shadow-md z-50">
     <nav class="p-4 rounded-lg flex flex-col items-center gap-4 md:flex-row md:justify-center">
         <a href="index.php?controller=perroRecibeServicioUso&action=mostrarServiciosPorPerros" class="w-64 text-center px-8 py-4 bg-green-500 text-white font-semibold rounded-lg shadow-md transition-all hover:bg-green-600 hover:scale-105">
             Perros
