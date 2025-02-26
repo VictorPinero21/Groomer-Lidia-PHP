@@ -1,6 +1,6 @@
 <?php
 
-require_once _DIR_ . './../views/perroRecibeServicioView.php';
+require_once __DIR__ . '/../views/perroRecibeServicioView.php';
 
 class PerroRecibeServicioUso
 {
@@ -49,95 +49,110 @@ class PerroRecibeServicioUso
 
     //Funcióon para crear un nuevo servicio realizado
     public function crearServicioRealizadoAPerro()
-    {
+{
+    // URL de la API
+    $base_url = 'http://localhost:8000/api/perroservicios/';
 
-        // URL de la API
-        $base_url = 'http://localhost:8000/api/perroservicios/';
+    // Asegurar que se está recibiendo una petición POST
+    if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+        echo json_encode(["error" => "Método no permitido"]);
+        return;
+    }
 
+    // Capturar los datos del formulario con los nombres correctos según la base de datos
+    $data = [
+        'ID_Perro' => $_POST['perro_id'] ?? null,
+        'Cod_Servicio' => $_POST['servicio_id'] ?? null, 
+        'Fecha' => $_POST['fecha'] ?? null,
+        'Dni' => $_POST['empleado_id'] ?? null,  
+        'Precio_Final' => $_POST['precioFinal'] ?? null,
+        'Incidencias' => $_POST['incidencias'] ?? null
+    ];
 
-        // Datos del formulario
-        $data = [
-            'perro_id' => $_POST['perro_id'] ?? null,
-            'servicio_id' => $_POST['servicio_id'] ?? null,
-            'fecha' => $_POST['fecha'] ?? null,
-            'empleado_id' => $_POST['empleado_id'] ?? null,
-            'precioFinal' => $_POST['precioFinal'] ?? null,
-            'incidencias' => $_POST['incidencias'] ?? null,
-        ];
-
-        // Convertir los datos a JSON
-        $json_data = json_encode($data);
-
-        // Petición POST
-        $_SERVER["REQUEST_METHOD"] = "POST";
-
-        $post_url = $base_url;
-        $ch = curl_init($post_url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $json_data);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            'Content-Type: application/json',  // Asegura que el servidor reciba los datos como JSON
-            'Content-Length: ' . strlen($json_data)  // Longitud del contenido
-        ]);
-        $post_response = curl_exec($ch);
-
-        if ($post_response === false) {
-            echo 'Error en la petición POST: ' . curl_error($ch);
-        } else {
-            $data = json_decode($post_response, true);
-            $servicioHechoInsertado = $data;
-        }
-        curl_close($ch);
-        if (isset($servicioHechoInsertado['status'])) {
-            if ($servicioHechoInsertado['status'] === "success") {
-                echo "<script>alert('" . $servicioHechoInsertado['message'] . "');</script>";
-                $this->mostrarServiciosPorPerros();
-                return;
-            }
+    // Verificar que no haya valores vacíos
+    foreach ($data as $key => $value) {
+        if (empty($value)) {
+            echo json_encode(["error" => "Falta el campo: $key"]);
+            return;
         }
     }
+
+    // Convertir los datos a JSON
+    $json_data = json_encode($data);
+
+    // Enviar la solicitud POST a la API
+    $ch = curl_init($base_url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $json_data);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Content-Type: application/json'
+    ]);
+
+    // Ejecutar la petición y obtener la respuesta
+    $post_response = curl_exec($ch);
+    $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+
+    // Verificar si hubo error en la solicitud
+    if ($post_response === false) {
+        echo json_encode(["error" => 'Error en la petición POST']);
+        return;
+    }
+
+    // Decodificar la respuesta
+    $response_data = json_decode($post_response, true);
+
+    if ($http_status == 200) {
+        echo "<script>alert('Servicio registrado correctamente');</script>";
+        echo "<script>window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/index.php?controller=perroRecibeServicioUso&action=mostrarServiciosPorPerros';</script>";
+    } else {
+        echo json_encode(["error" => "Error HTTP $http_status", "detalle" => $response_data]);
+    }
+}
+
+
+
 
     // Función para realizar un servicio realizado
 
     public function borrarServicioRealizadoAPerro()
-    {
-
-        // Verifica si Sr_Cod está presente
-        $Sr_Cod = $_GET['Sr_Cod'] ?? null;
-        if (!$Sr_Cod) {
-            echo "Error: Sr_Cod no está definido.\n";
-            return;
-        }
-
-
-        // Crea la URL de la solicitud DELETE
-        $base_url = 'http://localhost/gromer/api/controllers/perrorecibeservicioController.php';
-        $data = ['id' => $Sr_Cod];
-        $json_data = json_encode($data);
-
-        // Configuración de cURL
-        $ch = curl_init($base_url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $json_data);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            'Content-Type: application/json',
-            'Content-Length: ' . strlen($json_data)
-        ]);
-
-        $delete_response = curl_exec($ch);
-
-        // Verificar si hubo error en la ejecución de cURL
-        if ($delete_response === false) {
-            echo 'Error en la petición DELETE: ' . curl_error($ch) . "\n";
-        } else {
-            $data = json_decode($delete_response, true);
-            $this->mostrarServiciosPorPerros();
-        }
-
-        curl_close($ch);
+{
+    // Verifica si Sr_Cod está presente
+    $Sr_Cod = $_GET['Sr_Cod'] ?? null;
+    if (!$Sr_Cod) {
+        echo json_encode(["error" => "Sr_Cod no está definido."]);
+        return;
     }
+
+    // Crea la URL de la solicitud DELETE con el ID incluido
+    $base_url = "http://localhost:8000/api/perroservicios/$Sr_Cod";
+
+    // Configuración de cURL
+    $ch = curl_init($base_url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Content-Type: application/json'
+    ]);
+
+    $delete_response = curl_exec($ch);
+    $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+    // Verificar si hubo error en la ejecución de cURL
+    if ($delete_response === false) {
+        echo json_encode(["error" => 'Error en la petición DELETE: ' . curl_error($ch)]);
+    } else {
+        if ($http_status == 200) {
+            echo $delete_response; // Respuesta JSON de la API
+        } else {
+            echo json_encode(["error" => "Error HTTP $http_status: " . $delete_response]);
+        }
+    }
+
+    curl_close($ch);
+}
+
 
 
 

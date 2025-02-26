@@ -105,11 +105,11 @@ class Perro_recibe_servicio
             $sentencia->execute();
 
             if ($sentencia->rowCount() == 0) {
-                return ["error" => "No se encontró un servicio con Sr_Cod: $Sr_Cod"];
+                return ["No se encontró un servicio con Sr_Cod: $Sr_Cod"];
             }
-            return ["mensaje" => "Servicio con Sr_Cod $Sr_Cod eliminado correctamente"];
+            return ["Servicio con Sr_Cod $Sr_Cod eliminado correctamente"];
         } catch (PDOException $e) {
-            return ["error" => "Error al eliminar el servicio: " . $e->getMessage()];
+            return [ "Error al eliminar el servicio: " . $e->getMessage()];
         }
     }
 
