@@ -1,0 +1,5 @@
+.bg-custom {
+    background-image: url(../front/assets/fondo.jpg);
+    background-size: cover;
+    background-position: center;
+}
