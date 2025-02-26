@@ -15,7 +15,7 @@ class ServiciosUso
 
     public function showServicios()
     {
-        $base_url = 'http://localhost/gromer/api/controllers/servicioController.php';
+        $base_url = 'http://localhost:8000/api/servicios/';
 
         // Petición GET
         $get_url = $base_url;
@@ -33,12 +33,14 @@ class ServiciosUso
 
         $this->view->showServices($serviciosLista);
     }
-    
-    public function showForm() {
+
+    public function showForm()
+    {
         $this->view->crearServicio();
     }
 
-    public function createService(){
+    public function createService()
+    {
         $base_url = 'http://localhost/gromer/api/controllers/servicioController.php';
 
         // Datos recibidos por POST del formulario
@@ -60,27 +62,31 @@ class ServiciosUso
         } else {
             $response_data = json_decode($post_response, true);
             if (isset($response_data['error'])) {
-            echo '<script>alert("Error: ' . $response_data['error'] . '");</script>';
+                echo '<script>alert("Error: ' . $response_data['error'] . '");</script>';
             } else {
-            echo '<script>
+                echo '<script>
             alert("Servicio creado exitosamente.");
             window.location.href = "http://localhost/grommer/Groomer-Lidia-PHP/usoGroomer/index.php?controller=serviciosUso&action=showServicios";
             </script>';
             }
         }
         curl_close($ch);
-        
     }
 
     public function editService()
     {
-        $base_url = 'http://localhost/gromer/api/controllers/servicioController.php';
+        $base_url = 'http://localhost:8000/api/servicios/' . $_POST['id'];
 
-        // Datos recibidos por POST del formulario
+        parse_str(file_get_contents("php://input"), $put_vars);
         $data = [
-            'id' => $_POST['id'],
-            'precio' => $_POST['precio']
+            'id' => $_GET['id'] ?? null, // ✅ Correcto
+            'precio' => $put_vars['precio'] ?? null // ✅ Correcto
         ];
+        if (!$data['id'] || !$data['precio']) {
+            echo json_encode(["error" => "Faltan datos"]);
+            exit;
+        }
+
 
         // Petición PUT
         $ch = curl_init($base_url);
@@ -107,5 +113,4 @@ class ServiciosUso
     {
         $this->view->showEdit();
     }
-
 }
