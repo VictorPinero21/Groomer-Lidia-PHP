@@ -67,49 +67,59 @@ class PerrosView
             <h2 class="text-xl font-bold mb-2 dark:text-purple-400">Lista de Perros</h2>
             <a href="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perrosUso&action=showFormController&clienteDni=<?php if (isset($_GET['clienteDni'])) echo $_GET['clienteDni']; ?>"><button class="bg-green-500 text-white px-4 py-2 rounded m-4 dark:bg-green-700">Insertar nuevo perro</button></a>
             <table class="min-w-full divide-y divide-gray-200 text-sm dark:divide-gray-700">
-                <thead class="bg-gray-50 dark:bg-gray-700">
-                    <tr>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">DNI del dueño</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Nombre</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Fecha de nacimiento</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Raza</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Peso</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Altura</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Observaciones</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Número de chip</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Sexo</th>
-                    </tr>
-                </thead>
-                <tbody id="listaPerros" class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
-                    <?php
+    <thead class="bg-gray-50 dark:bg-gray-700">
+        <tr>
+            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">DNI del dueño</th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Nombre</th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Fecha de nacimiento</th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Raza</th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Peso</th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Altura</th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Observaciones</th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Número de chip</th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Sexo</th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Acciones</th>
+        </tr>
+    </thead>
+    <tbody id="listaPerros" class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
+        <?php
+        if (is_array(empty($perrosCliente))) {
+            foreach ($perrosCliente as $perro) {
+                echo "<tr>";
+                echo "<td class='px-4 py-2 whitespace-nowrap dark:text-gray-300'>{$perro['Dni_duenio']}</td>";
+                echo "<td class='px-4 py-2 whitespace-nowrap dark:text-gray-300'>{$perro['Nombre']}</td>";
+                echo "<td class='px-4 py-2 whitespace-nowrap dark:text-gray-300'>{$perro['Fecha_Nto']}</td>";
+                echo "<td class='px-4 py-2 whitespace-nowrap dark:text-gray-300'>{$perro['Raza']}</td>";
+                echo "<td class='px-4 py-2 whitespace-nowrap dark:text-gray-300'>{$perro['Peso']}</td>";
+                echo "<td class='px-4 py-2 whitespace-nowrap dark:text-gray-300'>{$perro['Altura']}</td>";
+                echo "<td class='px-4 py-2 whitespace-nowrap dark:text-gray-300'>{$perro['Observaciones']}</td>";
+                echo "<td class='px-4 py-2 whitespace-nowrap dark:text-gray-300'>{$perro['Numero_Chip']}</td>";
+                echo "<td class='px-4 py-2 whitespace-nowrap dark:text-gray-300'>{$perro['Sexo']}</td>";
+                echo "<td class='px-4 py-2 whitespace-nowrap'>";
+                echo "<form method='POST' action='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perrosUso&action=deletePerro' style='display:inline;'>";
+                echo "<input type='hidden' name='Numero_Chip' value='{$perro['Numero_Chip']}'>";
+                echo "<input type='hidden' name='Dni_duenio' value='{$perro['Dni_duenio']}'>";
+                echo "<button type='submit' class='bg-red-500 text-white px-4 py-2 rounded dark:bg-red-700'>Borrar</button>";
+                echo "</form>";
+                echo "</td>";
+                echo "</tr>";
+            }
+        } else {
+            // Si no hay perros, mostrar mensaje de error dentro de la tabla
+            echo "<tr><td colspan='10' class='px-4 py-2 text-red-500 text-lg font-bold text-center'>No hay perros registrados</td></tr>";
+        }
 
-                    if (is_array($perrosCliente)) {
-                        foreach ($perrosCliente as $perro) {
-                            echo "<tr>";
-                            echo "<td class='px-4 py-2 whitespace-nowrap dark:text-gray-300'>{$perro['Dni_duenio']}</td>";
-                            echo "<td class='px-4 py-2 whitespace-nowrap dark:text-gray-300'>{$perro['Nombre']}</td>";
-                            echo "<td class='px-4 py-2 whitespace-nowrap dark:text-gray-300'>{$perro['Fecha_Nto']}</td>";
-                            echo "<td class='px-4 py-2 whitespace-nowrap dark:text-gray-300'>{$perro['Raza']}</td>";
-                            echo "<td class='px-4 py-2 whitespace-nowrap dark:text-gray-300'>{$perro['Peso']}</td>";
-                            echo "<td class='px-4 py-2 whitespace-nowrap dark:text-gray-300'>{$perro['Altura']}</td>";
-                            echo "<td class='px-4 py-2 whitespace-nowrap dark:text-gray-300'>{$perro['Observaciones']}</td>";
-                            echo "<td class='px-4 py-2 whitespace-nowrap dark:text-gray-300'>{$perro['Numero_Chip']}</td>";
-                            echo "<td class='px-4 py-2 whitespace-nowrap dark:text-gray-300'>{$perro['Sexo']}</td>";
-                            echo "<td class='px-4 py-2 whitespace-nowrap'>";
-                            echo "<form method='POST' action='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perrosUso&action=deletePerro' style='display:inline;'>";
-                            echo "<input type='hidden' name='Numero_Chip' value='{$perro['Numero_Chip']}'>";
-                            echo "<input type='hidden' name='Dni_duenio' value='{$perro['Dni_duenio']}'>";
-                            echo "<button type='submit' class='bg-red-500 text-white px-4 py-2 rounded dark:bg-red-700'>Borrar</button>";
-                            echo "</form>";
-                            echo "</td>";
-                            echo "</tr>";
-                        }
-                    ?>
-                </tbody>
-            </table>
+        // Verificar si hay un error en la respuesta de la API
+        if (isset($data["error"])) {
+            echo "<tr><td colspan='10' class='px-4 py-2 text-red-500 text-lg font-bold text-center'>{$data['error']}</td></tr>";
+        }
+        ?>
+    </tbody>
+</table>
         </div>
         </div>
 <?php
                     
                 }
             }
+        
