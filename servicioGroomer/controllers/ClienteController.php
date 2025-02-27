@@ -50,13 +50,19 @@ class ClienteController
     }
 
     // **Nuevo método agregado para corregir el error**
-    public function getUnCliente($dni)
+    public function getUnCliente($email)
     {
-        $cliente = $this->clienteModel->getUnCliente($dni);
+        $cliente = $this->clienteModel->getUnCliente($email);
         if ($cliente) {
             echo json_encode($cliente);
         } else {
             echo json_encode(["error" => "Cliente no encontrado"]);
         }
     }
+
+
+    
+    
 }
+
+

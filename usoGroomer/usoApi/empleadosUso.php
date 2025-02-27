@@ -22,7 +22,7 @@ class EmpleadosUso
     public function showEmpleados()
     {
         // URL base de la API local
-        $base_url = 'http://localhost/gromer/api/controllers/empleadosController.php';
+        $base_url = 'http://localhost:8000/api/empleados/';
 
         // Petición GET
         $get_url = $base_url . '?accion=listarEmpleados';
@@ -47,9 +47,101 @@ class EmpleadosUso
 
         $this->view->showAllEmpleados($empleadosLista);
     }
-    //Funcion para mostrar el formulario de creacion de clientes
-    // public function showFormController($empleadosLista)
-    // {
-    //     $this->view->showAllEmpleados($empleadosLista);
-    // }
+    public function showFormController()
+    {
+        $view = new EmpleadosView();
+        $view->showAddEmpleadoForm(); // Asegúrate de que esta función existe en la vista
+    }
+    public function editEmpleado()
+    {
+        // Aquí deberías obtener el ID del empleado desde la URL
+        $dni = $_GET['dni'] ?? null;
+
+        if ($dni) {
+            $empleadoModel = new EmpleadoModel();
+            $empleado = $empleadoModel->getEmpleadoById($dni);
+
+            if ($empleado) {
+                $view = new EmpleadosView();
+                $view->showEditEmpleadoForm($empleado);
+            } else {
+                echo "Empleado no encontrado.";
+            }
+        } else {
+            echo "ID de empleado no proporcionado.";
+        }
+    }
+
+
+
+  
+    public function getEmpleado() {
+        // Verifica si se ha proporcionado el DNI
+        if (!isset($_GET["dni"]) || empty($_GET["dni"])) {
+            echo "No se ha proporcionado un DNI";
+            return;
+        }
+    
+        $dni = $_GET["dni"];
+ 
+    
+        // Construir la URL para la API externa utilizando el DNI
+        $url = "http://localhost:8000/api/empleados/" . urlencode($dni);
+    
+        // Obtener los datos del empleado
+        $empleado = $this->obtenerEmpleadoDesdeAPI($url);
+    
+        if ($empleado) {
+            // Muestra la vista con los datos del empleado
+            $view = new EmpleadosView();
+            $view->showEmpleado($empleado);  // Mostrar solo un empleado
+        } else {
+            echo "Empleado no encontrado.";
+        }
+    }
+    
+    function obtenerEmpleadoDesdeAPI($url)
+    {
+        // Iniciar la sesión cURL
+        $ch = curl_init();
+    
+        // Configurar las opciones de cURL
+        curl_setopt($ch, CURLOPT_URL, $url); // URL de la API
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Retornar el resultado como string
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // Seguir redirecciones
+        curl_setopt($ch, CURLOPT_HEADER, false); // No incluir cabeceras en la respuesta
+    
+        // Ejecutar la consulta
+        $response = curl_exec($ch);
+    
+        // Verificar si hubo errores en la consulta
+        if(curl_errno($ch)) {
+            echo 'Error de cURL: ' . curl_error($ch);
+            curl_close($ch);
+            return null;
+        }
+    
+        // Cerrar la sesión cURL
+        curl_close($ch);
+    
+        // Decodificar la respuesta JSON
+        $empleadoData = json_decode($response, true);
+    
+        // Verificar si la decodificación fue exitosa
+        if ($empleadoData === null) {
+            echo "Error al decodificar la respuesta JSON.";
+            return null;
+        }
+    
+        return $empleadoData;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
 }
+
