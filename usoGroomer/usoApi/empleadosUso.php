@@ -198,7 +198,6 @@ class EmpleadosUso
         }
     
         $dni = $_GET["dni"];
- 
     
         // Construir la URL para la API externa utilizando el DNI
         $url = "http://localhost:8000/api/empleados/" . urlencode($dni);
@@ -206,13 +205,19 @@ class EmpleadosUso
         // Obtener los datos del empleado
         $empleado = $this->obtenerEmpleadoDesdeAPI($url);
     
-        if ($empleado) {
-            // Muestra la vista con los datos del empleado
-            $view = new EmpleadosView();
-            $view->showEmpleado($empleado);  // Mostrar solo un empleado
-        } else {
-            echo "Empleado no encontrado.";
+        // Verificar si la respuesta contiene un error
+        if (!$empleado || isset($empleado['error'])) {
+            echo "<script>
+            alert('Empleado no encontrado.');
+            window.location.href = 'http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=empleadosUso&action=showEmpleados';
+          </script>";
+    
+            return;
         }
+    
+        // Muestra la vista con los datos del empleado
+        $view = new EmpleadosView();
+        $view->showEmpleado($empleado);  
     }
     
     function obtenerEmpleadoDesdeAPI($url)
@@ -221,23 +226,28 @@ class EmpleadosUso
         $ch = curl_init();
     
         // Configurar las opciones de cURL
-        curl_setopt($ch, CURLOPT_URL, $url); // URL de la API
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Retornar el resultado como string
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // Seguir redirecciones
-        curl_setopt($ch, CURLOPT_HEADER, false); // No incluir cabeceras en la respuesta
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_HEADER, false);
     
         // Ejecutar la consulta
         $response = curl_exec($ch);
     
         // Verificar si hubo errores en la consulta
-        if(curl_errno($ch)) {
+        if (curl_errno($ch)) {
             echo 'Error de cURL: ' . curl_error($ch);
             curl_close($ch);
             return null;
         }
     
-        // Cerrar la sesión cURL
         curl_close($ch);
+    
+        // Verificar si la respuesta es vacía o nula
+        if (!$response) {
+            echo "Error: La API no devolvió una respuesta válida.";
+            return null;
+        }
     
         // Decodificar la respuesta JSON
         $empleadoData = json_decode($response, true);
@@ -248,9 +258,13 @@ class EmpleadosUso
             return null;
         }
     
+        // Verificar si la API devolvió un error
+        if (isset($empleadoData['error'])) {
+            return null;
+        }
+    
         return $empleadoData;
     }
-    
     
     
     

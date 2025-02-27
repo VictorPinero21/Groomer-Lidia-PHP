@@ -16,45 +16,49 @@ class PerrosUso
         // $this->clientes = new Clientes();
     }
 
-    //Función mostrar perros por cliente
     public function mostrarPerrosPorCliente()
     {
         $dni = $_GET['clienteDni'];
-
+    
         // URL de la API
         $base_url = 'http://localhost:8000/api/perros/';
-
-        if (!$dni) {
-            echo "<script>alert('DNI del cliente no proporcionado');</script>";
-            return;
-        }
-
+    
         // Construir la URL con los parámetros requeridos
-        $get_url = $base_url  . $dni;
-
+        $get_url = $base_url . $dni;
+    
         // Iniciar cURL
         $ch = curl_init($get_url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
+    
         // Ejecutar la solicitud
         $get_response = curl_exec($ch);
-
-        if ($get_response === false) {
-            echo 'Error en la petición GET: ' . curl_error($ch);
-        } else {
-            $data = json_decode($get_response, true);
-
-            // Verificar si la respuesta es válida y contiene datos
-            if ($data) {
-                $this->view->mostrarPerrosPorCliente($data);
-            } else {
-                echo "<script>alert('No se encontraron perros para este cliente o hubo un error en la respuesta');</script>";
-            }
+        curl_close($ch); // Cerramos la conexión cURL después de la ejecución
+    
+        // Si la respuesta está vacía o hay un error
+        if ($get_response === false || empty($get_response)) {
+            echo "<script>
+                    alert('Error al conectar con la API.');
+                    window.location.href = 'http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php';
+                  </script>";
+            return;
         }
-
-        // Cerrar cURL
-        curl_close($ch);
+    
+        // Intentar decodificar JSON
+        $data = json_decode($get_response, true);
+    
+        // Verificar si hay un error en la respuesta
+        // if (isset($data["error"])) {
+        //     echo "<p class='text-red-500 text-lg font-bold'>{$data['error']}</p>";
+        // } else {
+        //     // Llamar a la vista para mostrar los perros
+        //     $this->view->mostrarPerrosPorCliente($data);
+        // }
+        $this->view->mostrarPerrosPorCliente($data);
     }
+    
+    
+    
+    
 
     public function crearPerro()
     {

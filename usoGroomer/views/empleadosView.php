@@ -14,7 +14,7 @@ class EmpleadosView
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="form-group">
                         <label for="dni" class="block text-gray-700">DNI</label>
-                        <input type="text" class="form-control w-full border rounded-lg py-3 px-4" id="dni" name="dni" required>
+                        <input type="text" class="form-control w-full border rounded-lg py-3 px-4" id="dni" name="dni" required >
                     </div>
                     <div class="form-group">
                         <label for="email" class="block text-gray-700">Email</label>
