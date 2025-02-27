@@ -40,74 +40,111 @@ class ServiciosUso
     }
 
     public function createService()
-    {
-        $base_url = 'http://localhost/gromer/api/controllers/servicioController.php';
+{
+    $base_url = 'http://localhost:8000/api/servicios/';
 
-        // Datos recibidos por POST del formulario
-        $data = [
-            'belleza' => $_POST['belleza'],
-            'nombre' => $_POST['nombre'],
-            'descripcion' => $_POST['descripcion'],
-            'precio' => $_POST['precio']
-        ];
+    // Datos recibidos por POST del formulario
+    $data = [
+        'Tipo' => $_POST['belleza'],        // Asegúrate de enviar 'Tipo' como 'belleza' o 'nutrición'
+        'Nombre' => $_POST['nombre'],
+        'Descripcion' => $_POST['descripcion'],
+        'Precio' => $_POST['precio']
+    ];
 
-        // Petición POST
-        $ch = curl_init($base_url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
-        $post_response = curl_exec($ch);
-        if ($post_response === false) {
-            echo '<script>alert("Error en la petición POST: ' . curl_error($ch) . '");</script>';
+    // Convertir los datos a formato JSON
+    $json_data = json_encode($data);
+
+    // Inicializar cURL
+    $ch = curl_init($base_url);
+
+    // Configurar cURL
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $json_data); // Usar JSON en lugar de http_build_query
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Content-Type: application/json', // Asegurar que los datos se envíen como JSON
+        'Content-Length: ' . strlen($json_data) // Establecer la longitud del contenido
+    ]);
+
+    // Ejecutar la solicitud
+    $post_response = curl_exec($ch);
+    $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE); // Obtener el código de estado HTTP
+
+    if ($post_response === false) {
+        echo '<script>alert("Error en la petición POST: ' . curl_error($ch) . '");</script>';
+    } else {
+        // Decodificar la respuesta JSON
+        $response_data = json_decode($post_response, true);
+
+        // Verificar si hubo un error
+        if ($http_status != 200 || isset($response_data['error'])) {
+            $error_message = $response_data['error'] ?? 'Error desconocido';
+            echo '<script>alert("Error: ' . $error_message . '");</script>';
         } else {
-            $response_data = json_decode($post_response, true);
-            if (isset($response_data['error'])) {
-                echo '<script>alert("Error: ' . $response_data['error'] . '");</script>';
-            } else {
-                echo '<script>
-            alert("Servicio creado exitosamente.");
-            window.location.href = "http://localhost/grommer/Groomer-Lidia-PHP/usoGroomer/index.php?controller=serviciosUso&action=showServicios";
+            // Si el servicio se creó correctamente
+            echo '<script>
+                alert("Servicio creado exitosamente.");
+                // window.location.href = "http://localhost/Groomer-Lidia-PHP/usoGroomer/index.php?controller=serviciosUso&action=showServicios";
             </script>';
-            }
+            print_r($data);
         }
-        curl_close($ch);
     }
+
+    curl_close($ch);
+}
+
 
     public function editService()
     {
+        // URL base de la API para editar el servicio
         $base_url = 'http://localhost:8000/api/servicios/' . $_POST['id'];
-
-        parse_str(file_get_contents("php://input"), $put_vars);
+    
+        // Datos que se van a actualizar
         $data = [
-            'id' => $_GET['id'] ?? null, // ✅ Correcto
-            'precio' => $put_vars['precio'] ?? null // ✅ Correcto
+            'Codigo' => $_POST['id'] ?? null,  // ✅ Correcto
+            'Precio' => $_POST['precio'] ?? null // ✅ Correcto
         ];
-        if (!$data['id'] || !$data['precio']) {
-            echo json_encode(["error" => "Faltan datos"]);
-            exit;
-        }
-
-
-        // Petición PUT
+    
+        // Inicializar cURL
         $ch = curl_init($base_url);
+    
+        // Configurar cURL
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+        
+        // Enviar datos como JSON
+        $json_data = json_encode($data);  // Codificar los datos a JSON
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $json_data);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json',  // Asegurar que se envíen como JSON
+            'Content-Length: ' . strlen($json_data)  // Establecer el tamaño del contenido
+        ]);
+    
+        // Ejecutar la solicitud cURL
         $put_response = curl_exec($ch);
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);  // Obtener el código de estado HTTP
+        curl_close($ch);
+    
+        // Manejar posibles errores de cURL
         if ($put_response === false) {
             echo '<script>alert("Error en la petición PUT: ' . curl_error($ch) . '");</script>';
         } else {
+            // Decodificar la respuesta JSON
             $response_data = json_decode($put_response, true);
-            if (isset($response_data['error'])) {
-                echo '<script>alert("Error: ' . $response_data['error'] . '");</script>';
+            
+            // Verificar el código de estado HTTP
+            if ($http_status != 200) {
+                $error_message = isset($response_data['error']) ? $response_data['error'] : 'Error desconocido';
+                echo '<script>alert("Error: ' . $error_message . '");</script>';
             } else {
+                // Si la actualización fue exitosa
                 echo '<script>alert("Servicio editado exitosamente."); 
-                window.location.href = "http://localhost/grommer/Groomer-Lidia-PHP/usoGroomer/index.php?controller=serviciosUso&action=showServicios";
-            </script>';
+                      window.location.href = "http://localhost/Groomer-Lidia-PHP/usoGroomer/index.php?controller=serviciosUso&action=showServicios"; 
+                      </script>';
             }
         }
-        curl_close($ch);
     }
+    
 
     public function showEditForm()
     {
