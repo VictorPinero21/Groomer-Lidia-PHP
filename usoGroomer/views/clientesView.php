@@ -12,7 +12,7 @@ class ClientesView
         <div id="modal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center dark:bg-gray-900 dark:bg-opacity-80">
             <div class="bg-white p-6 rounded-lg shadow-lg w-1/3 dark:bg-gray-800">
                 <h2 class="text-2xl font-semibold text-gray-800 mb-4 dark:text-white">Crear Cliente</h2>
-                <form id="crearClienteForm" class="space-y-4 text-left" method="POST" action="http://localhost/Groomer-Lidia-PHP/usoGroomer/home.php?controller=clientesUso&action=createCliente">
+                <form id="crearClienteForm" class="space-y-4 text-left" method="POST" action="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=clientesUso&action=createCliente">
                     <div>
                         <label for="dni" class="block text-sm font-medium text-blue-500 dark:text-blue-300">DNI</label>
                         <input required type="text" id="dni" value="<?php echo isset($_POST['dni']) ? $_POST['dni'] : '' ?>" name="dni" class="mt-2 block w-full border-2 border-gray-300 rounded-md shadow-sm p-3 dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-400">
@@ -38,7 +38,7 @@ class ClientesView
                         <input required type="text" id="tlfno" value="<?php echo isset($_POST['tlfno']) ? $_POST['tlfno'] : '' ?>" name="tlfno" class="mt-2 block w-full border-2 border-gray-300 rounded-md shadow-sm p-3 dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-400">
                     </div>
                     <div class="flex justify-end mt-4">
-                        <button type="button" onclick="window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/home.php?controller=clientesUso&action=showClientes'" class="bg-gray-600 text-white px-4 py-2 rounded-md dark:bg-gray-700">Cancelar</button>
+                        <button type="button" onclick="window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=clientesUso&action=showClientes'" class="bg-gray-600 text-white px-4 py-2 rounded-md dark:bg-gray-700">Cancelar</button>
                         <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md ml-2 dark:bg-blue-700">Crear Cliente</button>
                     </div>
                 </form>
@@ -60,7 +60,7 @@ class ClientesView
         <div class="bg-white p-8 rounded-lg shadow-xl mb-6 overflow-x-auto dark:bg-gray-800">
             <h2 class="text-2xl font-semibold text-purple-600 mb-4 dark:text-purple-400">Nuestros Clientes</h2>
             <div class="flex justify-between items-center mb-6">
-                <a href="http://localhost/Groomer-Lidia-PHP/usoGroomer/home.php?controller=clientesUso&action=showFormController">
+                <a href="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=clientesUso&action=showFormController">
                     <button class="bg-green-600 text-white px-5 py-3 rounded-md dark:bg-green-700">Nuevo Cliente</button>
                 </a>
             </div>
@@ -88,8 +88,8 @@ class ClientesView
                             echo "<td class='px-4 py-2 text-left whitespace-nowrap dark:text-gray-300'>{$cliente['Direccion']}</td>";
                             echo "<td class='px-4 py-2 text-left whitespace-nowrap dark:text-gray-300'>" . (isset($cliente['Tlfno']) ? $cliente['Tlfno'] : 'N/A') . "</td>";
                             echo "<td class='px-4 py-2 text-left whitespace-nowrap dark:text-gray-300'>";
-                            echo "<button type='submit' class='bg-yellow-600 text-white px-4 py-2 rounded-md mr-2 dark:bg-yellow-500' onclick='window.location.href=\"http://localhost/Groomer-Lidia-PHP/usoGroomer/home.php?controller=perrosUso&action=mostrarPerrosPorCliente&clienteDni={$cliente['Dni']}\"'>Perros</button>";
-                            echo "<form method='POST' action='http://localhost/Groomer-Lidia-PHP/usoGroomer/home.php?controller=clientesUso&action=deleteCliente' style='display:inline;'>";
+                            echo "<button type='submit' class='bg-yellow-600 text-white px-4 py-2 rounded-md mr-2 dark:bg-yellow-500' onclick='window.location.href=\"http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perrosUso&action=mostrarPerrosPorCliente&clienteDni={$cliente['Dni']}\"'>Perros</button>";
+                            echo "<form method='POST' action='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=clientesUso&action=deleteCliente' style='display:inline;'>";
                             echo "<input type='hidden' name='dni' value='{$cliente['Dni']}'>";
                             echo "<button type='submit' class='bg-red-600 text-white px-4 py-2 rounded-md dark:bg-red-700'>Borrar</button>";
                             echo "</form>";

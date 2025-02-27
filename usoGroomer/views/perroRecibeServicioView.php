@@ -14,7 +14,7 @@ class PerroRecibeServicio
                         </svg>
                     </button>
                 </div>
-                <form id="crearNuevoServicio" class="grid grid-cols-1 sm:grid-cols-2 gap-6" method="POST" action="http://localhost/Groomer-Lidia-PHP/usoGroomer/home.php?controller=perroRecibeServicioUso&action=crearServicioRealizadoAPerro">
+                <form id="crearNuevoServicio" class="grid grid-cols-1 sm:grid-cols-2 gap-6" method="POST" action="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perroRecibeServicioUso&action=crearServicioRealizadoAPerro">
                     <div class="flex flex-col">
                         <label for="dni" class="text-sm font-medium text-gray-700">ID del perro:</label>
                         <input required type="text" id="dni" name="perro_id" class="mt-1 p-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500">
@@ -40,7 +40,7 @@ class PerroRecibeServicio
                         <input required type="text" id="altura" name="incidencias" class="mt-1 p-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500">
                     </div>
                     <div class="col-span-2 flex justify-end gap-4 mt-6">
-                        <a href="http://localhost/Groomer-Lidia-PHP/usoGroomer/home.php?controller=perroRecibeServicioUso&action=mostrarServiciosPorPerros">
+                        <a href="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perroRecibeServicioUso&action=mostrarServiciosPorPerros">
                             <button type="button" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-md">CANCELAR</button>
                         </a>
                         <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md">INSERTAR SERVICIO</button>
@@ -57,7 +57,7 @@ class PerroRecibeServicio
     ?>
         <div class="bg-white p-6 rounded-lg shadow-md mb-6 overflow-x-auto">
             <h2 class="text-2xl font-bold mb-6">Servicios de Perros</h2>
-            <a href="http://localhost/Groomer-Lidia-PHP/usoGroomer/home.php?controller=perroRecibeServicioUso&action=showFormServ">
+            <a href="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perroRecibeServicioUso&action=showFormServ">
                 <button class="bg-blue-600 hover:bg-blue-800 text-white px-6 py-3 rounded-md mb-10">Insertar Nuevo Servicio</button>
             </a>
             <table class="min-w-full divide-y divide-gray-300 text-sm">
@@ -86,7 +86,7 @@ class PerroRecibeServicio
                             echo "<td class='px-6 py-3'>{$serv['Precio_Final']}</td>";
                             echo "<td class='px-6 py-3'>{$serv['Dni']}</td>";
                             echo "<td class='px-6 py-3'>";
-                            echo "<form method='POST' action='http://localhost/Groomer-Lidia-PHP/usoGroomer/home.php?controller=perroRecibeServicioUso&action=borrarServicioRealizadoAPerro&Sr_Cod={$serv['Sr_Cod']}' style='display:inline;'>";
+                            echo "<form method='POST' action='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perroRecibeServicioUso&action=borrarServicioRealizadoAPerro&Sr_Cod={$serv['Sr_Cod']}' style='display:inline;'>";
                             echo "<button type='submit' class='bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-md'>Borrar</button>";
                             echo "</form>";
                             echo "</td>";

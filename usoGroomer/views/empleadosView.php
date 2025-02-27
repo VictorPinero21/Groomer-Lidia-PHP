@@ -157,11 +157,11 @@ class EmpleadosView
         <div class="bg-white p-6 rounded shadow mb-4 overflow-x-auto">
             <h2 class="text-xl font-bold text-purple-600 mb-2">Nuestros Empleados</h2>
             <div class="flex justify-between items-center mb-4">
-                <a href="http://localhost/grommer/Groomer-Lidia-PHP/usoGroomer/home.php?controller=empleadosUso&action=showFormController">
+                <a href="http://localhost/grommer/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=empleadosUso&action=showFormController">
                     <button class="bg-green-500 text-white px-4 py-2 rounded">Nuevo Empleado</button>
                 </a>
                 <div class="flex items-center">
-                    <form method="GET" action="http://localhost/grommer/Groomer-Lidia-PHP/usoGroomer/home.php">
+                    <form method="GET" action="http://localhost/grommer/Groomer-Lidia-PHP/usoGroomer/views/home.php">
                         <button type="submit" class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Buscar Empleado</button>
                         <input type="hidden" name="controller" value="empleadosUso">
                         <input type="hidden" name="action" value="getEmpleado">
@@ -202,8 +202,8 @@ class EmpleadosView
                                     <td class='px-4 py-2 text-left whitespace-nowrap'>" . (isset($empleado['Tlfno']) ? $empleado['Tlfno'] : '') . "</td>
                                     <td class='px-4 py-2 text-left whitespace-nowrap'>" . (isset($empleado['Profesion']) ? $empleado['Profesion'] : '') . "</td>
                                     <td class='px-4 py-2 text-left whitespace-nowrap'>
-                                        <a href='http://localhost/grommer/Groomer-Lidia-PHP/usoGroomer/home.php?controller=empleadosUso&action=editEmpleado&dni=" . (isset($empleado['DNI']) ? $empleado['DNI'] : '') . "' class='text-blue-600 hover:text-blue-800'>Editar</a>
-                                        <a href='http://localhost/grommer/Groomer-Lidia-PHP/usoGroomer/home.php?controller=empleadosUso&action=deleteEmpleado&dni=" . (isset($empleado['DNI']) ? $empleado['DNI'] : '') . "' class='text-red-600 hover:text-red-800'>Eliminar</a>
+                                        <a href='http://localhost/grommer/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=empleadosUso&action=editEmpleado&dni=" . (isset($empleado['DNI']) ? $empleado['DNI'] : '') . "' class='text-blue-600 hover:text-blue-800'>Editar</a>
+                                        <a href='http://localhost/grommer/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=empleadosUso&action=deleteEmpleado&dni=" . (isset($empleado['DNI']) ? $empleado['DNI'] : '') . "' class='text-red-600 hover:text-red-800'>Eliminar</a>
                                     </td>
                                 </tr>";
                         }

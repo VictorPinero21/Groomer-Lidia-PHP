@@ -63,7 +63,7 @@ class PerrosUso
         
         // Verificar si hay datos en $_POST
         if (empty($_POST)) {
-            echo "<script>alert('Error: No se recibieron datos para crear el perro.'); window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/home.php';</script>";
+            echo "<script>alert('Error: No se recibieron datos para crear el perro.'); window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php';</script>";
             die();
         }
     
@@ -85,7 +85,7 @@ class PerrosUso
     
         // Manejar errores de cURL
         if ($post_response === false) {
-            echo "<script>alert('Error en la petición POST: " . curl_error($ch) . "'); window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/home.php';</script>";
+            echo "<script>alert('Error en la petición POST: " . curl_error($ch) . "'); window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php';</script>";
             curl_close($ch);
             die();
         }
@@ -99,7 +99,7 @@ class PerrosUso
     
         // Si la API devuelve un error
         if (isset($data['error'])) {
-            echo "<script>alert('Error: " . $data['error'] . "'); window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/home.php';</script>";
+            echo "<script>alert('Error: " . $data['error'] . "'); window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php';</script>";
             die();
         }
     
@@ -116,11 +116,11 @@ class PerrosUso
     
             echo "<script>
                 alert('" . $mensaje . "');
-                window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/home.php?controller=perrosUso&action=mostrarPerrosPorCliente&clienteDni=" . $dni_duenio . "';
+                window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perrosUso&action=mostrarPerrosPorCliente&clienteDni=" . $dni_duenio . "';
             </script>";
             die();
         } else {
-            echo "<script>alert('Error inesperado: La API no devolvió una respuesta válida.'); window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/home.php';</script>";
+            echo "<script>alert('Error inesperado: La API no devolvió una respuesta válida.'); window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php';</script>";
             die();
         }
     }
@@ -173,7 +173,7 @@ class PerrosUso
             $mensaje = $data[0]['mensaje'];
             echo "<script>
                 alert('" . addslashes($mensaje) . "');
-                window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/home.php?controller=perrosUso&action=mostrarPerrosPorCliente&clienteDni=" . urlencode($dni_duenio) . "';
+                window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perrosUso&action=mostrarPerrosPorCliente&clienteDni=" . urlencode($dni_duenio) . "';
             </script>";
         } else {
             // Si no se recibió el mensaje esperado, es posible que haya un error

@@ -1,13 +1,13 @@
-<?php
+<!-- <?php
 session_start();  // Inicia la sesión
 
 // Verifica si la sesión ya está activa
 if (isset($_SESSION['user'])) {
-    header('Location: ../home.php');  // Si ya está logueado, redirige a home.php
+    header('Location: ../home');  // Si ya está logueado, redirige a home.php
     exit();
 }
 
-require_once "../../servicioGroomer/config/Basedatos.php"; 
+require_once "../Groomer-Lidia-PHP/servicioGroomer/config/Basedatos.php"; 
 
 $pdo = (new Database())->connect(); 
 
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 
-?>
+?> -->
 
 <!DOCTYPE html>
 <html lang="es">

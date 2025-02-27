@@ -34,7 +34,7 @@
     <div class="container mx-auto text-center">
         <?php
         // Incluye el front controller
-        require_once __DIR__ . '/FrontController.php';
+        require_once __DIR__ . '../../FrontController.php';
         ?>
     </div>
 
