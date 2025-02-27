@@ -205,9 +205,9 @@ class ClientesUso
         // Mostrar formulario de confirmación de eliminación
         echo "<form method='POST' action='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=clientesUso&action=deleteCliente'>";
         echo "<input type='hidden' name='dni' value='" . $_POST['dni'] . "'>";
-        echo "<p class='p-10'>¿Está seguro de eliminar el cliente?</p>";
-        echo "<button type='submit' class='bg-green-500 text-white mx-2 px-4 py-2 rounded' name='confirmar' value='sí'>Sí</button>";
-        echo "<button type='submit' class='bg-red-500 text-white mx-2 px-4 py-2 rounded' name='confirmar' value='no'>No</button>";
+        echo "<p class='p-10 font-bold'>¿Desea Eliminar al Cliente con DNI " . $_POST['dni'] . "?</p>";
+        echo "<button type='submit' class='font-bold bg-blue-500 text-white mx-2 px-4 py-2 rounded' name='confirmar' value='sí'>Aceptar</button>";
+        echo "<button type='submit' class='font-bold bg-red-500 text-white mx-2 px-4 py-2 rounded' name='confirmar' value='no'>Cancelar</button>";
         echo "</form>";
     }
 }
