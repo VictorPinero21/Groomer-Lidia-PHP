@@ -203,7 +203,7 @@ class ClientesUso
         }
     } else {
         // Mostrar formulario de confirmación de eliminación
-        echo "<form method='POST' action='http://localhost/Groomer-Lidia-PHP/usoGroomer/index.php?controller=clientesUso&action=deleteCliente'>";
+        echo "<form method='POST' action='http://localhost/Groomer-Lidia-PHP/usoGroomer/home.php?controller=clientesUso&action=deleteCliente'>";
         echo "<input type='hidden' name='dni' value='" . $_POST['dni'] . "'>";
         echo "<p class='p-10'>¿Está seguro de eliminar el cliente?</p>";
         echo "<button type='submit' class='bg-green-500 text-white mx-2 px-4 py-2 rounded' name='confirmar' value='sí'>Sí</button>";

@@ -8,10 +8,10 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 // redirige a la lista de libros
 if (!isset($_GET['controller']) || !isset($_GET['action'])) {
-    header('Location: index.php?controller=homeUso&action=showHome');
+    header('Location: home.php?controller=homeUso&action=showHome');
     exit();
 }
-if ($_GET['controller'] == 'UsersController') header('Location: ./index.php');
+if ($_GET['controller'] == 'UsersController') header('Location: ./home.php');
 
 // Obtén el controlador y la acción desde los parámetros de la URL
 $controller = isset($_GET['controller']) ? $_GET['controller'] : CONTROLADOR_DEFECTO;
