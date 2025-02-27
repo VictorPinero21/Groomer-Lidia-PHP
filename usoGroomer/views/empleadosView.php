@@ -10,6 +10,7 @@ class EmpleadosView
         <div class="bg-white p-8 rounded-lg shadow-lg mb-8 max-w-3xl mx-auto">
             <h2 class="text-2xl font-semibold text-gray-700 mb-6 text-center">Nuevo Empleado</h2>
             <form action="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=empleadosUso&action=addEmpleado" method="post">
+            <form action="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=empleadosUso&action=addEmpleado" method="post">
                 <input type="hidden" name="accion" value="nuevo_empleado">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="form-group">
@@ -27,7 +28,7 @@ class EmpleadosView
                     <div class="form-group">
                         <label for="rol" class="block text-gray-700">Rol</label>
                         <select class="form-control w-full border rounded-lg py-3 px-4" id="rol" name="rol" required>
-                            <option value="EMPLEADO">EMPLEADO</option>
+                            <option selected value="EMPLEADO">EMPLEADO</option>
                             <option value="AUXILIAR">AUXILIAR</option>
                             <option value="ADMIN">ADMIN</option>
                         </select>
@@ -50,11 +51,11 @@ class EmpleadosView
                     </div>
                     <div class="form-group">
                         <label for="numero" class="block text-gray-700">Número</label>
-                        <input type="text" class="form-control w-full border rounded-lg py-3 px-4" id="numero" name="numero" required>
+                        <input type="number" class="form-control w-full border rounded-lg py-3 px-4" id="numero" name="numero" required>
                     </div>
                     <div class="form-group">
                         <label for="cp" class="block text-gray-700">Código Postal</label>
-                        <input type="text" class="form-control w-full border rounded-lg py-3 px-4" id="cp" name="cp" required>
+                        <input type="number" class="form-control w-full border rounded-lg py-3 px-4" id="cp" name="cp" required>
                     </div>
                     <div class="form-group">
                         <label for="poblacion" class="block text-gray-700">Población</label>
@@ -66,7 +67,7 @@ class EmpleadosView
                     </div>
                     <div class="form-group">
                         <label for="tlfno" class="block text-gray-700">Teléfono</label>
-                        <input type="text" class="form-control w-full border rounded-lg py-3 px-4" id="tlfno" name="tlfno" required>
+                        <input type="number" class="form-control w-full border rounded-lg py-3 px-4" id="tlfno" name="tlfno" required>
                     </div>
                     <div class="form-group">
                         <label for="profesion" class="block text-gray-700">Profesión</label>
@@ -79,7 +80,7 @@ class EmpleadosView
                     </div>
                 </div>
 
-                <button type="submit" class="w-48 bg-green-500 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg mt-6 mx-auto block">Agregar Empleado</button>
+                <button type="submit" class="w-48 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg mt-6 mx-auto block">Agregar Empleado</button>
             </form>
         </div>
     <?php
@@ -154,23 +155,24 @@ class EmpleadosView
     {
     ?>
         <!-- Lista de empleados -->
-        <div class="bg-white p-6 rounded shadow mb-4 overflow-x-auto">
-            <h2 class="text-xl font-bold text-purple-600 mb-2">Nuestros Empleados</h2>
+        <div class="bg-white p-6 rounded shadow mb-4">
+            <h2 class="text-xl font-bold text-blue-600 mb-10 flex justify-center">Nuestros Empleados</h2>
             <div class="flex justify-between items-center mb-4">
                <a href="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=empleadosUso&action=showFormController">
+               <a href="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=empleadosUso&action=showFormController">
 
-                    <button class="bg-green-500 text-white px-4 py-2 rounded">Nuevo Empleado</button>
+                    <button class="bg-blue-600 text-white px-4 py-2 rounded font-medium">Nuevo Empleado</button>
                 </a>
                 <div class="flex items-center">
                     <form method="GET" action="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php">
-                        <button type="submit" class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Buscar Empleado</button>
+                        <button type="submit" class="text-white bg-blue-600 hover:bg-blue-800 h-10 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Buscar Empleado</button>
                         <input type="hidden" name="controller" value="empleadosUso">
                         <input type="hidden" name="action" value="getEmpleado">
                         <input type="text" name="dni" class="border border-gray-300 rounded-md shadow-sm p-2" placeholder="DNI">
                     </form>
                 </div>
             </div>
-            <table class="min-w-full divide-y divide-gray-200 text-sm">
+            <table class="text-sm">
                 <thead class="bg-gray-50">
                     <tr>
                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">DNI</th>
@@ -189,7 +191,7 @@ class EmpleadosView
                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
                     </tr>
                 </thead>
-                <tbody id="empleadosLista" class="bg-white divide-y divide-gray-200">
+                <tbody id="empleadosLista" class="bg-white">
                     <?php
                     if (!empty($empleadosLista)) {
                         foreach ($empleadosLista as $empleado) {
@@ -203,7 +205,7 @@ class EmpleadosView
                                     <td class='px-4 py-2 text-left whitespace-nowrap'>" . (isset($empleado['Tlfno']) ? $empleado['Tlfno'] : '') . "</td>
                                     <td class='px-4 py-2 text-left whitespace-nowrap'>" . (isset($empleado['Profesion']) ? $empleado['Profesion'] : '') . "</td>
                                     <td class='px-4 py-2 text-left whitespace-nowrap'>
-                                        <a href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=empleadosUso&action=deleteEmpleado&dni=" . (isset($empleado['Dni']) ? $empleado['Dni'] : '') . "' class='text-red-600 hover:text-red-800'>Eliminar</a>
+                                        <a href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=empleadosUso&action=deleteEmpleado&dni=" . (isset($empleado['Dni']) ? $empleado['Dni'] : '') . "' class='text-red-600 hover:text-red-800 '>Eliminar</a>
                                     </td>
                                 </tr>";
                         }

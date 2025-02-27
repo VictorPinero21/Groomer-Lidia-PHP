@@ -7,7 +7,6 @@
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.10.2/dist/cdn.min.js" defer></script>
     <script src="https://cdn.tailwindcss.com"></script>
  
-    <title>RiberaPets</title>
 </head>
 
 <body class="">
@@ -18,41 +17,41 @@
                 <span class="text-2xl font-bold text-gray-700"><a href="home.php?controller=homeUso&action=showHome">RiberaPets</a></span>
             </div>
             <div class="hidden md:flex gap-4">
-                <a href="home.php?controller=perroRecibeServicioUso&action=mostrarServiciosPorPerros" class="px-6 py-3 bg-green-500 text-white font-semibold rounded-lg shadow-md transition-all hover:bg-green-600 hover:scale-105">
+                <a href="home.php?controller=perroRecibeServicioUso&action=mostrarServiciosPorPerros" class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md transition-all hover:bg-blue-600 hover:scale-105">
                     Perros
                 </a>
                 <a href="home.php?controller=serviciosUso&action=showServicios" class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md transition-all hover:bg-blue-600 hover:scale-105">
                     Servicios
                 </a>
-                <a href="home.php?controller=empleadosUso&action=showEmpleados" class="px-6 py-3 bg-purple-500 text-white font-semibold rounded-lg shadow-md transition-all hover:bg-purple-600 hover:scale-105">
+                <a href="home.php?controller=empleadosUso&action=showEmpleados" class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md transition-all hover:bg-blue-600 hover:scale-105">
                     Empleados
                 </a>
                 <form id="clientesForm" action="./home.php?controller=clientesUso&action=showClientes" method="post" class="inline">
                     <input type="hidden" name="dniInfo" value="">
-                    <button type="submit" class="px-6 py-3 bg-red-500 text-white font-semibold rounded-lg shadow-md transition-all hover:bg-red-600 hover:scale-105">
+                    <button type="submit" class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md transition-all hover:bg-blue-600 hover:scale-105">
                         Clientes
                     </button>
                 </form>
             </div>
             <!-- Mobile Menu Button -->
-            <button @click="menuOpen = !menuOpen" class="md:hidden px-4 py-3 bg-gray-500 text-white rounded-lg shadow-md hover:bg-gray-600" x-data="{ menuOpen: false }">
+            <button @click="menuOpen = !menuOpen" class="md:hidden px-4 py-3 bg-blue-500 text-white rounded-lg shadow-md hover:bg-gray-600" x-data="{ menuOpen: true }">
                 ☰
             </button>
         </nav>
         <!-- Mobile Menu -->
         <div x-show="menuOpen" class="md:hidden flex flex-col items-center gap-4 bg-white shadow-md py-4" x-data="{ menuOpen: false }">
-            <a href="home.php?controller=perroRecibeServicioUso&action=mostrarServiciosPorPerros" class="px-6 py-3 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600">
+            <a href="home.php?controller=perroRecibeServicioUso&action=mostrarServiciosPorPerros" class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600">
                 Perros
             </a>
-            <a href="home.php?controller=serviciosUso&action=showServicios" class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600">
+            <a href="home.php?controller=serviciosUso&action=showServicios" class="px-6 py-3 bg-grey-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600">
                 Servicios
             </a>
-            <a href="home.php?controller=empleadosUso&action=showEmpleados" class="px-6 py-3 bg-purple-500 text-white font-semibold rounded-lg shadow-md hover:bg-purple-600">
+            <a href="home.php?controller=empleadosUso&action=showEmpleados" class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600">
                 Empleados
             </a>
             <form id="clientesForm" action="./home.php?controller=clientesUso&action=showClientes" method="post" class="inline">
                 <input type="hidden" name="dniInfo" value="">
-                <button type="submit" class="px-6 py-3 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-600">
+                <button type="submit" class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600">
                     Clientes
                 </button>
             </form>

@@ -1,18 +1,15 @@
 <?php 
 
-class HomeView{
+class HomeView {
 
-    public function showHomeView(){
+    public function showHomeView() {
     ?>
         <div class="flex items-center justify-center h-screen">
-            <div class="animate-bounce text-center">
-                <h1>Bienvenido a la Aplicación de Empleados</h1>
-                <p>Gestiona la información de tus empleados de manera eficiente.</p>
+            <div class="w-full h-full relative">
+                <img class="w-full h-full object-cover" src="../assets/groomer.webp" alt="Groomer">
             </div>
         </div>
-
     <?php
     }
-
 
 }

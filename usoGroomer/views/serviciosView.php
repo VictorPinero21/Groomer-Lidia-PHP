@@ -7,9 +7,9 @@ class ServiciosView{
     public function showServices($listaServices){
         ?>
         <div class="bg-white p-4 rounded shadow mb-4 overflow-x-auto">
-            <h2 class="text-xl font-bold mb-2">Lista de Servicios</h2>
-            <a href="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=serviciosUso&action=showForm"><button>Crear Servicio</button></a>
-            <table class="min-w-full divide-y divide-gray-200 text-sm">
+            <h2 class="text-xl font-bold mb-6 mt-6">Lista de Servicios</h2>
+            <a href="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=serviciosUso&action=showForm"><button class="border w-40 h-14 bg-blue-600 text-white rounded-lg hover:bg-blue-600">Crear Servicio</button></a>
+            <table class="min-w-full divide-y divide-gray-200 text-sm mt-6">
                 <thead class="bg-gray-50">
                     <tr>
                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Codigo </th>
@@ -25,13 +25,13 @@ class ServiciosView{
                     if (is_array($listaServices)) {
                         foreach ($listaServices as $servicio) {
                             echo "<tr>";
-                            echo "<td class='px-4 py-2 whitespace-nowrap'>{$servicio['Codigo']}</td>";
-                            echo "<td class='px-4 py-2 whitespace-nowrap'>{$servicio['Nombre']}</td>";
-                            echo "<td class='px-4 py-2 whitespace-nowrap'>{$servicio['Precio']}</td>";
-                            echo "<td class='px-4 py-2 whitespace-nowrap'>{$servicio['Descripcion']}</td>";
+                            echo "<td class='px-4 py-2 '>{$servicio['Codigo']}</td>";
+                            echo "<td class='px-4 py-2 '>{$servicio['Nombre']}</td>";
+                            echo "<td class='px-4 py-2 '>{$servicio['Precio']}</td>";
+                            echo "<td class='px-4 py-2 '>{$servicio['Descripcion']}</td>";
                             // echo "<form method='POST' action='http://localhost/Proyecto_DWES/api/controllers/clientesController.php?accion=borrar' style='display:inline;'>";
                             // echo "<input type='hidden' name='dni' value='{$cliente['Dni']}'>";
-                            echo "<td class='px-4 py-2 whitespace-nowrap'><a href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=serviciosUso&action=showEditForm&id=". $servicio['Codigo'] ."&precio=". $servicio['Precio'] ."' ><button class='bg-red-500 text-white px-4 py-2 rounded'>Editar</button></a></td>";
+                            echo "<td class='px-4 py-2 '><a href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=serviciosUso&action=showEditForm&id=". $servicio['Codigo'] ."&precio=". $servicio['Precio'] ."' ><button class='bg-red-500 text-white px-4 py-2 rounded'>Editar</button></a></td>";
                             // echo "</form>";
                             echo "</tr>";
                         }
@@ -46,7 +46,7 @@ class ServiciosView{
 
     public function showEdit(){
         ?>
-        <div id="modal" class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center">
+        <div id="modal" class="fixed inset-0 bg-opacity-75 flex items-center justify-center">
             <div class="bg-white p-6 rounded shadow-lg w-1/3">
                 <h2 class="text-2xl font-bold mb-4 text-black">Editar Servicio</h2>
                 <form id="editarServicioForm" class="space-y-4 text-left" method="POST" action="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=serviciosUso&action=editService">
@@ -66,27 +66,26 @@ class ServiciosView{
     public function crearServicio() {
         ?>
         <!-- Modal para crear servicios -->
-        <div id="modal" class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center">
+        <div id="modal" class="fixed inset-0 bg-opacity-75 flex items-center justify-center">
             <div class="bg-white p-6 rounded shadow-lg w-1/3">
-            <h2 class="text-2xl font-bold mb-4 text-black ">Crear Servicio</h2>
             <form id="crearServicioForm" class="space-y-4 text-left" method="POST" action="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=serviciosUso&action=createService">
                 <div>
-                <label for="belleza" class="block text-sm font-medium text-gray-700 ">Código</label>
+                <label for="belleza" class="block text-sm font-medium text-black ">Código</label>
                 <select id="belleza" name="belleza" class="mt-1 block w-full border border-gray-300 dark:border-gray-700 rounded-md shadow-sm p-2 bg-white text-black ">
                     <option value="BELLEZA">Belleza</option>
                     <option value="NUTRICION">Nutrición</option>
                 </select>
                 </div>
                 <div>
-                <label for="nombre" class="block text-sm font-medium text-gray-700 ">Nombre</label>
+                <label for="nombre" class="block text-sm font-medium text-black ">Nombre</label>
                 <input type="text" id="nombre" name="nombre" class="mt-1 block w-full border border-gray-300 dark:border-gray-700 rounded-md shadow-sm p-2 bg-white text-black" required>
                 </div>
                 <div>
-                <label for="precio" class="block text-sm font-medium text-gray-700 ">Precio</label>
+                <label for="precio" class="block text-sm font-medium text-black ">Precio</label>
                 <input type="number" step=0.01 id="precio" name="precio" class="mt-1 block w-full border border-gray-300 dark:border-gray-700 rounded-md shadow-sm p-2 bg-white text-black" required>
                 </div>
                 <div>
-                <label for="descripcion" class="block text-sm font-medium text-gray-700 ">Descripción</label>
+                <label for="descripcion" class="block text-sm font-medium text-black ">Descripción</label>
                 <input type="text" id="descripcion" name="descripcion" class="mt-1 block w-full border border-gray-300 dark:border-gray-700 rounded-md shadow-sm p-2 bg-white text-black" required>
                 </div>
                 <div class="flex justify-end">
