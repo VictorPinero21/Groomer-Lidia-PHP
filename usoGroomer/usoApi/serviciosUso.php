@@ -86,7 +86,6 @@ class ServiciosUso
                 alert("Servicio creado exitosamente.");
                 // window.location.href = "http://localhost/Groomer-Lidia-PHP/usoGroomer/index.php?controller=serviciosUso&action=showServicios";
             </script>';
-            print_r($data);
         }
     }
 
