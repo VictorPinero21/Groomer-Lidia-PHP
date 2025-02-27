@@ -1,0 +1,17 @@
+Array
+(
+    [dni] => 02316823X
+    [email] => victorpineroollero@riberadeltajo.es
+    [password] => 12345678
+    [rol] => EMPLEADO
+    [nombre] => Victor
+    [apellido1] => Ollero
+    [apellido2] => Pinero
+    [calle] => Calle Comuneros de Castilla
+    [numero] => 4C
+    [cp] => 45600
+    [poblacion] => Talavera de la Reina
+    [provincia] => Toledo
+    [tlfno] => 620953770
+    [profesion] => ESTILISTA
+)

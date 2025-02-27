@@ -9,7 +9,7 @@ class EmpleadosView
         <!-- Formulario para agregar un nuevo empleado -->
         <div class="bg-white p-8 rounded-lg shadow-lg mb-8 max-w-3xl mx-auto">
             <h2 class="text-2xl font-semibold text-gray-700 mb-6 text-center">Nuevo Empleado</h2>
-            <form action="../home.php?controller=empleados&action=addEmpleado" method="post">
+            <form action="http://localhost/Groomer-Lidia-PHP/usoGroomer/home.php?controller=empleadosUso&action=addEmpleado" method="post">
                 <input type="hidden" name="accion" value="nuevo_empleado">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="form-group">
@@ -157,11 +157,12 @@ class EmpleadosView
         <div class="bg-white p-6 rounded shadow mb-4 overflow-x-auto">
             <h2 class="text-xl font-bold text-purple-600 mb-2">Nuestros Empleados</h2>
             <div class="flex justify-between items-center mb-4">
-                <a href="http://localhost/grommer/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=empleadosUso&action=showFormController">
+               <a href="http://localhost/Groomer-Lidia-PHP/usoGroomer/home.php?controller=empleadosUso&action=showFormController">
+
                     <button class="bg-green-500 text-white px-4 py-2 rounded">Nuevo Empleado</button>
                 </a>
                 <div class="flex items-center">
-                    <form method="GET" action="http://localhost/grommer/Groomer-Lidia-PHP/usoGroomer/views/home.php">
+                    <form method="GET" action="http://localhost/Groomer-Lidia-PHP/usoGroomer/home.php">
                         <button type="submit" class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Buscar Empleado</button>
                         <input type="hidden" name="controller" value="empleadosUso">
                         <input type="hidden" name="action" value="getEmpleado">
@@ -197,24 +198,97 @@ class EmpleadosView
                                     <td class='px-4 py-2 text-left whitespace-nowrap'>" . (isset($empleado['Nombre']) ? $empleado['Nombre'] : '') . " " . (isset($empleado['Apellido1']) ? $empleado['Apellido1'] : '') . " " . (isset($empleado['Apellido2']) ? $empleado['Apellido2'] : '') . "</td>
                                     <td class='px-4 py-2 text-left whitespace-nowrap'>" . (isset($empleado['Email']) ? $empleado['Email'] : '') . "</td>
                                     <td class='px-4 py-2 text-left whitespace-nowrap'>" . (isset($empleado['Rol']) ? $empleado['Rol'] : '') . "</td>
-<td class='px-4 py-2 text-left whitespace-nowrap'>" . (isset($empleado['Calle']) ? $empleado['Calle'] : '') . ", " . (isset($empleado['Numero']) ? $empleado['Numero'] : '') . ". " . (isset($empleado['Cp']) ? $empleado['Cp'] : '') . "</td>                                    <td class='px-4 py-2 text-left whitespace-nowrap'>" . (isset($empleado['Poblacion']) ? $empleado['Poblacion'] : '') . "</td>
+                                    <td class='px-4 py-2 text-left whitespace-nowrap'>" . (isset($empleado['Calle']) ? $empleado['Calle'] : '') . ", " . (isset($empleado['Numero']) ? $empleado['Numero'] : '') . ". " . (isset($empleado['Cp']) ? $empleado['Cp'] : '') . "</td>                                    <td class='px-4 py-2 text-left whitespace-nowrap'>" . (isset($empleado['Poblacion']) ? $empleado['Poblacion'] : '') . "</td>
                                     <td class='px-4 py-2 text-left whitespace-nowrap'>" . (isset($empleado['Provincia']) ? $empleado['Provincia'] : '') . "</td>
                                     <td class='px-4 py-2 text-left whitespace-nowrap'>" . (isset($empleado['Tlfno']) ? $empleado['Tlfno'] : '') . "</td>
                                     <td class='px-4 py-2 text-left whitespace-nowrap'>" . (isset($empleado['Profesion']) ? $empleado['Profesion'] : '') . "</td>
                                     <td class='px-4 py-2 text-left whitespace-nowrap'>
-                                        <a href='http://localhost/grommer/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=empleadosUso&action=editEmpleado&dni=" . (isset($empleado['DNI']) ? $empleado['DNI'] : '') . "' class='text-blue-600 hover:text-blue-800'>Editar</a>
-                                        <a href='http://localhost/grommer/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=empleadosUso&action=deleteEmpleado&dni=" . (isset($empleado['DNI']) ? $empleado['DNI'] : '') . "' class='text-red-600 hover:text-red-800'>Eliminar</a>
+                                        <a href='http://localhost/Groomer-Lidia-PHP/usoGroomer/home.php?controller=empleadosUso&action=deleteEmpleado&dni=" . (isset($empleado['Dni']) ? $empleado['Dni'] : '') . "' class='text-red-600 hover:text-red-800'>Eliminar</a>
                                     </td>
                                 </tr>";
                         }
                     } else {
                         echo "<tr><td colspan='14' class='text-center'>No hay empleados para mostrar</td></tr>";
                     }
-                    ?>
+                    ?> 
                 </tbody>
             </table>
         </div>
 <?php
+    }
+
+    public function showEmpleado($empleado)
+    {
+        if (!is_array($empleado)) {
+            echo "No se ha proporcionado un empleado válido.";
+            return;
+        }
+
+        ?>
+        <div class="bg-white p-8 rounded-lg shadow-lg mb-8 max-w-3xl mx-auto">
+            <h2 class="text-2xl font-semibold text-gray-700 mb-6 text-center">Detalles del Empleado</h2>
+
+            <!-- Tabla de un solo empleado -->
+            <table class="min-w-full table-auto border-collapse">
+                <thead>
+                    <tr>
+                        <th class="px-4 py-2 border-b text-left">Campo</th>
+                        <th class="px-4 py-2 border-b text-left">Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="px-4 py-2 border-b">DNI</td>
+                        <td class="px-4 py-2 border-b"><?= htmlspecialchars($empleado['Dni']) ?></td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border-b">Nombre</td>
+                        <td class="px-4 py-2 border-b"><?= htmlspecialchars($empleado['Nombre']) ?></td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border-b">Apellido 1</td>
+                        <td class="px-4 py-2 border-b"><?= htmlspecialchars($empleado['Apellido1']) ?></td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border-b">Apellido 2</td>
+                        <td class="px-4 py-2 border-b"><?= htmlspecialchars($empleado['Apellido2']) ?></td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border-b">Email</td>
+                        <td class="px-4 py-2 border-b"><?= htmlspecialchars($empleado['Email']) ?></td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border-b">Teléfono</td>
+                        <td class="px-4 py-2 border-b"><?= htmlspecialchars($empleado['Tlfno']) ?></td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border-b">Profesión</td>
+                        <td class="px-4 py-2 border-b"><?= htmlspecialchars($empleado['Profesion']) ?></td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border-b">Calle</td>
+                        <td class="px-4 py-2 border-b"><?= htmlspecialchars($empleado['Calle']) ?></td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border-b">Número</td>
+                        <td class="px-4 py-2 border-b"><?= htmlspecialchars($empleado['Numero']) ?></td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border-b">Código Postal</td>
+                        <td class="px-4 py-2 border-b"><?= htmlspecialchars($empleado['Cp']) ?></td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border-b">Población</td>
+                        <td class="px-4 py-2 border-b"><?= htmlspecialchars($empleado['Poblacion']) ?></td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 border-b">Provincia</td>
+                        <td class="px-4 py-2 border-b"><?= htmlspecialchars($empleado['Provincia']) ?></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    <?php
     }
 }
 ?>
