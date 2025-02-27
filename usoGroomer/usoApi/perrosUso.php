@@ -56,16 +56,15 @@ class PerrosUso
         curl_close($ch);
     }
 
-    //Funcióon para crear un nuevo perro
     public function crearPerro()
     {
         // URL de la API
         $base_url = 'http://localhost:8000/api/perros/';
-    
+        
         // Verificar si hay datos en $_POST
         if (empty($_POST)) {
-            echo "Error: No se recibieron datos para crear el perro.";
-            return;
+            echo "<script>alert('Error: No se recibieron datos para crear el perro.'); window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/index.php';</script>";
+            die();
         }
     
         // Convertir $_POST a JSON
@@ -81,95 +80,110 @@ class PerrosUso
             'Accept: application/json'
         ]);
     
-        // Ejecutar petición y obtener respuesta
+        // Ejecutar la petición y obtener la respuesta
         $post_response = curl_exec($ch);
     
         // Manejar errores de cURL
         if ($post_response === false) {
-            echo 'Error en la petición POST: ' . curl_error($ch);
+            echo "<script>alert('Error en la petición POST: " . curl_error($ch) . "'); window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/index.php';</script>";
             curl_close($ch);
-            return;
+            die();
         }
     
         // Obtener código de respuesta HTTP
         $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
     
-        // Decodificar respuesta JSON
+        // Decodificar la respuesta JSON
         $data = json_decode($post_response, true);
     
-        // Verificar si la API respondió correctamente
-        if ($http_code !== 201 && $http_code !== 200) {
-            echo "Error en la API: " . ($data['message'] ?? 'Respuesta inesperada.');
-            return;
+        // Si la API devuelve un error
+        if (isset($data['error'])) {
+            echo "<script>alert('Error: " . $data['error'] . "'); window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/index.php';</script>";
+            die();
         }
     
-        // Verificar si la API devolvió éxito
+        // Si la API devuelve un mensaje de éxito
         if (isset($data['mensaje'])) {
             if (is_array($data['mensaje'])) {
-                // Si el mensaje es un array, significa que se insertó correctamente
-                echo $data['mensaje'][0]; // Muestra el mensaje de éxito
-                if (!empty($_POST['Dni'])) {
-                    $_GET['clienteDni'] = $_POST['Dni_duenio'];
-                    $this->mostrarPerrosPorCliente();
-                } else {
-                    echo "Perro creado, pero no se proporcionó DNI del dueño.";
-                }
-            } elseif (isset($data['mensaje']['error'])) {
-                // Si existe un mensaje de error
-                echo "Error: " . $data['mensaje']['error'];
+                $mensaje = implode("\\n", $data['mensaje']);
             } else {
-                echo "Respuesta inesperada de la API.";
+                $mensaje = $data['mensaje'];
             }
+    
+            // Obtener el DNI del dueño para la redirección
+            $dni_duenio = isset($_POST['Dni_duenio']) ? $_POST['Dni_duenio'] : '';
+    
+            echo "<script>
+                alert('" . $mensaje . "');
+                window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/index.php?controller=perrosUso&action=mostrarPerrosPorCliente&clienteDni=" . $dni_duenio . "';
+            </script>";
+            die();
         } else {
-            echo "Error en la creación del perro.";
+            echo "<script>alert('Error inesperado: La API no devolvió una respuesta válida.'); window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/index.php';</script>";
+            die();
         }
-        
     }
+    
+
+    
+    
+    
+
     
 
     public function deletePerro()
     {
-        if (!isset($_POST['chip'])) {
-            echo "<script>alert('Error: No se recibió el número de chip');</script>";
+        if (!isset($_POST['Numero_Chip']) || !isset($_POST['Dni_duenio'])) {
+            echo "<script>alert('Error: Datos incompletos para eliminar el perro.'); window.history.back();</script>";
             return;
         }
-
-        $chip = $_POST['chip'];
-        $dni_duenio = $_POST['dni_duenio']; // Para recargar la lista después
-
-        // URL de la API
-        $base_url = 'http://localhost/gromer/api/controllers/perrosController.php';
-
+    
+        $chip = $_POST['Numero_Chip'];
+        $dni_duenio = $_POST['Dni_duenio']; // Para redirección tras eliminar
+    
+        // URL de la API con el número de chip
+        $base_url = "http://localhost:8000/api/perros/$chip";
+    
         // Configurar cURL para una petición DELETE
         $ch = curl_init($base_url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE"); // Especificamos DELETE
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode(['chip' => $chip])); // Enviamos JSON
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE"); // Método DELETE
         curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']); // Encabezados
-
+    
         // Ejecutar la solicitud
         $response = curl_exec($ch);
-
+    
+        // Manejo de errores de cURL
         if ($response === false) {
-            echo 'Error en la petición DELETE: ' . curl_error($ch);
-        } else {
-            $data = json_decode($response, true);
-
-            if (isset($data['status']) && $data['status'] === "success") {
-                echo "<script>alert('Perro eliminado correctamente');</script>";
-            } else {
-                echo "<script>alert('Error al eliminar el perro: " . ($data['error'] ?? 'Desconocido') . "');</script>";
-            }
+            echo "<script>alert('Error en la petición DELETE: " . curl_error($ch) . "'); window.history.back();</script>";
+            curl_close($ch); // Asegurarse de cerrar el recurso cURL
+            return;
         }
-
-        // Cerrar cURL
+    
+        // Cerrar cURL después de recibir la respuesta
         curl_close($ch);
-
-        // Volver a cargar la lista de perros del cliente
-        $_GET['clienteDni'] = $dni_duenio;
-        $this->mostrarPerrosPorCliente();
+    
+        // Decodificar la respuesta JSON
+        $data = json_decode($response, true);
+    
+        // Validar respuesta y manejar errores
+        if (isset($data[0]['mensaje'])) {
+            // Si la respuesta contiene el mensaje esperado
+            $mensaje = $data[0]['mensaje'];
+            echo "<script>
+                alert('" . addslashes($mensaje) . "');
+                window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/index.php?controller=perrosUso&action=mostrarPerrosPorCliente&clienteDni=" . urlencode($dni_duenio) . "';
+            </script>";
+        } else {
+            // Si no se recibió el mensaje esperado, es posible que haya un error
+            echo "<script>alert('Error desconocido al eliminar el perro.'); window.history.back();</script>";
+        }
     }
+    
+    
+
+    
 
 
 

@@ -61,6 +61,6 @@ class PerroController
     public function borrarPerro($Numero_Chip)
     {
         $resultado = $this->perroModel->borrarPerro($Numero_Chip);
-        echo json_encode(["mensaje" => $resultado]);
+        echo json_encode([$resultado]);
     }
 }

@@ -10,10 +10,7 @@ class PerrosView
             <div class="bg-white dark:bg-black p-4 rounded shadow-lg w-1/2 dark:bg-gray-800">
                 <h2 class="text-xl font-bold mb-2 dark:text-white">Crear un nuevo perro</h2>
                 <form id="crearNuevoPerro" class="space-y-4" method="POST" action="http://localhost/Groomer-Lidia-PHP/usoGroomer/index.php?controller=perrosUso&action=crearPerro">
-                    <div>
-                        <label for="dni" class="block text-sm font-medium text-gray-700 dark:text-gray-300">DNI del dueño:</label>
-                        <input type="text" required value="<?php if (isset($_GET['clienteDni'])) echo $_GET['clienteDni']; ?>" id="dni" name="Dni_duenio" class="mt-1 block w-full border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white rounded-md shadow-sm p-2">
-                    </div>
+                        <input type="hidden" required value="<?php if (isset($_GET['clienteDni'])) echo $_GET['clienteDni']; ?>" id="dni" name="Dni_duenio" class="mt-1 block w-full border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white rounded-md shadow-sm p-2">
                     <div>
                         <label for="Nombre" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nombre:</label>
                         <input type="text" required id="Nombre" name="Nombre" class="mt-1 block w-full border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white rounded-md shadow-sm p-2">
@@ -28,11 +25,11 @@ class PerrosView
                     </div>
                     <div>
                         <label for="Peso" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Peso:</label>
-                        <input type="text" required id="Peso" name="Peso" class="mt-1 block w-full border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white rounded-md shadow-sm p-2">
+                        <input type="number" required id="Peso" name="Peso" class="mt-1 block w-full border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white rounded-md shadow-sm p-2">
                     </div>
                     <div>
                         <label for="Altura" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Altura:</label>
-                        <input type="text" required id="Altura" name="Altura" class="mt-1 block w-full border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white rounded-md shadow-sm p-2">
+                        <input type="number" required id="Altura" name="Altura" class="mt-1 block w-full border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white rounded-md shadow-sm p-2">
                     </div>
                     <div>
                         <label for="Observaciones" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Observaciones:</label>
@@ -45,7 +42,7 @@ class PerrosView
                     <div>
                         <label for="Sexo" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Sexo:</label>
                         <select name="Sexo" id="Sexo" class="mt-1 block w-full border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white rounded-md shadow-sm p-2">
-                            <option value=""> --- </option>
+                            <option selected disabled value=""></option>
                             <option value="Macho">Macho</option>
                             <option value="Hembra">Hembra</option>
                         </select>
@@ -100,7 +97,7 @@ class PerrosView
                             echo "<td class='px-4 py-2 whitespace-nowrap dark:text-gray-300'>{$perro['Sexo']}</td>";
                             echo "<td class='px-4 py-2 whitespace-nowrap'>";
                             echo "<form method='POST' action='http://localhost/Groomer-Lidia-PHP/usoGroomer/index.php?controller=perrosUso&action=deletePerro' style='display:inline;'>";
-                            echo "<input type='hidden' name='chip' value='{$perro['Numero_Chip']}'>";
+                            echo "<input type='hidden' name='Numero_Chip' value='{$perro['Numero_Chip']}'>";
                             echo "<input type='hidden' name='Dni_duenio' value='{$perro['Dni_duenio']}'>";
                             echo "<button type='submit' class='bg-red-500 text-white px-4 py-2 rounded dark:bg-red-700'>Borrar</button>";
                             echo "</form>";
