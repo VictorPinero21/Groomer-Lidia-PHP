@@ -32,6 +32,9 @@
                         Clientes
                     </button>
                 </form>
+                <a href="logout.php" class="px-6 py-3 bg-red-500 text-white font-semibold rounded-lg shadow-md transition-all hover:bg-red-600 hover:scale-105">
+                    LogOut
+                </a>
             </div>
             <!-- Mobile Menu Button -->
             <button @click="menuOpen = !menuOpen" class="md:hidden px-4 py-3 bg-blue-500 text-white rounded-lg shadow-md hover:bg-gray-600" x-data="{ menuOpen: true }">

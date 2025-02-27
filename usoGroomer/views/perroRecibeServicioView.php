@@ -58,7 +58,7 @@ class PerroRecibeServicio
         <div class="bg-white p-6 rounded-lg shadow-md mb-6 overflow-x-auto">
             <h2 class="text-2xl font-bold mb-6">Servicios de Perros</h2>
             <a href="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perroRecibeServicioUso&action=showFormServ">
-                <button class="bg-blue-600 hover:bg-blue-800 text-white px-6 py-3 rounded-md mb-10">Insertar Nuevo Servicio</button>
+            <?php if($_SESSION['user']['rol']=='ADMIN') echo  ' <button class="bg-blue-600 hover:bg-blue-800 text-white px-6 py-3 rounded-md mb-10">Insertar Nuevo Servicio</button>' ?>
             </a>
             <table class="min-w-full divide-y divide-gray-300 text-sm">
                 <thead class="bg-gray-50">
@@ -70,7 +70,7 @@ class PerroRecibeServicio
                         <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Incidencias</th>
                         <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Precio</th>
                         <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">DNI Cliente</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Acciones</th>
+                       <?php if($_SESSION['user']['rol']=='ADMIN') echo ' <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Acciones</th> ' ?>
                     </tr>
                 </thead>
                 <tbody id="listaServPorPerro" class="bg-white divide-y divide-gray-200">
@@ -87,7 +87,7 @@ class PerroRecibeServicio
                             echo "<td class='px-6 py-3'>{$serv['Dni']}</td>";
                             echo "<td class='px-6 py-3'>";
                             echo "<form method='POST' action='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perroRecibeServicioUso&action=borrarServicioRealizadoAPerro&Sr_Cod={$serv['Sr_Cod']}' style='display:inline;'>";
-                            echo "<button type='submit' class='bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-md'>Borrar</button>";
+                                if($_SESSION['user']['rol']=='ADMIN')   echo "<button type='submit' class='bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-md'>Borrar</button>";
                             echo "</form>";
                             echo "</td>";
                             echo "</tr>";

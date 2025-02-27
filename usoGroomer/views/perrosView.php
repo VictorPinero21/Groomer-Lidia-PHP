@@ -83,7 +83,7 @@ class PerrosView
     </thead>
     <tbody id="listaPerros" class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
         <?php
-        if (is_array(empty($perrosCliente))) {
+        if (isset($perrosCliente[0]['Dni_duenio'])) {
             foreach ($perrosCliente as $perro) {
                 echo "<tr>";
                 echo "<td class='px-4 py-2 whitespace-nowrap dark:text-gray-300'>{$perro['Dni_duenio']}</td>";
@@ -111,7 +111,7 @@ class PerrosView
 
         // Verificar si hay un error en la respuesta de la API
         if (isset($data["error"])) {
-            echo "<tr><td colspan='10' class='px-4 py-2 text-red-500 text-lg font-bold text-center'>{$data['error']}</td></tr>";
+            // echo "<tr><td colspan='10' class='px-4 py-2 text-red-500 text-lg font-bold text-center'>{$data['error']}</td></tr>";
         }
         ?>
     </tbody>

@@ -31,7 +31,7 @@ class ServiciosView{
                             echo "<td class='px-4 py-2 '>{$servicio['Descripcion']}</td>";
                             // echo "<form method='POST' action='http://localhost/Proyecto_DWES/api/controllers/clientesController.php?accion=borrar' style='display:inline;'>";
                             // echo "<input type='hidden' name='dni' value='{$cliente['Dni']}'>";
-                            echo "<td class='px-4 py-2 '><a href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=serviciosUso&action=showEditForm&id=". $servicio['Codigo'] ."&precio=". $servicio['Precio'] ."' ><button class='bg-red-500 text-white px-4 py-2 rounded'>Editar</button></a></td>";
+                            if($_SESSION['user']['rol']=='ADMIN')   echo "<td class='px-4 py-2 '><a href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=serviciosUso&action=showEditForm&id=". $servicio['Codigo'] ."&precio=". $servicio['Precio'] ."' ><button class='bg-red-500 text-white px-4 py-2 rounded'>Editar</button></a></td>";
                             // echo "</form>";
                             echo "</tr>";
                         }
