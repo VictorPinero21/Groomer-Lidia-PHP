@@ -1,6 +1,6 @@
 <?php
 // Define las constantes para los controladores y las acciones predeterminadas
-define('CONTROLADOR_DEFECTO', 'HomeUso');
+define('CONTROLADOR_DEFECTO', 'homeApi');
 define('ACCION_DEFECTO', 'showHome');
 
 if (session_status() == PHP_SESSION_NONE) {
@@ -8,7 +8,7 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 // redirige a la lista de libros
 if (!isset($_GET['controller']) || !isset($_GET['action'])) {
-    header('Location: home.php?controller=homeUso&action=showHome');
+    header('Location: home.php?controller=homeApi&action=showHome');
     exit();
 }
 if ($_GET['controller'] == 'UsersController') header('Location: ./home.php');
@@ -19,7 +19,7 @@ $action = isset($_GET['action']) ? $_GET['action'] : ACCION_DEFECTO;
 // $dni = isset($_GET['dni']);
 
 // Determina la ruta del controlador
-$controllerFile = __DIR__ . '/usoApi/' . $controller . '.php';
+$controllerFile = __DIR__ . '/ApiController/' . $controller . '.php';
     
 // Verifica si el controlador existe
 if (file_exists($controllerFile)) {

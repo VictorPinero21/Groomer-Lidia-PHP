@@ -4,7 +4,7 @@ require_once __DIR__ . '/../views/perrosView.php';
 
 
 
-class PerrosUso
+class perrosApi
 {
     private $view;
     private $clientes;
@@ -120,7 +120,7 @@ class PerrosUso
     
             echo "<script>
                 alert('" . $mensaje . "');
-                window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perrosUso&action=mostrarPerrosPorCliente&clienteDni=" . $dni_duenio . "';
+                window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perrosApi&action=mostrarPerrosPorCliente&clienteDni=" . $dni_duenio . "';
             </script>";
             die();
         } else {
@@ -177,7 +177,7 @@ class PerrosUso
             $mensaje = $data[0]['mensaje'];
             echo "<script>
                 alert('" . addslashes($mensaje) . "');
-                window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perrosUso&action=mostrarPerrosPorCliente&clienteDni=" . urlencode($dni_duenio) . "';
+                window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perrosApi&action=mostrarPerrosPorCliente&clienteDni=" . urlencode($dni_duenio) . "';
             </script>";
         } else {
             // Si no se recibió el mensaje esperado, es posible que haya un error

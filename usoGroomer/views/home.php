@@ -17,20 +17,20 @@ if(isset($_SESSION['user'])){
 <header class="sticky top-0 left-0 w-full bg-white shadow-md z-50 py-4">
         <nav class="container mx-auto flex items-center justify-between px-6">
             <div class="flex items-center gap-4">
-                <a href="home.php?controller=homeUso&action=showHome"><img src="../assets/groomer.webp" alt="Logo" class="h-16 w-16 rounded-full shadow-md"></a>
-                <span class="text-2xl font-bold text-gray-700"><a href="home.php?controller=homeUso&action=showHome">RiberaPets</a></span>
+                <a href="home.php?controller=homeApi&action=showHome"><img src="../assets/groomer.webp" alt="Logo" class="h-16 w-16 rounded-full shadow-md"></a>
+                <span class="text-2xl font-bold text-gray-700"><a href="home.php?controller=homeApi&action=showHome">RiberaPets</a></span>
             </div>
             <div class="hidden md:flex gap-4">
-                <a href="home.php?controller=perroRecibeServicioUso&action=mostrarServiciosPorPerros" class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md transition-all hover:bg-blue-600 hover:scale-105">
+                <a href="home.php?controller=perroServicioApi&action=mostrarServiciosPorPerros" class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md transition-all hover:bg-blue-600 hover:scale-105">
                     Perros
                 </a>
-                <a href="home.php?controller=serviciosUso&action=showServicios" class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md transition-all hover:bg-blue-600 hover:scale-105">
+                <a href="home.php?controller=serviciosApi&action=showServicios" class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md transition-all hover:bg-blue-600 hover:scale-105">
                     Servicios
                 </a>
-                <a href="home.php?controller=empleadosUso&action=showEmpleados" class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md transition-all hover:bg-blue-600 hover:scale-105">
+                <a href="home.php?controller=empleadosApi&action=showEmpleados" class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md transition-all hover:bg-blue-600 hover:scale-105">
                     Empleados
                 </a>
-                <form id="clientesForm" action="./home.php?controller=clientesUso&action=showClientes" method="post" class="inline">
+                <form id="clientesForm" action="./home.php?controller=clientesApi&action=showClientes" method="post" class="inline">
                     <input type="hidden" name="dniInfo" value="">
                     <button type="submit" class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md transition-all hover:bg-blue-600 hover:scale-105">
                         Clientes
@@ -47,16 +47,16 @@ if(isset($_SESSION['user'])){
         </nav>
         <!-- Mobile Menu -->
         <div x-show="menuOpen" class="md:hidden flex flex-col items-center gap-4 bg-white shadow-md py-4" x-data="{ menuOpen: false }">
-            <a href="home.php?controller=perroRecibeServicioUso&action=mostrarServiciosPorPerros" class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600">
+            <a href="home.php?controller=perroServicioApi&action=mostrarServiciosPorPerros" class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600">
                 Perros
             </a>
-            <a href="home.php?controller=serviciosUso&action=showServicios" class="px-6 py-3 bg-grey-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600">
+            <a href="home.php?controller=serviciosApi&action=showServicios" class="px-6 py-3 bg-grey-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600">
                 Servicios
             </a>
-            <a href="home.php?controller=empleadosUso&action=showEmpleados" class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600">
+            <a href="home.php?controller=empleadosApi&action=showEmpleados" class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600">
                 Empleados
             </a>
-            <form id="clientesForm" action="./home.php?controller=clientesUso&action=showClientes" method="post" class="inline">
+            <form id="clientesForm" action="./home.php?controller=clientesApi&action=showClientes" method="post" class="inline">
                 <input type="hidden" name="dniInfo" value="">
                 <button type="submit" class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600">
                     Clientes

@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../views/homeView.php';
 
-class HomeUso{
+class homeApi{
     private $view;
 
     public function __construct()

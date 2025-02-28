@@ -9,7 +9,7 @@ class EmpleadosView
         <!-- Formulario para agregar un nuevo empleado -->
         <div class="bg-white p-8 rounded-lg shadow-lg mb-8 max-w-3xl mx-auto">
     <h2 class="text-2xl font-semibold text-gray-700 mb-6 text-center">Nuevo Empleado</h2>
-    <form action="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=empleadosUso&action=addEmpleado" method="post">
+    <form action="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=empleadosApi&action=addEmpleado" method="post">
         <input type="hidden" name="accion" value="nuevo_empleado">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="form-group">
@@ -131,7 +131,7 @@ class EmpleadosView
         <!-- Mostrar la lista de empleados -->
         <div class="bg-white p-8 rounded-lg shadow-lg max-w-3xl mx-auto">
             <h2 class="text-2xl font-semibold text-gray-700 mb-6 text-center">Lista de Empleados</h2>
-            <form action="./home.php?controller=empleadosUso&action=showEmpleados" method="post" class="text-center mb-6">
+            <form action="./home.php?controller=empleadosApi&action=showEmpleados" method="post" class="text-center mb-6">
                 <input type="hidden" name="listar" value="true">
                 <button type="submit" class="w-48 bg-gray-500 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-lg">Cargar Empleados</button>
             </form>
@@ -157,14 +157,14 @@ class EmpleadosView
         <div class="bg-white p-6 rounded shadow mb-4">
             <h2 class="text-xl font-bold text-blue-600 mb-10 flex justify-center">Nuestros Empleados</h2>
             <div class="flex justify-between items-center mb-4">
-               <a href="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=empleadosUso&action=showFormController">
+               <a href="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=empleadosApi&action=showFormController">
 
                   <?php if($_SESSION['user']['rol']=='ADMIN') echo '<button class="bg-blue-600 text-white px-4 py-2 rounded font-medium">Nuevo Empleado</button> '?>
                 </a>
                 <div class="flex items-center">
                     <form method="GET" action="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php">
                         <button type="submit" class="text-white bg-blue-600 hover:bg-blue-800 h-10 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Buscar Empleado</button>
-                        <input type="hidden" name="controller" value="empleadosUso">
+                        <input type="hidden" name="controller" value="empleadosApi">
                         <input type="hidden" name="action" value="getEmpleado">
                         <input type="text" name="dni" class="border border-gray-300 rounded-md shadow-sm p-2" placeholder="DNI">
                     </form>
@@ -205,7 +205,7 @@ class EmpleadosView
                                     <td class='px-4 py-2 text-left whitespace-nowrap'>
                                ";
                                if ($_SESSION['user']['rol'] == 'ADMIN') {
-                                echo '<a href="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=empleadosUso&action=deleteEmpleado&dni=' . (isset($empleado['Dni']) ? $empleado['Dni'] : '') . '" class="text-red-600 hover:text-red-800">Eliminar</a>';
+                                echo '<a href="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=empleadosApi&action=deleteEmpleado&dni=' . (isset($empleado['Dni']) ? $empleado['Dni'] : '') . '" class="text-red-600 hover:text-red-800">Eliminar</a>';
                             }
                                                             echo'    </td>
                                 </tr>"';

@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../views/perroRecibeServicioView.php';
 
-class PerroRecibeServicioUso
+class perroServicioApi
 {
     private $view;
 
@@ -108,12 +108,12 @@ class PerroRecibeServicioUso
         // Comprobar el estado HTTP y la respuesta
         if ($http_status == 200 && isset($response_data['mensaje'])) {
             echo "<script>alert('Servicio registrado con exito');</script>";
-            // echo "<script>window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perroRecibeServicioUso&action=mostrarServiciosPorPerros';</script>";
+            // echo "<script>window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perroServicioApi&action=mostrarServiciosPorPerros';</script>";
         } else {
             // Mostrar error detallado si la API devuelve un error
             $error_message = isset($response_data['error']) ? $response_data['error'] : "Error desconocido";
             echo "<script>alert('Error: $error_message');</script>";
-            // echo "<script>window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perroRecibeServicioUso&action=mostrarServiciosPorPerros';</script>";
+            // echo "<script>window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perroServicioApi&action=mostrarServiciosPorPerros';</script>";
         }
     }
 
@@ -150,7 +150,7 @@ class PerroRecibeServicioUso
             if ($http_status == 200) {
                 echo "<script>alert('Servicio eliminado con exito');</script>";
                 echo "<script> 
-                    window.location.href = 'http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perroRecibeServicioUso&action=mostrarServiciosPorPerros'; 
+                    window.location.href = 'http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perroServicioApi&action=mostrarServiciosPorPerros'; 
                     </script>";
                 exit;
             } else {

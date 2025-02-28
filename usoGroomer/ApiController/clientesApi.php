@@ -6,7 +6,7 @@ require_once __DIR__ . '/../views/clientesView.php';
 
 
 
-class ClientesUso
+class clientesApi
 {
     private $view;
     // private $clientes;
@@ -203,7 +203,7 @@ class ClientesUso
         }
     } else {
         // Mostrar formulario de confirmación de eliminación
-        echo "<form method='POST' action='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=clientesUso&action=deleteCliente'>";
+        echo "<form method='POST' action='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=clientesApi&action=deleteCliente'>";
         echo "<input type='hidden' name='dni' value='" . $_POST['dni'] . "'>";
         echo "<p class='p-10 font-bold'>¿Desea Eliminar al Cliente con DNI " . $_POST['dni'] . "?</p>";
         echo "<button type='submit' class='font-bold bg-blue-500 text-white mx-2 px-4 py-2 rounded' name='confirmar' value='sí'>Aceptar</button>";

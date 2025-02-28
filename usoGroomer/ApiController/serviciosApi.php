@@ -4,7 +4,7 @@ require_once __DIR__ . '/../views/serviciosView.php';
 
 
 
-class ServiciosUso
+class serviciosApi
 {
     private $view;
 
@@ -84,7 +84,7 @@ class ServiciosUso
             // Si el servicio se creó correctamente
             echo '<script>
                 alert("Servicio creado exitosamente.");
-                window.location.href = "http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=serviciosUso&action=showServicios";
+                window.location.href = "http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=serviciosApi&action=showServicios";
             </script>';
         }
     }
@@ -138,7 +138,7 @@ class ServiciosUso
             } else {
                 // Si la actualización fue exitosa
                 echo '<script>alert("Servicio editado exitosamente."); 
-                      window.location.href = "http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=serviciosUso&action=showServicios"; 
+                      window.location.href = "http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=serviciosApi&action=showServicios"; 
                       </script>';
             }
         }

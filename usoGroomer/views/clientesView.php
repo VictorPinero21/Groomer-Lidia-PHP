@@ -12,7 +12,7 @@ class ClientesView
         <div id="modal" class="fixed inset-0 bg-opacity-50 flex items-center justify-center">
     <div class="bg-white p-6 rounded-lg shadow-lg w-1/3">
         <h2 class="text-2xl font-semibold text-gray-800 mb-4">Crear Cliente</h2>
-        <form id="crearClienteForm" class="space-y-4 text-left" method="POST" action="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=clientesUso&action=createCliente">
+        <form id="crearClienteForm" class="space-y-4 text-left" method="POST" action="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=clientesApi&action=createCliente">
             <div>
                 <label for="dni" class="block text-sm font-medium">DNI</label>
                 <input required type="text" id="dni" name="dni" pattern="^\d{8}[A-Za-z]$" maxlength="9" class="mt-2 block w-full border-2 border-gray-300 rounded-md shadow-sm p-3 focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Ej: 12345678A">
@@ -38,7 +38,7 @@ class ClientesView
                 <input required type="text" id="tlfno" name="tlfno" pattern="^\d{9}$" maxlength="9" class="mt-2 block w-full border-2 border-gray-300 rounded-md shadow-sm p-3 focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Ej: 600123456">
             </div>
             <div class="flex justify-end mt-4">
-                <button type="button" onclick="window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=clientesUso&action=showClientes'" class="bg-gray-600 text-white px-4 py-2 rounded-md">Cancelar</button>
+                <button type="button" onclick="window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=clientesApi&action=showClientes'" class="bg-gray-600 text-white px-4 py-2 rounded-md">Cancelar</button>
                 <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md ml-2">Crear Cliente</button>
             </div>
         </form>
@@ -60,7 +60,7 @@ class ClientesView
         <div class="bg-white p-8 rounded-lg shadow-xl mb-6 overflow-x-auto">
             <h2 class="text-2xl font-semibold text-black mb-4">Nuestros Clientes</h2>
             <div class="flex justify-between items-center mb-6">
-                <a href="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=clientesUso&action=showFormController">
+                <a href="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=clientesApi&action=showFormController">
                   <?php if($_SESSION['user']['rol']=='ADMIN') echo '<button class="bg-blue-600 text-white px-5 py-3 rounded-md">Nuevo Cliente</button>' ?>
                 </a>
             </div>
@@ -88,8 +88,8 @@ class ClientesView
                             echo "<td class='px-4 py-2 text-left whitespace-nowrap text-black'>{$cliente['Direccion']}</td>";
                             echo "<td class='px-4 py-2 text-left whitespace-nowrap text-black'>" . (isset($cliente['Tlfno']) ? $cliente['Tlfno'] : 'N/A') . "</td>";
                             echo "<td class='px-4 py-2 text-left whitespace-nowrap text-black'>";
-                            echo "<button type='submit' class='bg-blue-600 text-white px-4 py-2 rounded-md mr-2 bg-blue-500' onclick='window.location.href=\"http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perrosUso&action=mostrarPerrosPorCliente&clienteDni={$cliente['Dni']}\"'>Perros</button>";
-                            echo "<form method='POST' action='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=clientesUso&action=deleteCliente' style='display:inline;'>";
+                            echo "<button type='submit' class='bg-blue-600 text-white px-4 py-2 rounded-md mr-2 bg-blue-500' onclick='window.location.href=\"http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perrosApi&action=mostrarPerrosPorCliente&clienteDni={$cliente['Dni']}\"'>Perros</button>";
+                            echo "<form method='POST' action='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=clientesApi&action=deleteCliente' style='display:inline;'>";
                             echo "<input type='hidden' name='dni' value='{$cliente['Dni']}'>";
                            if($_SESSION['user']['rol']=='ADMIN') echo "<button type='submit' class='bg-red-600 text-white px-4 py-2 rounded-md bg-red-700'>Borrar</button>";
                             echo "</form>";

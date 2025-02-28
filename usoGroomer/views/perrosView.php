@@ -9,7 +9,7 @@ class PerrosView
 <div id="modal" class="fixed inset-0 flex items-center justify-center">
         <div class="bg-white p-6 rounded-lg shadow-lg w-1/2">
             <h2 class="text-xl font-bold mb-4 text-gray-800">Crear un nuevo perro</h2>
-            <form id="crearNuevoPerro" class="space-y-4" method="POST" action="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perrosUso&action=crearPerro">
+            <form id="crearNuevoPerro" class="space-y-4" method="POST" action="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perrosApi&action=crearPerro">
                 
                 <input type="hidden" required value="<?php if (isset($_GET['clienteDni'])) echo $_GET['clienteDni']; ?>" id="dni" name="Dni_duenio">
 
@@ -72,7 +72,7 @@ class PerrosView
                 </div>
 
                 <div class="flex justify-end">
-                    <a href="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perrosUso&action=mostrarPerrosPorCliente&clienteDni=<?php if (isset($_GET['clienteDni'])) echo $_GET['clienteDni']; ?>">
+                    <a href="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perrosApi&action=mostrarPerrosPorCliente&clienteDni=<?php if (isset($_GET['clienteDni'])) echo $_GET['clienteDni']; ?>">
                         <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded mr-2">Cancelar</button>
                     </a>
                     <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Registrar Nuevo Perro</button>
@@ -91,7 +91,7 @@ class PerrosView
         <!-- Lista de clientes -->
         <div class="bg-white p-4 rounded shadow mb-4 overflow-x-auto dark:bg-gray-800">
             <h2 class="text-xl font-bold mb-2 dark:text-purple-400">Lista de Perros</h2>
-            <a href="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perrosUso&action=showFormController&clienteDni=<?php if (isset($_GET['clienteDni'])) echo $_GET['clienteDni']; ?>"><button class="bg-green-500 text-white px-4 py-2 rounded m-4 dark:bg-green-700">Insertar nuevo perro</button></a>
+            <a href="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perrosApi&action=showFormController&clienteDni=<?php if (isset($_GET['clienteDni'])) echo $_GET['clienteDni']; ?>"><button class="bg-green-500 text-white px-4 py-2 rounded m-4 dark:bg-green-700">Insertar nuevo perro</button></a>
             <table class="min-w-full divide-y divide-gray-200 text-sm dark:divide-gray-700">
     <thead class="bg-gray-50 dark:bg-gray-700">
         <tr>
@@ -122,7 +122,7 @@ class PerrosView
                 echo "<td class='px-4 py-2 whitespace-nowrap dark:text-gray-300'>{$perro['Numero_Chip']}</td>";
                 echo "<td class='px-4 py-2 whitespace-nowrap dark:text-gray-300'>{$perro['Sexo']}</td>";
                 echo "<td class='px-4 py-2 whitespace-nowrap'>";
-                echo "<form method='POST' action='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perrosUso&action=deletePerro' style='display:inline;'>";
+                echo "<form method='POST' action='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perrosApi&action=deletePerro' style='display:inline;'>";
                 echo "<input type='hidden' name='Numero_Chip' value='{$perro['Numero_Chip']}'>";
                 echo "<input type='hidden' name='Dni_duenio' value='{$perro['Dni_duenio']}'>";
                 echo "<button type='submit' class='bg-red-500 text-white px-4 py-2 rounded dark:bg-red-700'>Borrar</button>";

@@ -5,7 +5,7 @@ require_once __DIR__ . '/../views/empleadosView.php';
 //Incluir el archivo
 //  require_once __DIR__ . './../../api/controllers/empleadosController.php';
 
-class EmpleadosUso
+class empleadosApi
 {
     private $view;
     private $empleados;
@@ -92,7 +92,7 @@ class EmpleadosUso
         // Mostrar alerta de eliminación y redireccionar
         echo "<script>
                 alert('Usuario con DNI " . $dni . " eliminado');
-                window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=empleadosUso&action=showEmpleados';
+                window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=empleadosApi&action=showEmpleados';
               </script>";
         exit();
     }
@@ -150,16 +150,16 @@ class EmpleadosUso
             // Si hay un error de registro
             echo "<script>alert('" . $data['mensaje']['error'] . "');</script>";
             // Redirigir inmediatamente después de mostrar el mensaje
-            echo "<script>window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=empleadosUso&action=showEmpleados';</script>";
+            echo "<script>window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=empleadosApi&action=showEmpleados';</script>";
         } elseif (isset($data['mensaje']['mensaje'])) {
             // Si la inserción fue exitosa
             echo "<script>alert('" . $data['mensaje']['mensaje'] . "');</script>";
             // Redirigir inmediatamente después de mostrar el mensaje
-            echo "<script>window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=empleadosUso&action=showEmpleados';</script>";
+            echo "<script>window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=empleadosApi&action=showEmpleados';</script>";
         } else {
             echo "<script>alert('Error inesperado: respuesta no válida.');</script>";
             // Redirigir inmediatamente después de mostrar el mensaje
-            echo "<script>window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=empleadosUso&action=showEmpleados';</script>";
+            echo "<script>window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=empleadosApi&action=showEmpleados';</script>";
         }
         exit();
     }
@@ -209,7 +209,7 @@ class EmpleadosUso
         if (!$empleado || isset($empleado['error'])) {
             echo "<script>
             alert('Empleado no encontrado.');
-            window.location.href = 'http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=empleadosUso&action=showEmpleados';
+            window.location.href = 'http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=empleadosApi&action=showEmpleados';
           </script>";
     
             return;
