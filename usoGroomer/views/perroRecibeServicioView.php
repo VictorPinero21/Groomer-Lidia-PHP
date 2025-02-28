@@ -5,60 +5,69 @@ class PerroRecibeServicio
     public function showFormServ($servicios)
     {
 ?>
-        <div id="modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
-            <div class="bg-white p-8 rounded-lg shadow-lg w-11/12 sm:w-3/4 lg:w-2/3 xl:w-1/2">
-                <div class="flex justify-between items-center mb-6">
-                    <button onclick="document.getElementById('modal').style.display='none'" class="text-gray-500 hover:text-gray-700">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                    </button>
-                </div>
-                <form id="crearNuevoServicio" class="grid grid-cols-1 sm:grid-cols-2 gap-6" method="POST" action="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perroRecibeServicioUso&action=crearServicioRealizadoAPerro">
-                    <div class="flex flex-col">
-                        <label for="dni" class="text-sm font-medium text-gray-700">ID del perro:</label>
-                        <input required type="text" id="dni" name="perro_id" class="mt-1 p-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500">
-                    </div>
-                    <div class="flex flex-col">
-                        <label for="nombre" class="text-sm font-medium text-gray-700">ID del servicio:</label>
-                        <select required id="servicio" name="servicio_id" class="mt-1 p-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500">
-    <option disabled value="">Seleccione un servicio</option>
-    <?php
-    if (!empty($servicios) && is_array($servicios)) {
-        foreach ($servicios as $servicio) {
-            echo "<option value='" . htmlspecialchars($servicio['Codigo']) . "'>" . htmlspecialchars($servicio['Codigo']) . "</option>";
-        }
-    } else {
-        echo "<option value='' disabled>No hay servicios disponibles</option>";
-    }
-    ?>
-</select>
-                    </div>
-                    <div class="flex flex-col">
-                        <label for="fecha_nto" class="text-sm font-medium text-gray-700">Fecha del Servicio:</label>
-                        <input required type="date" id="fecha_nto" name="fecha" class="mt-1 p-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500">
-                    </div>
-                    <div class="flex flex-col">
-                        <label for="raza" class="text-sm font-medium text-gray-700">ID del empleado:</label>
-                        <input required type="text" id="raza" name="empleado_id" class="mt-1 p-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500">
-                    </div>
-                    <div class="flex flex-col">
-                        <label for="peso" class="text-sm font-medium text-gray-700">Precio:</label>
-                        <input required type="number" step="0.01" id="peso" name="precioFinal" class="mt-1 p-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500">
-                    </div>
-                    <div class="flex flex-col">
-                        <label for="altura" class="text-sm font-medium text-gray-700">Incidencias:</label>
-                        <input required type="text" id="altura" name="incidencias" class="mt-1 p-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500">
-                    </div>
-                    <div class="col-span-2 flex justify-end gap-4 mt-6">
-                        <a href="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perroRecibeServicioUso&action=mostrarServiciosPorPerros">
-                            <button type="button" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-md">CANCELAR</button>
-                        </a>
-                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md">INSERTAR SERVICIO</button>
-                    </div>
-                </form>
-            </div>
+<div id="modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-11/12 sm:w-3/4 lg:w-2/3 xl:w-1/2">
+        <div class="flex justify-between items-center mb-6">
+            <button onclick="document.getElementById('modal').style.display='none'" class="text-gray-500 hover:text-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
         </div>
+        <form id="crearNuevoServicio" class="grid grid-cols-1 sm:grid-cols-2 gap-6" method="POST" action="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perroRecibeServicioUso&action=crearServicioRealizadoAPerro">
+            <div class="flex flex-col">
+                <label for="dni" class="text-sm font-medium text-gray-700">ID del perro:</label>
+                <input required type="text" id="dni" name="perro_id" class="mt-1 p-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div class="flex flex-col">
+                <label for="nombre" class="text-sm font-medium text-gray-700">ID del servicio:</label>
+                <select required id="servicio" name="servicio_id" class="mt-1 p-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500">
+                    <option disabled selected value="">Seleccione un servicio</option>
+                    <?php
+                    if (!empty($servicios) && is_array($servicios)) {
+                        foreach ($servicios as $servicio) {
+                            echo "<option value='" . htmlspecialchars($servicio['Codigo']) . "' data-precio='" . htmlspecialchars($servicio['Precio']) . "'>" . htmlspecialchars($servicio['Codigo']) . "</option>";
+                        }
+                    } else {
+                        echo "<option value='' disabled>No hay servicios disponibles</option>";
+                    }
+                    ?>
+                </select>
+            </div>
+            <div class="flex flex-col">
+                <label for="fecha_nto" class="text-sm font-medium text-gray-700">Fecha del Servicio:</label>
+                <input required type="date" id="fecha_nto" name="fecha" class="mt-1 p-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div class="flex flex-col">
+                <label for="raza" class="text-sm font-medium text-gray-700">DNI del empleado:</label>
+                <input required type="text" id="raza" name="empleado_id" class="mt-1 p-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div class="flex flex-col">
+                <label for="peso" class="text-sm font-medium text-gray-700">Precio:</label>
+                <input type="number" id="peso" name="precioFinal" class="mt-1 p-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500" disabled>
+            </div>
+            <div class="flex flex-col">
+                <label for="altura" class="text-sm font-medium text-gray-700">Incidencias:</label>
+                <input required type="text" id="altura" name="incidencias" class="mt-1 p-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div class="col-span-2 flex justify-end gap-4 mt-6">
+                <a href="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perroRecibeServicioUso&action=mostrarServiciosPorPerros">
+                    <button type="button" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-md">CANCELAR</button>
+                </a>
+                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md">INSERTAR SERVICIO</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.getElementById('servicio').addEventListener('change', function() {
+        var selectedOption = this.options[this.selectedIndex];
+        var precio = selectedOption.getAttribute('data-precio');
+        document.getElementById('peso').value = precio;
+    });
+</script>
+
 
 <?php
     }
