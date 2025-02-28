@@ -84,7 +84,7 @@ class ServiciosUso
             // Si el servicio se creó correctamente
             echo '<script>
                 alert("Servicio creado exitosamente.");
-                // window.location.href = "http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=serviciosUso&action=showServicios";
+                window.location.href = "http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=serviciosUso&action=showServicios";
             </script>';
         }
     }
