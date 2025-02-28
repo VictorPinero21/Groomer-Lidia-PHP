@@ -160,12 +160,31 @@ class PerroRecibeServicioUso
         curl_close($ch);
     }
 
+    public function showServicios()
+    {
+        $base_url = 'http://localhost:8000/api/servicios/';
 
+        // Petición GET
+        $get_url = $base_url;
+        $ch = curl_init($get_url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPGET, true);
+        $get_response = curl_exec($ch);
+        if ($get_response === false) {
+            echo 'Error en la petición GET: ' . curl_error($ch);
+        } else {
+            $data = json_decode($get_response, true);
+            $serviciosLista = $data;
+        }
+        curl_close($ch);
+
+        return $data;
+    }
 
 
     //Funcion para mostrar el formulario de creacion de servicios realizados a perros
     public function showFormServ()
     {
-        $this->view->showFormServ();
+        $this->view->showFormServ($this->showServicios());
     }
 }

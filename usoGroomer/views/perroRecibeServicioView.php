@@ -2,7 +2,7 @@
 
 class PerroRecibeServicio
 {
-    public function showFormServ()
+    public function showFormServ($servicios)
     {
 ?>
         <div id="modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
@@ -21,7 +21,18 @@ class PerroRecibeServicio
                     </div>
                     <div class="flex flex-col">
                         <label for="nombre" class="text-sm font-medium text-gray-700">ID del servicio:</label>
-                        <input required type="text" id="nombre" name="servicio_id" class="mt-1 p-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500">
+                        <select required id="servicio" name="servicio_id" class="mt-1 p-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500">
+    <option disabled value="">Seleccione un servicio</option>
+    <?php
+    if (!empty($servicios) && is_array($servicios)) {
+        foreach ($servicios as $servicio) {
+            echo "<option value='" . htmlspecialchars($servicio['Codigo']) . "'>" . htmlspecialchars($servicio['Codigo']) . "</option>";
+        }
+    } else {
+        echo "<option value='' disabled>No hay servicios disponibles</option>";
+    }
+    ?>
+</select>
                     </div>
                     <div class="flex flex-col">
                         <label for="fecha_nto" class="text-sm font-medium text-gray-700">Fecha del Servicio:</label>
