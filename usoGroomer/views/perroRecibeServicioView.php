@@ -36,8 +36,8 @@ class PerroRecibeServicio
                 <input required type="text" id="raza" name="empleado_id" class="mt-1 p-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500"required pattern="^\d{8}[A-Za-z]$" maxlength="9" title="El DNI debe contener 8 números seguidos de una letra.">
             </div>
             <div class="flex flex-col">
-                <label for="peso" class="text-sm font-medium text-gray-700">Precio:</label>
-                <input type="number" id="peso" name="precioFinal" class="mt-1 p-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500" disabled>
+                <label for="Precio_Final" class="text-sm font-medium text-gray-700">Precio:</label>
+                <input type="number" id="Precio_Final" name="Precio_Final" class="mt-1 p-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500">
             </div>
             <div class="flex flex-col">
                 <label for="altura" class="text-sm font-medium text-gray-700">Incidencias:</label>
@@ -57,7 +57,8 @@ class PerroRecibeServicio
     document.getElementById('servicio').addEventListener('change', function() {
         var selectedOption = this.options[this.selectedIndex];
         var precio = selectedOption.getAttribute('data-precio');
-        document.getElementById('peso').value = precio;
+        document.getElementById('Precio_Final').value = precio;
+        console.log(document.getElementById('Precio_Final'));
     });
 </script>
 

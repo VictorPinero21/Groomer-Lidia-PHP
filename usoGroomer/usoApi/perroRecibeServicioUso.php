@@ -65,7 +65,7 @@ class PerroRecibeServicioUso
             'Cod_Servicio' => $_POST['servicio_id'] ?? null,
             'Fecha' => $_POST['fecha'] ?? null,
             'Dni' => $_POST['empleado_id'] ?? null,
-            'Precio_Final' => $_POST['precioFinal'] ?? null,
+            'Precio_Final' => $_POST['Precio_Final'] ?? null,
             'Incidencias' => $_POST['incidencias'] ?? null
         ];
 
@@ -73,7 +73,8 @@ class PerroRecibeServicioUso
         foreach ($data as $key => $value) {
             if (empty($value)) {
                 echo "<script>alert('Falta el campo: $key');</script>";
-                return;
+                print_r($data);
+                // return;
             }
         }
 
@@ -107,12 +108,12 @@ class PerroRecibeServicioUso
         // Comprobar el estado HTTP y la respuesta
         if ($http_status == 200 && isset($response_data['mensaje'])) {
             echo "<script>alert('Servicio registrado con exito');</script>";
-            echo "<script>window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perroRecibeServicioUso&action=mostrarServiciosPorPerros';</script>";
+            // echo "<script>window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perroRecibeServicioUso&action=mostrarServiciosPorPerros';</script>";
         } else {
             // Mostrar error detallado si la API devuelve un error
             $error_message = isset($response_data['error']) ? $response_data['error'] : "Error desconocido";
             echo "<script>alert('Error: $error_message');</script>";
-            echo "<script>window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perroRecibeServicioUso&action=mostrarServiciosPorPerros';</script>";
+            // echo "<script>window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perroRecibeServicioUso&action=mostrarServiciosPorPerros';</script>";
         }
     }
 
