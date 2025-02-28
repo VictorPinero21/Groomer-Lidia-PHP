@@ -7,13 +7,6 @@ class PerroRecibeServicio
 ?>
 <div id="modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
     <div class="bg-white p-8 rounded-lg shadow-lg w-11/12 sm:w-3/4 lg:w-2/3 xl:w-1/2">
-        <div class="flex justify-between items-center mb-6">
-            <button onclick="document.getElementById('modal').style.display='none'" class="text-gray-500 hover:text-gray-700">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-            </button>
-        </div>
         <form id="crearNuevoServicio" class="grid grid-cols-1 sm:grid-cols-2 gap-6" method="POST" action="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perroRecibeServicioUso&action=crearServicioRealizadoAPerro">
             <div class="flex flex-col">
                 <label for="dni" class="text-sm font-medium text-gray-700">ID del perro:</label>
@@ -40,7 +33,7 @@ class PerroRecibeServicio
             </div>
             <div class="flex flex-col">
                 <label for="raza" class="text-sm font-medium text-gray-700">DNI del empleado:</label>
-                <input required type="text" id="raza" name="empleado_id" class="mt-1 p-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500">
+                <input required type="text" id="raza" name="empleado_id" class="mt-1 p-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500"required pattern="^\d{8}[A-Za-z]$" maxlength="9" title="El DNI debe contener 8 números seguidos de una letra.">
             </div>
             <div class="flex flex-col">
                 <label for="peso" class="text-sm font-medium text-gray-700">Precio:</label>

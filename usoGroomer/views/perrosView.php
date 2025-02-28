@@ -6,54 +6,80 @@ class PerrosView
     public function mostrarFormularioCrearPerro()
     {
 ?>
-        <div id="modal" class="fixed inset-0 flex items-center justify-center">
-            <div class="bg-white  p-4 rounded shadow-lg w-1/2">
-                <h2 class="text-xl font-bold mb-2 text-white">Crear un nuevo perro</h2>
-                <form id="crearNuevoPerro" class="space-y-4" method="POST" action="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perrosUso&action=crearPerro">
-                        <input type="hidden" required value="<?php if (isset($_GET['clienteDni'])) echo $_GET['clienteDni']; ?>" id="dni" name="Dni_duenio" class="mt-1 block w-full border border-gray-300 dark:text-white rounded-md shadow-sm p-2">
-                    <div>
-                        <label for="Nombre" class="block text-sm font-medium text-gray-700">Nombre:</label>
-                        <input type="text" required id="Nombre" name="Nombre" class="mt-1 block w-full border border-gray-300 text-black rounded-md shadow-sm p-2">
-                    </div>
-                    <div>
-                        <label for="Fecha_Nto" class="block text-sm font-medium text-gray-700">Fecha de nacimiento:</label>
-                        <input type="date" required id="Fecha_Nto" name="Fecha_Nto" class="mt-1 block w-full border border-gray-300 text-black rounded-md shadow-sm p-2">
-                    </div>
-                    <div>
-                        <label for="Raza" class="block text-sm font-medium text-gray-700">Raza:</label>
-                        <input type="text" required id="Raza" name="Raza" class="mt-1 block w-full border border-gray-300 text-black rounded-md shadow-sm p-2">
-                    </div>
-                    <div>
-                        <label for="Peso" class="block text-sm font-medium text-gray-700">Peso:</label>
-                        <input type="number" required id="Peso" name="Peso" class="mt-1 block w-full border border-gray-300 text-black rounded-md shadow-sm p-2">
-                    </div>
-                    <div>
-                        <label for="Altura" class="block text-sm font-medium text-gray-700">Altura:</label>
-                        <input type="number" required id="Altura" name="Altura" class="mt-1 block w-full border border-gray-300 text-black rounded-md shadow-sm p-2">
-                    </div>
-                    <div>
-                        <label for="Observaciones" class="block text-sm font-medium text-gray-700">Observaciones:</label>
-                        <input type="text" required id="Observaciones" name="Observaciones" class="mt-1 block w-full border border-gray-300 text-black rounded-md shadow-sm p-2">
-                    </div>
-                    <div>
-                        <label for="Numero_Chip" class="block text-sm font-medium text-gray-700">Numero de chip:</label>
-                        <input type="text" required id="Numero_Chip" name="Numero_Chip" class="mt-1 block w-full border border-gray-300 text-black rounded-md shadow-sm p-2">
-                    </div>
-                    <div>
-                        <label for="Sexo" class="block text-sm font-medium text-gray-700">Sexo:</label>
-                        <select name="Sexo" id="Sexo" class="mt-1 block w-full border border-gray-300 text-black rounded-md shadow-sm p-2">
-                            <option selected disabled value=""></option>
-                            <option value="Macho">Macho</option>
-                            <option value="Hembra">Hembra</option>
-                        </select>
-                    </div>
-                    <div class="flex justify-end">
-                        <a href="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perrosUso&action=mostrarPerrosPorCliente&clienteDni=<?php if (isset($_GET['clienteDni'])) echo $_GET['clienteDni']; ?>"><button type="button" class="bg-gray-500 text-white px-4 py-2 rounded mr-2 dark:bg-gray-700">Cancelar</button></a>
-                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded dark:bg-blue-700">Registrar Nuevo Perro</button>
-                    </div>
-                </form>
-            </div>
+<div id="modal" class="fixed inset-0 flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-1/2">
+            <h2 class="text-xl font-bold mb-4 text-gray-800">Crear un nuevo perro</h2>
+            <form id="crearNuevoPerro" class="space-y-4" method="POST" action="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perrosUso&action=crearPerro">
+                
+                <input type="hidden" required value="<?php if (isset($_GET['clienteDni'])) echo $_GET['clienteDni']; ?>" id="dni" name="Dni_duenio">
+
+                <div>
+                    <label for="Nombre" class="block text-sm font-medium text-gray-700">Nombre:</label>
+                    <input type="text" required id="Nombre" name="Nombre" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{2,50}" 
+                        title="Solo letras, mínimo 2 y máximo 50 caracteres"
+                        class="mt-1 block w-full border border-gray-300 text-black rounded-md shadow-sm p-2" placeholder="Ej: Max">
+                </div>
+
+                <div>
+                    <label for="Fecha_Nto" class="block text-sm font-medium text-gray-700">Fecha de nacimiento:</label>
+                    <input type="date" required id="Fecha_Nto" name="Fecha_Nto" max="<?= date('Y-m-d'); ?>" 
+                        class="mt-1 block w-full border border-gray-300 text-black rounded-md shadow-sm p-2">
+                </div>
+
+                <div>
+                    <label for="Raza" class="block text-sm font-medium text-gray-700">Raza:</label>
+                    <input type="text" required id="Raza" name="Raza" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{2,50}" 
+                        title="Solo letras, mínimo 2 y máximo 50 caracteres"
+                        class="mt-1 block w-full border border-gray-300 text-black rounded-md shadow-sm p-2" placeholder="Ej: Labrador">
+                </div>
+
+                <div>
+                    <label for="Peso" class="block text-sm font-medium text-gray-700">Peso (kg):</label>
+                    <input type="number" required id="Peso" name="Peso" min="0.1" step="0.1" 
+                        title="Debe ser un número positivo mayor a 0" 
+                        class="mt-1 block w-full border border-gray-300 text-black rounded-md shadow-sm p-2" placeholder="Ej: 12.5">
+                </div>
+
+                <div>
+                    <label for="Altura" class="block text-sm font-medium text-gray-700">Altura (cm):</label>
+                    <input type="number" required id="Altura" name="Altura" min="1" step="0.1" 
+                        title="Debe ser un número positivo mayor a 1 cm" 
+                        class="mt-1 block w-full border border-gray-300 text-black rounded-md shadow-sm p-2" placeholder="Ej: 50">
+                </div>
+
+                <div>
+                    <label for="Observaciones" class="block text-sm font-medium text-gray-700">Observaciones:</label>
+                    <input type="text" id="Observaciones" name="Observaciones" maxlength="255" 
+                        title="Máximo 255 caracteres" 
+                        class="mt-1 block w-full border border-gray-300 text-black rounded-md shadow-sm p-2" placeholder="Ej: Muy juguetón">
+                </div>
+
+                <div>
+                    <label for="Numero_Chip" class="block text-sm font-medium text-gray-700">Número de chip:</label>
+                    <input type="text" required id="Numero_Chip" name="Numero_Chip" pattern="\d{5,15}" 
+                        title="Solo números, entre 5 y 15 dígitos" 
+                        class="mt-1 block w-full border border-gray-300 text-black rounded-md shadow-sm p-2" placeholder="Ej: 123456789">
+                </div>
+
+                <div>
+                    <label for="Sexo" class="block text-sm font-medium text-gray-700">Sexo:</label>
+                    <select name="Sexo" id="Sexo" required 
+                        class="mt-1 block w-full border border-gray-300 text-black rounded-md shadow-sm p-2">
+                        <option selected disabled value="">Seleccione una opción</option>
+                        <option value="Macho">Macho</option>
+                        <option value="Hembra">Hembra</option>
+                    </select>
+                </div>
+
+                <div class="flex justify-end">
+                    <a href="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=perrosUso&action=mostrarPerrosPorCliente&clienteDni=<?php if (isset($_GET['clienteDni'])) echo $_GET['clienteDni']; ?>">
+                        <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded mr-2">Cancelar</button>
+                    </a>
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Registrar Nuevo Perro</button>
+                </div>
+            </form>
         </div>
+    </div>
 
     <?php
     }

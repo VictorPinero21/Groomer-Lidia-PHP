@@ -8,80 +8,80 @@ class EmpleadosView
 ?>
         <!-- Formulario para agregar un nuevo empleado -->
         <div class="bg-white p-8 rounded-lg shadow-lg mb-8 max-w-3xl mx-auto">
-            <h2 class="text-2xl font-semibold text-gray-700 mb-6 text-center">Nuevo Empleado</h2>
-            <form action="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=empleadosUso&action=addEmpleado" method="post">
-                <input type="hidden" name="accion" value="nuevo_empleado">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="form-group">
-                        <label for="dni" class="block text-gray-700">DNI</label>
-                        <input type="text" class="form-control w-full border rounded-lg py-3 px-4" id="dni" name="dni" required >
-                    </div>
-                    <div class="form-group">
-                        <label for="email" class="block text-gray-700">Email</label>
-                        <input type="email" class="form-control w-full border rounded-lg py-3 px-4" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="password" class="block text-gray-700">Password</label>
-                        <input type="password" class="form-control w-full border rounded-lg py-3 px-4" id="password" name="password" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="rol" class="block text-gray-700">Rol</label>
-                        <select class="form-control w-full border rounded-lg py-3 px-4" id="rol" name="rol" required>
-                            <option selected value="EMPLEADO">EMPLEADO</option>
-                            <option value="AUXILIAR">AUXILIAR</option>
-                            <option value="ADMIN">ADMIN</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="nombre" class="block text-gray-700">Nombre</label>
-                        <input type="text" class="form-control w-full border rounded-lg py-3 px-4" id="nombre" name="nombre" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="apellido1" class="block text-gray-700">Apellido 1</label>
-                        <input type="text" class="form-control w-full border rounded-lg py-3 px-4" id="apellido1" name="apellido1" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="apellido2" class="block text-gray-700">Apellido 2</label>
-                        <input type="text" class="form-control w-full border rounded-lg py-3 px-4" id="apellido2" name="apellido2" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="calle" class="block text-gray-700">Calle</label>
-                        <input type="text" class="form-control w-full border rounded-lg py-3 px-4" id="calle" name="calle" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="numero" class="block text-gray-700">Número</label>
-                        <input type="number" class="form-control w-full border rounded-lg py-3 px-4" id="numero" name="numero" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="cp" class="block text-gray-700">Código Postal</label>
-                        <input type="number" class="form-control w-full border rounded-lg py-3 px-4" id="cp" name="cp" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="poblacion" class="block text-gray-700">Población</label>
-                        <input type="text" class="form-control w-full border rounded-lg py-3 px-4" id="poblacion" name="poblacion" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="provincia" class="block text-gray-700">Provincia</label>
-                        <input type="text" class="form-control w-full border rounded-lg py-3 px-4" id="provincia" name="provincia" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="tlfno" class="block text-gray-700">Teléfono</label>
-                        <input type="number" class="form-control w-full border rounded-lg py-3 px-4" id="tlfno" name="tlfno" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="profesion" class="block text-gray-700">Profesión</label>
-                        <select class="form-control w-full border rounded-lg py-3 px-4" id="profesion" name="profesion" required>
-                            <option value="ESTILISTA">ESTILISTA</option>
-                            <option value="NUTRICIONISTA">NUTRICIONISTA</option>
-                            <option value="AUXILIAR">AUXILIAR</option>
-                            <option value="ATT.CLIENTE">ATT.CLIENTE</option>
-                        </select>
-                    </div>
-                </div>
-
-                <button type="submit" class="w-48 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg mt-6 mx-auto block">Agregar Empleado</button>
-            </form>
+    <h2 class="text-2xl font-semibold text-gray-700 mb-6 text-center">Nuevo Empleado</h2>
+    <form action="http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=empleadosUso&action=addEmpleado" method="post">
+        <input type="hidden" name="accion" value="nuevo_empleado">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="form-group">
+                <label for="dni" class="block text-gray-700">DNI</label>
+                <input type="text" class="form-control w-full border rounded-lg py-3 px-4" id="dni" name="dni" required pattern="^\d{8}[A-Za-z]$" maxlength="9" title="El DNI debe contener 8 números seguidos de una letra.">
+            </div>
+            <div class="form-group">
+                <label for="email" class="block text-gray-700">Email</label>
+                <input type="email" class="form-control w-full border rounded-lg py-3 px-4" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password" class="block text-gray-700">Password</label>
+                <input type="password" class="form-control w-full border rounded-lg py-3 px-4" id="password" name="password" required minlength="8" title="La contraseña debe tener al menos 8 caracteres.">
+            </div>
+            <div class="form-group">
+                <label for="rol" class="block text-gray-700">Rol</label>
+                <select class="form-control w-full border rounded-lg py-3 px-4" id="rol" name="rol" required>
+                    <option selected value="EMPLEADO">EMPLEADO</option>
+                    <option value="AUXILIAR">AUXILIAR</option>
+                    <option value="ADMIN">ADMIN</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="nombre" class="block text-gray-700">Nombre</label>
+                <input type="text" class="form-control w-full border rounded-lg py-3 px-4" id="nombre" name="nombre" required pattern="[A-Za-zÁÉÍÓÚáéíóúñÑ ]{2,50}" title="Solo letras y espacios, mínimo 2 caracteres.">
+            </div>
+            <div class="form-group">
+                <label for="apellido1" class="block text-gray-700">Apellido 1</label>
+                <input type="text" class="form-control w-full border rounded-lg py-3 px-4" id="apellido1" name="apellido1" required pattern="[A-Za-zÁÉÍÓÚáéíóúñÑ ]{2,50}" title="Solo letras y espacios, mínimo 2 caracteres.">
+            </div>
+            <div class="form-group">
+                <label for="apellido2" class="block text-gray-700">Apellido 2</label>
+                <input type="text" class="form-control w-full border rounded-lg py-3 px-4" id="apellido2" name="apellido2" required pattern="[A-Za-zÁÉÍÓÚáéíóúñÑ ]{2,50}" title="Solo letras y espacios, mínimo 2 caracteres.">
+            </div>
+            <div class="form-group">
+                <label for="calle" class="block text-gray-700">Calle</label>
+                <input type="text" class="form-control w-full border rounded-lg py-3 px-4" id="calle" name="calle" required maxlength="100">
+            </div>
+            <div class="form-group">
+                <label for="numero" class="block text-gray-700">Número</label>
+                <input type="number" class="form-control w-full border rounded-lg py-3 px-4" id="numero" name="numero" required min="1" max="9999">
+            </div>
+            <div class="form-group">
+                <label for="cp" class="block text-gray-700">Código Postal</label>
+                <input type="text" class="form-control w-full border rounded-lg py-3 px-4" id="cp" name="cp" required pattern="^\d{5}$" title="Debe tener exactamente 5 dígitos.">
+            </div>
+            <div class="form-group">
+                <label for="poblacion" class="block text-gray-700">Población</label>
+                <input type="text" class="form-control w-full border rounded-lg py-3 px-4" id="poblacion" name="poblacion" required>
+            </div>
+            <div class="form-group">
+                <label for="provincia" class="block text-gray-700">Provincia</label>
+                <input type="text" class="form-control w-full border rounded-lg py-3 px-4" id="provincia" name="provincia" required>
+            </div>
+            <div class="form-group">
+                <label for="tlfno" class="block text-gray-700">Teléfono</label>
+                <input type="tel" class="form-control w-full border rounded-lg py-3 px-4" id="tlfno" name="tlfno" required pattern="^\d{9}$" title="El número de teléfono debe tener 9 dígitos.">
+            </div>
+            <div class="form-group">
+                <label for="profesion" class="block text-gray-700">Profesión</label>
+                <select class="form-control w-full border rounded-lg py-3 px-4" id="profesion" name="profesion" required>
+                    <option value="ESTILISTA">ESTILISTA</option>
+                    <option value="NUTRICIONISTA">NUTRICIONISTA</option>
+                    <option value="AUXILIAR">AUXILIAR</option>
+                    <option value="ATT.CLIENTE">ATT.CLIENTE</option>
+                </select>
+            </div>
         </div>
+
+        <button type="submit" class="w-48 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg mt-6 mx-auto block">Agregar Empleado</button>
+    </form>
+</div>
     <?php
     }
 
