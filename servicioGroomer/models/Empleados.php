@@ -35,20 +35,32 @@ class Empleados {
         }
     }
 
-    public function insertarEmpleado($post) {
+    public function insertarEmpleado($post)
+    {
         try {
-            // Verificar si el empleado ya existe
-            $sqlVerificar = "SELECT COUNT(*) FROM $this->table WHERE Dni = ?";
-            $sentenciaVerificar = $this->conn->prepare($sqlVerificar);
-            $sentenciaVerificar->bindParam(1, $post['Dni']);
-            $sentenciaVerificar->execute();
-            if ($sentenciaVerificar->fetchColumn() > 0) {
-                return ["error" => "El empleado ya está registrado"];
+            // Verificar si el empleado ya existe por DNI
+            $sqlVerificarDni = "SELECT COUNT(*) FROM $this->table WHERE Dni = ?";
+            $sentenciaVerificarDni = $this->conn->prepare($sqlVerificarDni);
+            $sentenciaVerificarDni->bindParam(1, $post['Dni']);
+            $sentenciaVerificarDni->execute();
+    
+            if ($sentenciaVerificarDni->fetchColumn() > 0) {
+                return ["error" => "El empleado con DNI " . $post['Dni'] . " ya está registrado"];
             }
-
+    
+            // Verificar si el correo electrónico ya existe
+            $sqlVerificarEmail = "SELECT COUNT(*) FROM $this->table WHERE Email = ?";
+            $sentenciaVerificarEmail = $this->conn->prepare($sqlVerificarEmail);
+            $sentenciaVerificarEmail->bindParam(1, $post['Email']);
+            $sentenciaVerificarEmail->execute();
+    
+            if ($sentenciaVerificarEmail->fetchColumn() > 0) {
+                return ["error" => "El correo electrónico " . $post['Email'] . " ya está registrado"];
+            }
+    
             // Cifrar la contraseña antes de almacenarla
             $passwordCifrada = password_hash($post['Password'], PASSWORD_DEFAULT);
-
+    
             // Insertar el empleado
             $sql = "INSERT INTO $this->table (Dni, Email, Password, Rol, Nombre, Apellido1, Apellido2, Calle, Numero, Cp, Poblacion, Provincia, Tlfno, Profesion) 
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -59,12 +71,13 @@ class Empleados {
                 $post['Cp'], $post['Poblacion'], $post['Provincia'], $post['Tlfno'], 
                 $post['Profesion']
             ]);
-
-            return ["mensaje" => "Empleado DNI " . $post['Dni'] . " insertado correctamente"];
+    
+            return ["mensaje" => "Empleado con DNI " . $post['Dni'] . " insertado correctamente"];
         } catch (PDOException $e) {
             return ["error" => "Error al insertar el empleado: " . $e->getMessage()];
         }
     }
+    
 
     public function borrarEmpleado($dni) {
         try {
