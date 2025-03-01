@@ -9,13 +9,11 @@ require_once __DIR__ . '/../views/clientesView.php';
 class clientesApi
 {
     private $view;
-    // private $clientes;
 
     // Constructor de la clase . Inicializa los objetos model y view.
     public function __construct()
     {
         $this->view = new ClientesView();
-        // $this->clientes = new Clientes();
     }
     //Funcion para obtener un cliente
     public function getCliente()
@@ -97,10 +95,10 @@ class clientesApi
     $ch = curl_init($post_url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $json_data); // Enviar datos como JSON
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $json_data);
     curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        'Content-Type: application/json', // Especificamos que estamos enviando JSON
-        'Content-Length: ' . strlen($json_data) // Establecer longitud del contenido
+        'Content-Type: application/json', 
+        'Content-Length: ' . strlen($json_data)
     ]);
     
     // Ejecutar la petición y capturar la respuesta
@@ -124,16 +122,15 @@ class clientesApi
 
     // Manejar la respuesta de la API
     if (isset($data['mensaje'])) {
-        // Si el cliente ya está registrado
         if ($data['mensaje'] == 'El Cliente ya está dado de alta') {
             echo "<script>alert('" . $data['mensaje'] . "');</script>";
-            $this->showFormController(); // Mostrar el formulario si el cliente ya existe
+            $this->showFormController(); 
             return;
         } 
         // Si la inserción fue exitosa
         else {
             echo "<script>alert('" . $data['mensaje'] . "');</script>";
-            $this->showClientes(); // Mostrar la lista de clientes
+            $this->showClientes();
         }
     } 
     // Si hay un error en la respuesta
@@ -154,8 +151,7 @@ class clientesApi
     // Verificar si se ha enviado el dni
     if (!isset($_POST['dni']) || empty($_POST['dni'])) {
         echo "<script>alert('El DNI es necesario para realizar la eliminación');</script>";
-        $this->showClientes();  // Mostrar la lista de clientes
-        return;
+        $this->showClientes();  
     }
 
     // Verificar si se ha confirmado la eliminación
@@ -173,7 +169,7 @@ class clientesApi
             // Inicializar cURL
             $ch = curl_init($delete_url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");  // Usamos el método DELETE
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE"); 
             $post_response = curl_exec($ch);
             
             // Verificar si hubo un error en la petición CURL
@@ -188,14 +184,14 @@ class clientesApi
 
             // Manejar la respuesta de la API
             if (isset($data['error'])) {
-                // Si la API devuelve un error (por ejemplo, cliente no encontrado)
+                // Si la API devuelve un error
                 echo "<script>alert('" . $data['error'] . "');</script>";
-                $this->showFormController(); // Mostrar el formulario de confirmación nuevamente
+                $this->showFormController();
                 return;
             } else {
                 // Si la eliminación fue exitosa
                 echo "<script>alert('" . $data['mensaje'] . "');</script>";
-                $this->showClientes(); // Volver a mostrar la lista de clientes después de eliminar
+                $this->showClientes();
             }
         } else {
             // Si el usuario dice "No", regresar a la vista de clientes

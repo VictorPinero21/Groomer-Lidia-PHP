@@ -1,9 +1,9 @@
 <?php
-session_start();  // Inicia la sesión
+session_start();
 
 // Verifica si la sesión ya está activa
 if (isset($_SESSION['user'])) {
-    header('Location: ./views/home.php');  // Si ya está logueado, redirige a home.php
+    header('Location: ./views/home.php');
     exit();
 }
 
@@ -29,10 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!is_array($empleados)) {
                 $error = "Error en la respuesta de la API";
             } else {
-                // Buscar el usuario por email
                 foreach ($empleados as $empleado) {
                     if ($empleado['Email'] === $email && password_verify($password, $empleado['Password'])) {
-                        // Guardar datos en la sesión
                         $_SESSION['user'] = [
                             'dni' => $empleado['Dni'],
                             'nombre' => $empleado['Nombre'],

@@ -1,6 +1,5 @@
 <?php
-session_start(); // Iniciar la sesión
-session_destroy(); // Destruir la sesión
-header("Location: ../index.php"); // Redirigir a la página de inicio
-exit();
+session_start();
+session_destroy();
+header("Location: ../index.php");
 ?>

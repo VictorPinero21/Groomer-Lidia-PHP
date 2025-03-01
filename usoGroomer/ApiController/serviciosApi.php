@@ -45,7 +45,7 @@ class serviciosApi
 
     // Datos recibidos por POST del formulario
     $data = [
-        'Tipo' => $_POST['belleza'],        // Asegúrate de enviar 'Tipo' como 'belleza' o 'nutrición'
+        'Tipo' => $_POST['belleza'],
         'Nombre' => $_POST['nombre'],
         'Descripcion' => $_POST['descripcion'],
         'Precio' => $_POST['precio']
@@ -60,15 +60,15 @@ class serviciosApi
     // Configurar cURL
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $json_data); // Usar JSON en lugar de http_build_query
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $json_data); 
     curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        'Content-Type: application/json', // Asegurar que los datos se envíen como JSON
-        'Content-Length: ' . strlen($json_data) // Establecer la longitud del contenido
+        'Content-Type: application/json', 
+        'Content-Length: ' . strlen($json_data)
     ]);
 
     // Ejecutar la solicitud
     $post_response = curl_exec($ch);
-    $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE); // Obtener el código de estado HTTP
+    $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE); 
 
     if ($post_response === false) {
         echo '<script>alert("Error en la petición POST: ' . curl_error($ch) . '");</script>';
@@ -100,8 +100,8 @@ class serviciosApi
     
         // Datos que se van a actualizar
         $data = [
-            'Codigo' => $_POST['id'] ?? null,  // ✅ Correcto
-            'Precio' => $_POST['precio'] ?? null // ✅ Correcto
+            'Codigo' => $_POST['id'] ?? null,
+            'Precio' => $_POST['precio'] ?? null
         ];
     
         // Inicializar cURL
@@ -112,16 +112,16 @@ class serviciosApi
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
         
         // Enviar datos como JSON
-        $json_data = json_encode($data);  // Codificar los datos a JSON
+        $json_data = json_encode($data); 
         curl_setopt($ch, CURLOPT_POSTFIELDS, $json_data);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            'Content-Type: application/json',  // Asegurar que se envíen como JSON
-            'Content-Length: ' . strlen($json_data)  // Establecer el tamaño del contenido
+            'Content-Type: application/json',
+            'Content-Length: ' . strlen($json_data)
         ]);
     
         // Ejecutar la solicitud cURL
         $put_response = curl_exec($ch);
-        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);  // Obtener el código de estado HTTP
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
     
         // Manejar posibles errores de cURL

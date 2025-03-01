@@ -37,7 +37,7 @@ class PerroRecibeServicio
             </div>
             <div class="flex flex-col">
                 <label for="Precio_Final" class="text-sm font-medium text-gray-700">Precio:</label>
-                <input type="number" id="Precio_Final" name="Precio_Final" class="mt-1 p-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500">
+                <input type="number" step="0.01" id="Precio_Final" name="Precio_Final" class="mt-1 p-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500">
             </div>
             <div class="flex flex-col">
                 <label for="altura" class="text-sm font-medium text-gray-700">Incidencias:</label>

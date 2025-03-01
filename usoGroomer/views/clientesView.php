@@ -1,10 +1,7 @@
 <?php
 class ClientesView
 {
-    /**
-     * Muestra el formulario para crear un cliente
-     * @return void
-     */
+
     public function showForm()
     {
 ?>
@@ -47,12 +44,6 @@ class ClientesView
 <?php
     }
 
-    /**
-     * Muestra la lista de clientes
-     * @param array $clientesLista
-     * @return void
-     * @access public
-     */
     public function getAllClientes($clientesLista)
     {
     ?>

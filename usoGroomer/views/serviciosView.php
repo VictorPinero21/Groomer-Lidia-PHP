@@ -1,9 +1,7 @@
 <?php
 class ServiciosView{
   
-    // updatear crear y mostar Todos los servicios
-
-
+    //Mostar Todos los servicios
     public function showServices($listaServices){
         ?>
         <div class="bg-white p-4 rounded shadow mb-4 overflow-x-auto">
@@ -29,10 +27,7 @@ class ServiciosView{
                             echo "<td class='px-4 py-2 '>{$servicio['Nombre']}</td>";
                             echo "<td class='px-4 py-2 '>{$servicio['Precio']}</td>";
                             echo "<td class='px-4 py-2 '>{$servicio['Descripcion']}</td>";
-                            // echo "<form method='POST' action='http://localhost/Proyecto_DWES/api/controllers/clientesController.php?accion=borrar' style='display:inline;'>";
-                            // echo "<input type='hidden' name='dni' value='{$cliente['Dni']}'>";
                             if($_SESSION['user']['rol']=='ADMIN')   echo "<td class='px-4 py-2 '><a href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=serviciosApi&action=showEditForm&id=". $servicio['Codigo'] ."&precio=". $servicio['Precio'] ."' ><button class='bg-red-500 text-white px-4 py-2 rounded'>Editar</button></a></td>";
-                            // echo "</form>";
                             echo "</tr>";
                         }
                     }

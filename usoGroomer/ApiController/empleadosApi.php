@@ -2,8 +2,6 @@
 
 
 require_once __DIR__ . '/../views/empleadosView.php';
-//Incluir el archivo
-//  require_once __DIR__ . './../../api/controllers/empleadosController.php';
 
 class empleadosApi
 {
@@ -14,7 +12,6 @@ class empleadosApi
     // Constructor de la clase empleadosController. Inicializa el view.
     public function __construct()
     {
-        //QUITAR COMENTARIO
         $this->view = new EmpleadosView();
     }
 
@@ -40,24 +37,21 @@ class empleadosApi
                 echo 'Error al decodificar la respuesta JSON: ' . json_last_error_msg();
                 $empleadosLista = [];
             }
-            // $empleadosLista = $data;
         }
         curl_close($ch);
-        // print_r($clientesLista);
 
         $this->view->showAllEmpleados($empleadosLista);
     }
     public function showFormController()
     {
         $view = new EmpleadosView();
-        $view->showAddEmpleadoForm(); // Asegúrate de que esta función existe en la vista
+        $view->showAddEmpleadoForm();
     }
     public function deleteEmpleado()
     {
-        // Verificar que el DNI está presente en la URL
         if (!isset($_GET['dni']) || empty(trim($_GET['dni']))) {
             echo "<script>alert('Error: Se requiere el DNI para eliminar el empleado.');</script>";
-            $this->showClientes(); // Volver a mostrar la lista de empleados
+            $this->showClientes();
             return;
         }
     
@@ -102,7 +96,7 @@ class empleadosApi
 
     public function addEmpleado()
     {
-        $base_url = 'http://localhost:8000/api/empleados/'; // Ajusta la URL de la API si es necesario
+        $base_url = 'http://localhost:8000/api/empleados/'; 
     
         // Recopilar datos del formulario
         $post_data = array(
@@ -126,7 +120,7 @@ class empleadosApi
         $ch = curl_init($base_url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post_data)); // Enviar datos como JSON
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post_data));
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
     
         // Ejecutar la petición
@@ -147,18 +141,13 @@ class empleadosApi
     
         // Verificar el mensaje de la respuesta
         if (isset($data['mensaje']['error'])) {
-            // Si hay un error de registro
             echo "<script>alert('" . $data['mensaje']['error'] . "');</script>";
-            // Redirigir inmediatamente después de mostrar el mensaje
             echo "<script>window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=empleadosApi&action=showEmpleados';</script>";
         } elseif (isset($data['mensaje']['mensaje'])) {
-            // Si la inserción fue exitosa
             echo "<script>alert('" . $data['mensaje']['mensaje'] . "');</script>";
-            // Redirigir inmediatamente después de mostrar el mensaje
             echo "<script>window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=empleadosApi&action=showEmpleados';</script>";
         } else {
             echo "<script>alert('Error inesperado: respuesta no válida.');</script>";
-            // Redirigir inmediatamente después de mostrar el mensaje
             echo "<script>window.location.href='http://localhost/Groomer-Lidia-PHP/usoGroomer/views/home.php?controller=empleadosApi&action=showEmpleados';</script>";
         }
         exit();
@@ -169,7 +158,6 @@ class empleadosApi
     
     public function editEmpleado()
     {
-        // Aquí deberías obtener el ID del empleado desde la URL
         $dni = $_GET['dni'] ?? null;
 
         if ($dni) {

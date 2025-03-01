@@ -13,7 +13,6 @@ class perrosApi
     public function __construct()
     {
         $this->view = new PerrosView();
-        // $this->clientes = new Clientes();
     }
 
     public function mostrarPerrosPorCliente()
@@ -32,8 +31,7 @@ class perrosApi
     
         // Ejecutar la solicitud
         $get_response = curl_exec($ch);
-        curl_close($ch); // Cerramos la conexión cURL después de la ejecución
-    
+        curl_close($ch);
         // Si la respuesta está vacía o hay un error
         if ($get_response === false || empty($get_response)) {
             echo "<script>
@@ -46,13 +44,6 @@ class perrosApi
         // Intentar decodificar JSON
         $data = json_decode($get_response, true);
     
-        // Verificar si hay un error en la respuesta
-        // if (isset($data["error"])) {
-        //     echo "<p class='text-red-500 text-lg font-bold'>{$data['error']}</p>";
-        // } else {
-        //     // Llamar a la vista para mostrar los perros
-        //     $this->view->mostrarPerrosPorCliente($data);
-        // }
         $this->view->mostrarPerrosPorCliente($data);
     }
     
